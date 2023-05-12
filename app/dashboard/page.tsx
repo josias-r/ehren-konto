@@ -1,3 +1,4 @@
+import Nav from "@/components/Nav";
 import Transaction from "@/components/Transaction";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Image from "next/image";
@@ -68,6 +69,10 @@ export default function Home() {
           </CardContent>
         </Card>
       </section>
+
+      <div>
+        <Nav />
+      </div>
     </main>
   );
 }
