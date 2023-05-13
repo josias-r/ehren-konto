@@ -7,7 +7,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "./ui/sheet";
-import GroupItem, { MemberShape } from "./GroupItem";
+import GroupMemberListItem, { MemberShape } from "./GroupMemberListItem";
 import { GroupFriend, GroupFriendGroup } from "./GroupCard";
 import GroupAddMemberSheet from "./GroupAddMemberSheet";
 import { Separator } from "./ui/separator";
@@ -59,7 +59,7 @@ function GroupSheet({
           <div className="mx-auto max-w-md px-6 sm:px-0">
             <div className="mt-8 grid gap-6">
               {members.map((member) => (
-                <GroupItem
+                <GroupMemberListItem
                   key={member.userId}
                   userId={member.userId}
                   nick={member.nick}

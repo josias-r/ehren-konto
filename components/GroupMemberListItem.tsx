@@ -10,9 +10,15 @@ export type MemberShape = {
   userId: number;
 };
 
-interface GroupItemProps extends MemberShape {}
+interface GroupMemberListItemProps extends MemberShape {}
 
-function GroupItem({ name, nick, role, ehre, avatar }: GroupItemProps) {
+function GroupMemberListItem({
+  name,
+  nick,
+  role,
+  ehre,
+  avatar,
+}: GroupMemberListItemProps) {
   // get initials from name
   const initials = name
     .split(" ")
@@ -48,4 +54,4 @@ function GroupItem({ name, nick, role, ehre, avatar }: GroupItemProps) {
   );
 }
 
-export default GroupItem;
+export default GroupMemberListItem;

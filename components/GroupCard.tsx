@@ -1,4 +1,4 @@
-import GroupItem, { MemberShape } from "./GroupItem";
+import GroupMemberListItem, { MemberShape } from "./GroupMemberListItem";
 import { Card, CardContent, CardHeader } from "./ui/card";
 import { Separator } from "./ui/separator";
 import GroupSheet from "./GroupSheet";
@@ -90,7 +90,7 @@ function GroupCard({
       <CardContent>
         <div className="grid gap-6 mb-4">
           {slicedMembers.map((member) => (
-            <GroupItem
+            <GroupMemberListItem
               key={member.userId}
               userId={member.userId}
               nick={member.nick}
