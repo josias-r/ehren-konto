@@ -12,11 +12,15 @@ const josiasTemplate = {
   },
 };
 
+const inTheFuture = new Date();
+
+inTheFuture.setMinutes(inTheFuture.getMinutes() + 60 * 12);
+
 const eventTemplate = {
   emoji: "🏖",
   color: "sunset" as const,
   name: "Beach Day",
-  date: "2021-08-01",
+  date: inTheFuture.toISOString(),
   members: [],
 };
 

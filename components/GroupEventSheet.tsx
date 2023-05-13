@@ -8,6 +8,8 @@ import {
 } from "./ui/sheet";
 import { GroupEventShape } from "./GroupEvent";
 import GroupEventContainer from "./GroupEventContainer";
+import GroupEventListItem from "./GroupEventListItem";
+import { Separator } from "./ui/separator";
 
 interface GroupEventSheetProps {
   leftoverAmount: number;
@@ -15,6 +17,16 @@ interface GroupEventSheetProps {
 }
 
 function GroupEventSheet({ leftoverAmount, events }: GroupEventSheetProps) {
+  const futureEvents: typeof events = [];
+  const pastEvents: typeof events = [];
+  events.forEach((event) => {
+    if (new Date(event.date) > new Date()) {
+      futureEvents.push(event);
+    } else {
+      pastEvents.push(event);
+    }
+  });
+
   return (
     <Sheet>
       <GroupEventContainer>
@@ -32,12 +44,38 @@ function GroupEventSheet({ leftoverAmount, events }: GroupEventSheetProps) {
           </SheetHeader>
         </div>
         <div
-          className="-m-6 py-6 overflow-y-scroll"
+          className="-mb-6 pb-6 overflow-y-auto"
           style={{
             maxHeight: "calc(100vh - 10rem)",
           }}
         >
-          XXX
+          <div className="mx-auto max-w-md px-6 sm:px-0">
+            <div className="mt-8 grid gap-6">
+              {futureEvents.map((event) => (
+                <GroupEventListItem
+                  key={event.id}
+                  id={event.id}
+                  name={event.name}
+                  emoji={event.emoji}
+                  color={event.color}
+                  date={event.date}
+                  members={event.members}
+                />
+              ))}
+              {!!pastEvents.length && !!futureEvents.length && <Separator />}
+              {pastEvents.map((event) => (
+                <GroupEventListItem
+                  key={event.id}
+                  id={event.id}
+                  name={event.name}
+                  emoji={event.emoji}
+                  color={event.color}
+                  date={event.date}
+                  members={event.members}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </SheetContent>
     </Sheet>

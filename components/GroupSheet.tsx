@@ -36,7 +36,7 @@ function GroupSheet({ leftoverAmount, members }: GroupSheetProps) {
           </SheetHeader>
         </div>
         <div
-          className="-m-6 py-6 overflow-y-scroll"
+          className="-mb-6 pb-6 overflow-y-auto"
           style={{
             maxHeight: "calc(100vh - 10rem)",
           }}
