@@ -1,8 +1,9 @@
-import { ChevronRight } from "lucide-react";
 import GroupItem from "./GroupItem";
 import { Card, CardContent, CardHeader } from "./ui/card";
 import { Separator } from "./ui/separator";
 import GroupSheet from "./GroupSheet";
+import GroupEvent, { GroupEventShape } from "./GroupEvent";
+import GroupEventSheet from "./GroupEventSheet";
 
 export type GroupMember = {
   name: string;
@@ -21,22 +22,42 @@ interface GroupCardProps {
   name: string;
   description: string;
   members: GroupMember[];
+  events: GroupEventShape[];
 }
 
-function GroupCard({ id, name, description, members }: GroupCardProps) {
+function GroupCard({ id, name, description, members, events }: GroupCardProps) {
   // condition makes sure that the slize never is "1 more" which is odd
-  const slizeSize = members.length === 6 ? 4 : 5;
-  const slicedMembers = members.slice(0, slizeSize);
+  const memberSliceSize = members.length === 6 ? 4 : 5;
+  const slicedMembers = members.slice(0, memberSliceSize);
+
+  const eventSliceSize = events.length >= 6 ? 5 : 6;
+  const slicedEvents = events.slice(0, eventSliceSize);
 
   return (
     <Card>
       <CardHeader>
         {name}
         <p className="text-sm text-muted-foreground mb-2">{description}</p>
-        <div className="flex gap-2">
-          <div className="flex w-12 h-12 rounded bg-cyan-300/50">
-            <span className="m-auto">⛺️</span>
-          </div>
+        <div className="grid gap-2 grid-cols-6">
+          {slicedEvents.map((event) => (
+            <GroupEvent
+              key={event.id}
+              id={event.id}
+              emoji={event.emoji}
+              name={event.name}
+              members={event.members}
+              color={event.color}
+              date={event.date}
+            />
+          ))}
+          {events.length > eventSliceSize && (
+            <>
+              <GroupEventSheet
+                leftoverAmount={events.length - eventSliceSize}
+                events={events}
+              />
+            </>
+          )}
         </div>
       </CardHeader>
       <CardContent>
@@ -51,11 +72,11 @@ function GroupCard({ id, name, description, members }: GroupCardProps) {
             />
           ))}
         </div>
-        {members.length > slizeSize && (
+        {members.length > memberSliceSize && (
           <>
             <Separator />
             <GroupSheet
-              leftoverAmount={members.length - slicedMembers.length}
+              leftoverAmount={members.length - memberSliceSize}
               members={members}
             />
           </>

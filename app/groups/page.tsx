@@ -1,9 +1,5 @@
 import GroupCard from "@/components/GroupCard";
-import GroupItem from "@/components/GroupItem";
 import Nav from "@/components/Nav";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { ChevronRight } from "lucide-react";
 
 const josiasTemplate = {
   name: "Josias Ribi",
@@ -14,6 +10,14 @@ const josiasTemplate = {
     url: "https://avatars.githubusercontent.com/u/1024025?v=4",
     fallback: "JR",
   },
+};
+
+const eventTemplate = {
+  emoji: "🏖",
+  color: "sunset" as const,
+  name: "Beach Day",
+  date: "2021-08-01",
+  members: [],
 };
 
 const groupTemplate = {
@@ -52,6 +56,44 @@ const groupTemplate = {
       ...josiasTemplate,
     },
   ],
+  events: [
+    {
+      id: "1",
+      emoji: "☀️",
+      color: "sunset" as const,
+      name: "Go to the lake",
+      date: "2021-10-10",
+      members: ["1"],
+    },
+    {
+      id: "2",
+      ...eventTemplate,
+    },
+    {
+      id: "3",
+      ...eventTemplate,
+    },
+    {
+      id: "4",
+      ...eventTemplate,
+    },
+    {
+      id: "5",
+      emoji: "🥊",
+      color: "mars" as const,
+      name: "Lucky punch",
+      date: "2021-10-10",
+      members: ["1"],
+    },
+    {
+      id: "6",
+      emoji: "🍻",
+      color: "ice" as const,
+      name: "Beer",
+      date: "2021-10-10",
+      members: [],
+    },
+  ],
 };
 
 const groups = [
@@ -76,6 +118,7 @@ export default function Home() {
             name={group.name}
             description={group.description}
             members={group.members}
+            events={group.events}
           />
         ))}
       </section>
