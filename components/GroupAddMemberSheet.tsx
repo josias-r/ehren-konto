@@ -38,6 +38,9 @@ function GroupAddMemberSheet({
         <SheetTrigger asChild className="block w-full">
           <Button variant="outline">Add member to group</Button>
         </SheetTrigger>
+        <Button className="block w-full mt-4" variant="destructive">
+          Delete group
+        </Button>
       </div>
       <SheetContent position="bottom" size={"content"}>
         <div className="mx-auto max-w-md mb-8">

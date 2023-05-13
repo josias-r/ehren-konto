@@ -1,9 +1,23 @@
 import FriendListItem from "@/components/FriendListItem";
 import Nav from "@/components/Nav";
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { validateCookieToken } from "@/lib/auth.server";
 import getAllFriendsForUser from "@/lib/friend/getAllFriendsForUser";
+import {
+  CheckCircle2,
+  CircleEllipsis,
+  Link,
+  QrCode,
+  ScanLine,
+} from "lucide-react";
 import { redirect } from "next/navigation";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default async function Friends() {
   const isLoggedIn = await validateCookieToken();
@@ -29,8 +43,35 @@ export default async function Friends() {
 
   return (
     <main className="relative">
-      <h1 className="text-2xl font-bold mb-4 mx-auto max-w-md pt-6">Friends</h1>
-      <section className="mx-auto p-8 max-w-md grid gap-4">
+      <h1 className="text-2xl font-bold mb-4 mx-auto max-w-md pt-6 px-4 flex justify-between">
+        <span>Friends</span>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost">
+              <CircleEllipsis className="h-5 w-5" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem>
+              <CheckCircle2 className="w-4 h-4 mr-2" />
+              <span>Select</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <ScanLine className="w-4 h-4 mr-2" />
+              <span>Scan friend code</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <QrCode className="w-4 h-4 mr-2" />
+              <span>Show my friend code</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link className="w-4 h-4 mr-2" />
+              <span>Copy invite link</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </h1>
+      <section className="mx-auto p-4 max-w-md grid gap-4">
         {friendLettersSorted.map((letter, index) => {
           return (
             <>

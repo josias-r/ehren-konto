@@ -1,4 +1,4 @@
-import { ChevronRight } from "lucide-react";
+import { CheckCircle2, ChevronRight, CircleEllipsis } from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -11,6 +11,13 @@ import GroupMemberListItem, { MemberShape } from "./GroupMemberListItem";
 import { GroupFriend, GroupFriendGroup } from "./GroupCard";
 import GroupAddMemberSheet from "./GroupAddMemberSheet";
 import { Separator } from "./ui/separator";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+import { Button } from "./ui/button";
 
 interface GroupSheetProps {
   leftoverAmount: number;
@@ -42,13 +49,28 @@ function GroupSheet({
         </SheetTrigger>
       </div>
       <SheetContent position="bottom" size={"content"}>
-        <div className="mx-auto max-w-md mb-8">
+        <div className="mx-auto max-w-md mb-8 flex justify-between">
           <SheetHeader>
-            <SheetTitle>Group members</SheetTitle>
+            <SheetTitle className="flex justify-between">
+              <span>Group members</span>
+            </SheetTitle>
             <SheetDescription>
               There are {members.length} members in this group
             </SheetDescription>
           </SheetHeader>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost">
+                <CircleEllipsis className="h-5 w-5" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem>
+                <CheckCircle2 className="w-4 h-4 mr-2" />
+                <span>Select</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
         <div
           className="-mb-6 pb-6 overflow-y-auto"

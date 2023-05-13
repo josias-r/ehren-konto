@@ -22,7 +22,11 @@ export default async function Groups() {
 
   return (
     <main className="relative">
-      <section className="mx-auto p-8 max-w-md grid gap-4">
+      <h1 className="text-2xl font-bold mb-4 mx-auto max-w-md pt-6 px-4 flex justify-between">
+        <span>Groups</span>
+        <Button variant="outline">Create group</Button>
+      </h1>
+      <section className="mx-auto p-4 max-w-md grid gap-4">
         {!groups?.length && (
           <EmptyState
             title="No groups"

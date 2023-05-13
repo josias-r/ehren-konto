@@ -45,7 +45,9 @@ function GroupMemberListItem({
           <div className="text-sm text-muted-foreground">{nick}</div>
         </div>
         <div
-          className={`ml-auto font-medium ${ehre <= 0 ? "text-red-600" : ""}`}
+          className={`ml-auto font-medium ${
+            ehre <= 0 ? "text-destructive" : ""
+          }`}
         >
           {ehre}
         </div>

@@ -62,7 +62,7 @@ function GroupCard({
             <GroupEventSheet activities={activities} groupName={name}>
               <Button
                 variant="ghost"
-                className="hover:scale-105 block transition-transform scale-100"
+                className="hover:scale-105 block transition-transform scale-100 p-0"
               >
                 <GroupEventEmpty />
               </Button>

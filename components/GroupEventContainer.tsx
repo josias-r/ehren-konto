@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { ReactNode, forwardRef } from "react";
+import { forwardRef } from "react";
 
 const GroupEventContainer = forwardRef<
   HTMLDivElement,
