@@ -46,6 +46,7 @@ export default async function Groups() {
             members={group.members}
             activities={group.activities}
             friends={userFriends}
+            friendGroups={userGroups}
           />
         ))}
       </section>

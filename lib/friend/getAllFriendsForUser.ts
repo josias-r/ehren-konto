@@ -98,7 +98,7 @@ async function getAllFriendsForUser(userId: number) {
   });
 
   return {
-    userGroups,
+    userGroups: userGroups || [],
     userFriends: allFriends,
   };
 }

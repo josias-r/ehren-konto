@@ -18,6 +18,12 @@ export type GroupFriend = {
     groupId: number;
   }[];
 };
+export type GroupFriendGroup = {
+  groupId: number;
+  name: string;
+  description: string;
+};
+
 interface GroupCardProps {
   groupId: number;
   name: string;
@@ -26,6 +32,7 @@ interface GroupCardProps {
   activities: GroupEventShape[];
 
   friends: GroupFriend[];
+  friendGroups: GroupFriendGroup[];
 }
 
 function GroupCard({
@@ -36,6 +43,7 @@ function GroupCard({
   activities,
 
   friends,
+  friendGroups,
 }: GroupCardProps) {
   // condition makes sure that the slize never is "1 more" which is odd
   const memberSliceSize = members.length === 6 ? 4 : 5;
@@ -99,6 +107,7 @@ function GroupCard({
           members={members}
           groupId={groupId}
           friends={friends}
+          friendGroups={friendGroups}
         />
       </CardContent>
     </Card>

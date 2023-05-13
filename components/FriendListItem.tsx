@@ -1,4 +1,6 @@
+import { GroupFriendGroup } from "./GroupCard";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Badge } from "./ui/badge";
 
 interface FriendListItemProps {
   userId: number;
@@ -8,9 +10,17 @@ interface FriendListItemProps {
   groups: {
     groupId: number;
   }[];
+  friendGroups: GroupFriendGroup[];
 }
 
-function FriendListItem({ avatar, name, nick, userId }: FriendListItemProps) {
+function FriendListItem({
+  avatar,
+  name,
+  nick,
+  groups,
+  userId,
+  friendGroups,
+}: FriendListItemProps) {
   // get initials from name
   const initials = name
     .split(" ")
@@ -31,11 +41,18 @@ function FriendListItem({ avatar, name, nick, userId }: FriendListItemProps) {
           </div>
           <div className="text-sm text-muted-foreground">{nick}</div>
         </div>
-        {/* <div
-          className={`ml-auto font-medium ${ehre <= 0 ? "text-red-600" : ""}`}
-        >
-          {ehre}
-        </div> */}
+        <div className="ml-auto">
+          {groups.map((group) => {
+            const fullGroup = friendGroups.find(
+              (friendGroup) => friendGroup.groupId === group.groupId
+            );
+            return (
+              <Badge key={group.groupId} variant="outline">
+                {fullGroup?.name}
+              </Badge>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

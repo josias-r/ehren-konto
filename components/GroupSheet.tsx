@@ -8,7 +8,7 @@ import {
   SheetTrigger,
 } from "./ui/sheet";
 import GroupItem, { MemberShape } from "./GroupItem";
-import { GroupFriend } from "./GroupCard";
+import { GroupFriend, GroupFriendGroup } from "./GroupCard";
 import GroupAddMemberSheet from "./GroupAddMemberSheet";
 import { Separator } from "./ui/separator";
 
@@ -18,12 +18,14 @@ interface GroupSheetProps {
 
   groupId: number;
   friends: GroupFriend[];
+  friendGroups: GroupFriendGroup[];
 }
 
 function GroupSheet({
   leftoverAmount,
   members,
   friends,
+  friendGroups,
   groupId,
 }: GroupSheetProps) {
   return (
@@ -73,7 +75,11 @@ function GroupSheet({
 
         <div className="mx-auto max-w-md mb-8">
           <Separator className="my-4" />
-          <GroupAddMemberSheet friends={friends} groupId={groupId} />
+          <GroupAddMemberSheet
+            friends={friends}
+            groupId={groupId}
+            friendGroups={friendGroups}
+          />
         </div>
       </SheetContent>
     </Sheet>
