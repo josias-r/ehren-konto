@@ -4,6 +4,8 @@ import { Separator } from "./ui/separator";
 import GroupSheet from "./GroupSheet";
 import GroupEvent, { GroupEventShape } from "./GroupEvent";
 import GroupEventSheet from "./GroupEventSheet";
+import GroupEventEmpty from "./GroupEventEmpty";
+import GroupActivitySheetTrigger from "./GroupActivitySheetTrigger";
 
 interface GroupCardProps {
   id: number;
@@ -33,22 +35,36 @@ function GroupCard({
         {name}
         <p className="text-sm text-muted-foreground mb-2">{description}</p>
         <div className="grid gap-2 grid-cols-6">
+          {!slicedEvents.length && (
+            <GroupEventSheet activities={activities} groupName={name}>
+              <button className="hover:scale-105 transition-transform scale-100">
+                <GroupEventEmpty />
+              </button>
+            </GroupEventSheet>
+          )}
           {slicedEvents.map((activity) => (
-            <GroupEvent
+            <GroupEventSheet
               key={activity.activityId}
-              activityId={activity.activityId}
-              emoji={activity.emoji}
-              name={activity.name}
-              // members={activity.members}
-              color={activity.color}
-              from={activity.from}
-            />
+              activities={activities}
+              groupName={name}
+            >
+              <button className="hover:scale-105 transition-transform scale-100">
+                <GroupEvent
+                  activityId={activity.activityId}
+                  emoji={activity.emoji}
+                  name={activity.name}
+                  // members={activity.members}
+                  color={activity.color}
+                  from={activity.from}
+                />
+              </button>
+            </GroupEventSheet>
           ))}
-          <GroupEventSheet
-            leftoverAmount={activities.length - activitySliceSize}
-            activities={activities}
-            groupName={name}
-          />
+          <GroupEventSheet activities={activities} groupName={name}>
+            <GroupActivitySheetTrigger
+              leftoverAmount={activities.length - activitySliceSize}
+            />
+          </GroupEventSheet>
         </div>
       </CardHeader>
       <CardContent>

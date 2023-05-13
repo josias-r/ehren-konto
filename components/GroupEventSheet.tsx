@@ -13,17 +13,18 @@ import { Separator } from "./ui/separator";
 import { ChevronRight } from "lucide-react";
 import { Button } from "./ui/button";
 import GroupCreateEventSheet from "./GroupCreateEventSheet";
+import { ReactNode } from "react";
 
 interface GroupEventSheetProps {
   groupName: string;
-  leftoverAmount: number;
   activities: GroupEventShape[];
+  children: ReactNode;
 }
 
 function GroupEventSheet({
   groupName,
-  leftoverAmount,
   activities,
+  children,
 }: GroupEventSheetProps) {
   const futureEvents: typeof activities = [];
   const pastEvents: typeof activities = [];
@@ -38,14 +39,11 @@ function GroupEventSheet({
   return (
     <Sheet>
       <GroupEventContainer>
-        <SheetTrigger className="text-muted-foreground hover:bg-slate-800 rounded-sm flex absolute w-full h-full top-0 left-0">
-          <span className="m-auto">
-            {leftoverAmount > 0 ? (
-              `+${leftoverAmount}`
-            ) : (
-              <ChevronRight className="h-4 w-4" />
-            )}
-          </span>
+        <SheetTrigger
+          asChild
+          className="flex absolute w-full h-full top-0 left-0"
+        >
+          {children}
         </SheetTrigger>
       </GroupEventContainer>
       <SheetContent position="bottom" size={"content"}>
