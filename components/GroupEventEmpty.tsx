@@ -3,7 +3,7 @@ import GroupEventContainer from "./GroupEventContainer";
 
 function GroupEventEmpty() {
   return (
-    <GroupEventContainer className="flex border-2 border-muted-foreground border-dashed text-muted-foreground">
+    <GroupEventContainer className="flex border border-border border-dashed text-muted-foreground">
       <CalendarOff className="w-4 h-4 m-auto block" />
     </GroupEventContainer>
   );

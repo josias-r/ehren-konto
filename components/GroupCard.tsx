@@ -6,6 +6,7 @@ import GroupEvent, { GroupEventShape } from "./GroupEvent";
 import GroupEventSheet from "./GroupEventSheet";
 import GroupEventEmpty from "./GroupEventEmpty";
 import GroupActivitySheetTrigger from "./GroupActivitySheetTrigger";
+import { Button } from "./ui/button";
 
 interface GroupCardProps {
   id: number;
@@ -37,9 +38,12 @@ function GroupCard({
         <div className="grid gap-2 grid-cols-6">
           {!slicedEvents.length && (
             <GroupEventSheet activities={activities} groupName={name}>
-              <button className="hover:scale-105 transition-transform scale-100">
+              <Button
+                variant="ghost"
+                className="hover:scale-105 block transition-transform scale-100"
+              >
                 <GroupEventEmpty />
-              </button>
+              </Button>
             </GroupEventSheet>
           )}
           {slicedEvents.map((activity) => (
@@ -48,7 +52,10 @@ function GroupCard({
               activities={activities}
               groupName={name}
             >
-              <button className="hover:scale-105 transition-transform scale-100">
+              <Button
+                variant="ghost"
+                className="p-0 hover:scale-105 transition-transform scale-100"
+              >
                 <GroupEvent
                   activityId={activity.activityId}
                   emoji={activity.emoji}
@@ -57,7 +64,7 @@ function GroupCard({
                   color={activity.color}
                   from={activity.from}
                 />
-              </button>
+              </Button>
             </GroupEventSheet>
           ))}
           <GroupEventSheet activities={activities} groupName={name}>
