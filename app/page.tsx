@@ -4,15 +4,51 @@ import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 
 // TODOs:
-// create group
-// update group
-// delete group
-
-// create event
-// update event
-// delete event
-
-// friends system
+//
+// ACTIONS
+// --- user actions
+// - [ ] sign in
+// - [ ] sign up
+// - [ ] forgot password
+// - [ ] reset password
+// - [ ] resend verification email
+// - [ ] verify email
+// - [ ] delete account
+// --- group actions
+// - [ ] create group
+// - [ ] delete group
+// - [ ] leave group
+// - [ ] edit/update group
+// - [ ] add friend to group
+// - [ ] remove group member
+// - [ ] create group activity
+// - [ ] edit group activity
+// - [ ] delete group activity
+// --- friend actions
+// - [ ] add friendship from code/link
+// - [ ] add friendship from group members
+// - [ ] remove friendship friend
+//
+// UI
+// --- general
+// - [ ] bulk list
+// --- user
+// - [ ] profile page
+// - [ ] group overview
+// - [ ] upcoming events
+// - [ ] history
+// --- group
+// - [ ] create group sheet
+// - [ ] leave/delete group confirm dialog
+// - [ ] edit group
+// - [ ] group member popover
+// - [ ] group activity create sheet
+// - [ ] group activity actions in popover + sheet
+// - [ ] group activity participants sorting + scrollable
+// friends
+// - [ ] qr code screen
+// - [ ] scan qr code screen (use camera app?)
+// - [ ] copy link button + toast confirmation
 
 export default function Home() {
   return (

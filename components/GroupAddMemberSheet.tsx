@@ -39,6 +39,9 @@ function GroupAddMemberSheet({
           <Button variant="outline">Add member to group</Button>
         </SheetTrigger>
         <Button className="block w-full mt-4" variant="destructive">
+          Leave group
+        </Button>
+        <Button className="block w-full mt-4" variant="destructive">
           Delete group
         </Button>
       </div>
