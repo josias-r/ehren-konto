@@ -71,7 +71,7 @@ function GroupEventSheet({
                   emoji={activity.emoji}
                   color={activity.color}
                   from={activity.from}
-                  // members={activity.members}
+                  participants={activity.participants}
                 />
               ))}
               {!!pastEvents.length && !!futureEvents.length && <Separator />}
@@ -83,7 +83,7 @@ function GroupEventSheet({
                   emoji={activity.emoji}
                   color={activity.color}
                   from={activity.from}
-                  // members={activity.members}
+                  participants={activity.participants}
                 />
               ))}
             </div>

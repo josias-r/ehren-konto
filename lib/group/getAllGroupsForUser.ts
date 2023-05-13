@@ -16,6 +16,16 @@ async function getAllGroupsForUser(userId: number) {
               name: true,
               description: true,
               GroupMembers: {
+                orderBy: [
+                  {
+                    ehre: "desc",
+                  },
+                  {
+                    User: {
+                      name: "asc",
+                    },
+                  },
+                ],
                 select: {
                   role: true,
                   ehre: true,
@@ -37,6 +47,19 @@ async function getAllGroupsForUser(userId: number) {
                   to: true,
                   emoji: true,
                   color: true,
+                  ActivityParticipants: {
+                    orderBy: {
+                      createdAt: "desc",
+                    },
+                    select: {
+                      confirmed: true,
+                      User: {
+                        select: {
+                          userId: true,
+                        },
+                      },
+                    },
+                  },
                 },
               },
             },
@@ -68,6 +91,10 @@ async function getAllGroupsForUser(userId: number) {
       to: activity.to,
       emoji: activity.emoji,
       color: activity.color,
+      participants: activity.ActivityParticipants.map((participant) => ({
+        userId: participant.User.userId,
+        confirmed: participant.confirmed,
+      })),
     })),
   }));
 }

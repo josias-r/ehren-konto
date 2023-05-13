@@ -2,12 +2,12 @@ import GroupItem, { MemberShape } from "./GroupItem";
 import { Card, CardContent, CardHeader } from "./ui/card";
 import { Separator } from "./ui/separator";
 import GroupSheet from "./GroupSheet";
-import GroupEvent, { GroupEventShape } from "./GroupEvent";
+import { GroupEventShape } from "./GroupEvent";
 import GroupEventSheet from "./GroupEventSheet";
 import GroupEventEmpty from "./GroupEventEmpty";
 import GroupActivitySheetTrigger from "./GroupActivitySheetTrigger";
 import { Button } from "./ui/button";
-
+import GroupEventWithPopover from "./GroupEventWithPopover";
 interface GroupCardProps {
   id: number;
   name: string;
@@ -47,25 +47,16 @@ function GroupCard({
             </GroupEventSheet>
           )}
           {slicedEvents.map((activity) => (
-            <GroupEventSheet
+            <GroupEventWithPopover
               key={activity.activityId}
-              activities={activities}
-              groupName={name}
-            >
-              <Button
-                variant="ghost"
-                className="p-0 hover:scale-105 transition-transform scale-100"
-              >
-                <GroupEvent
-                  activityId={activity.activityId}
-                  emoji={activity.emoji}
-                  name={activity.name}
-                  // members={activity.members}
-                  color={activity.color}
-                  from={activity.from}
-                />
-              </Button>
-            </GroupEventSheet>
+              activityId={activity.activityId}
+              emoji={activity.emoji}
+              name={activity.name}
+              participants={activity.participants}
+              color={activity.color}
+              from={activity.from}
+              members={members}
+            />
           ))}
           <GroupEventSheet activities={activities} groupName={name}>
             <GroupActivitySheetTrigger

@@ -7,7 +7,7 @@ export type GroupEventShape = {
   color: EventColor;
   name: string;
   from: Date;
-  // participants: string[];
+  participants: { userId: number; confirmed: boolean }[];
 };
 
 interface GroupEventProps extends GroupEventShape {}

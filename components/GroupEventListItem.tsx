@@ -10,9 +10,8 @@ function GroupEventListItem({
   emoji,
   color,
   from,
-}: // members,
-GroupEventListItemProps) {
-  const participants: never[] = [];
+  participants,
+}: GroupEventListItemProps) {
   return (
     <div className="flex">
       <div className="w-12 mr-4">
@@ -22,7 +21,7 @@ GroupEventListItemProps) {
           color={color}
           name={name}
           from={from}
-          // members={members}
+          participants={participants}
         />
       </div>
       <div className="flex justify-between w-full items-center">

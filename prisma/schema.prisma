@@ -17,9 +17,10 @@ model User {
   nick      String   @db.VarChar(15)
   avatar    String
 
-  FriendshipOutgoing Friendship[]  @relation("userOutgoingFriendships")
-  FriendshipIncoming Friendship[]  @relation("userIncomingFriendships")
-  GroupMember        GroupMember[]
+  FriendshipOutgoing  Friendship[]          @relation("userOutgoingFriendships")
+  FriendshipIncoming  Friendship[]          @relation("userIncomingFriendships")
+  GroupMember         GroupMember[]
+  ActivityParticipant ActivityParticipant[]
 }
 
 model Group {
@@ -56,6 +57,8 @@ model Friendship {
   outgoingUserId Int
   IncomingUser   User     @relation("userIncomingFriendships", fields: [incomingUserId], references: [userId])
   incomingUserId Int
+
+  @@unique([outgoingUserId, incomingUserId])
 }
 
 enum ActivityColor {
@@ -73,4 +76,18 @@ model Activity {
   color      ActivityColor
   Group      Group         @relation(fields: [groupId], references: [groupId])
   groupId    Int
+
+  ActivityParticipants ActivityParticipant[]
+}
+
+model ActivityParticipant {
+  activityParticipantId Int      @id @default(autoincrement())
+  createdAt             DateTime @default(now())
+  Activity              Activity @relation(fields: [activityId], references: [activityId])
+  activityId            Int
+  User                  User     @relation(fields: [userId], references: [userId])
+  userId                Int
+  confirmed             Boolean  @default(false)
+
+  @@unique([activityId, userId])
 }
