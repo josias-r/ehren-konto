@@ -1,4 +1,3 @@
-import { PrismaClient } from "@prisma/client";
 import Nav from "@/components/Nav";
 
 const josiasTemplate = {
@@ -17,14 +16,9 @@ const friends = [
   },
 ];
 
-const prisma = new PrismaClient();
-
-export default async function Home() {
-  const users = await prisma.user.findMany();
-
+export default async function Friends() {
   return (
     <main className="relative">
-      {JSON.stringify(users)}
       <section className="mx-auto p-8 max-w-md grid gap-4">
         {friends.map((friend) => (
           <div key={friend.id}>afriend</div>

@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prisma:generate": "dotenv -e .env.development.local prisma generate",
     "prisma:studio": "dotenv -e .env.development.local prisma studio",
     "prisma:push": "dotenv -e .env.development.local prisma db push",
     "prisma:pull": "dotenv -e .env.development.local prisma db pull",
@@ -11,7 +12,7 @@
     "prisma:reset": "dotenv -e .env.development.local prisma migrate reset",
     "prisma:migrate": "dotenv -e .env.development.local prisma migrate dev --create-only",
     "prisma:deploy": "dotenv -e .env.development.local prisma migrate deploy",
-    "build": "next build",
+    "build": "npm run prisma:generate && next build",
     "start": "next start",
     "lint": "next lint"
   },
