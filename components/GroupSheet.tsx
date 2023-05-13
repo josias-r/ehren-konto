@@ -9,7 +9,6 @@ import {
 } from "./ui/sheet";
 import { GroupMember } from "./GroupCard";
 import GroupItem from "./GroupItem";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface GroupSheetProps {
   leftoverAmount: number;
@@ -28,14 +27,21 @@ function GroupSheet({ leftoverAmount, members }: GroupSheetProps) {
         </SheetTrigger>
       </div>
       <SheetContent position="bottom" size={"content"}>
-        <div className="mx-auto max-w-md">
+        <div className="mx-auto max-w-md mb-8">
           <SheetHeader>
             <SheetTitle>Group members</SheetTitle>
             <SheetDescription>
               There are {members.length} members in this group
             </SheetDescription>
           </SheetHeader>
-          <ScrollArea>
+        </div>
+        <div
+          className="-m-6 py-6 overflow-y-scroll"
+          style={{
+            maxHeight: "calc(100vh - 10rem)",
+          }}
+        >
+          <div className="mx-auto max-w-md px-6 sm:px-0">
             <div className="mt-8 grid gap-6">
               {members.map((member) => (
                 <GroupItem
@@ -47,7 +53,7 @@ function GroupSheet({ leftoverAmount, members }: GroupSheetProps) {
                 />
               ))}
             </div>
-          </ScrollArea>
+          </div>
         </div>
       </SheetContent>
     </Sheet>
