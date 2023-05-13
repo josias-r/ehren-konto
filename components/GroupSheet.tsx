@@ -7,12 +7,11 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "./ui/sheet";
-import { GroupMember } from "./GroupCard";
-import GroupItem from "./GroupItem";
+import GroupItem, { MemberShape } from "./GroupItem";
 
 interface GroupSheetProps {
   leftoverAmount: number;
-  members: GroupMember[];
+  members: MemberShape[];
 }
 
 function GroupSheet({ leftoverAmount, members }: GroupSheetProps) {
@@ -46,9 +45,11 @@ function GroupSheet({ leftoverAmount, members }: GroupSheetProps) {
               {members.map((member) => (
                 <GroupItem
                   key={member.id}
+                  id={member.id}
+                  nickname={member.nickname}
                   name={member.name}
                   role={member.role}
-                  amount={member.ehre}
+                  ehre={member.ehre}
                   avatar={member.avatar}
                 />
               ))}

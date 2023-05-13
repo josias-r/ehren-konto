@@ -4,7 +4,7 @@ import Nav from "@/components/Nav";
 const josiasTemplate = {
   name: "Josias Ribi",
   nickname: "josias-r",
-  role: "admin",
+  role: "admin" as const,
   ehre: 1,
   avatar: {
     url: "https://avatars.githubusercontent.com/u/1024025?v=4",
@@ -36,7 +36,7 @@ const groupTemplate = {
       id: "2",
       name: "Manuel Kauderer",
       nickname: "manu",
-      role: "member",
+      role: "member" as const,
       ehre: 3,
       avatar: {
         url: "https://avatars.githubusercontent.com/u/1024035?v=4",

@@ -1,13 +1,21 @@
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Badge } from "@/components/ui/badge";
 
-interface GroupItemProps {
+export type MemberShape = {
   name: string;
-  role: string;
-  amount: number;
-  avatar: { url: string; fallback: string };
-}
+  nickname: string;
+  role: "admin" | "member";
+  ehre: number;
+  avatar: {
+    url: string;
+    fallback: string;
+  };
+  id: string;
+};
 
-function GroupItem({ name, role, amount, avatar }: GroupItemProps) {
+interface GroupItemProps extends MemberShape {}
+
+function GroupItem({ name, nickname, role, ehre, avatar }: GroupItemProps) {
   return (
     <div className="flex">
       <Avatar className="mr-4">
@@ -16,13 +24,20 @@ function GroupItem({ name, role, amount, avatar }: GroupItemProps) {
       </Avatar>
       <div className="flex justify-between w-full items-center">
         <div className="text-sm">
-          <p>{name}</p>
-          <p className="text-sm text-muted-foreground">{role}</p>
+          <p>
+            <span>{name}</span>
+            {role !== "member" && (
+              <Badge className="ml-2" variant="outline">
+                {role}
+              </Badge>
+            )}
+          </p>
+          <p className="text-sm text-muted-foreground">{nickname}</p>
         </div>
         <div
-          className={`ml-auto font-medium ${amount <= 0 ? "text-red-600" : ""}`}
+          className={`ml-auto font-medium ${ehre <= 0 ? "text-red-600" : ""}`}
         >
-          {amount}
+          {ehre}
         </div>
       </div>
     </div>

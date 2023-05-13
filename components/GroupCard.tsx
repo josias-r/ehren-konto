@@ -1,27 +1,15 @@
-import GroupItem from "./GroupItem";
+import GroupItem, { MemberShape } from "./GroupItem";
 import { Card, CardContent, CardHeader } from "./ui/card";
 import { Separator } from "./ui/separator";
 import GroupSheet from "./GroupSheet";
 import GroupEvent, { GroupEventShape } from "./GroupEvent";
 import GroupEventSheet from "./GroupEventSheet";
 
-export type GroupMember = {
-  name: string;
-  nickname: string;
-  role: string;
-  ehre: number;
-  avatar: {
-    url: string;
-    fallback: string;
-  };
-  id: string;
-};
-
 interface GroupCardProps {
   id: string;
   name: string;
   description: string;
-  members: GroupMember[];
+  members: MemberShape[];
   events: GroupEventShape[];
 }
 
@@ -62,9 +50,11 @@ function GroupCard({ id, name, description, members, events }: GroupCardProps) {
           {slicedMembers.map((member) => (
             <GroupItem
               key={member.id}
+              id={member.id}
+              nickname={member.nickname}
               name={member.name}
               role={member.role}
-              amount={member.ehre}
+              ehre={member.ehre}
               avatar={member.avatar}
             />
           ))}
