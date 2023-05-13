@@ -22,7 +22,7 @@ export default function Home() {
           Sign up
         </Button>
       </div>
-      <div className="fixed inset-0 -m-8 -z-10">
+      {/* <div className="fixed inset-0 -m-8 -z-10">
         <Image
           className="absolute inset-0 w-full h-full -translate-y-64 object-cover blur-xl opacity-90"
           src="/bg-mountain-transparent.png"
@@ -30,7 +30,7 @@ export default function Home() {
           width={50}
           height={50}
         />
-      </div>
+      </div> */}
     </main>
   );
 }

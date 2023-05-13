@@ -70,9 +70,7 @@ export default function Home() {
         </Card>
       </section>
 
-      <div>
-        <Nav />
-      </div>
+      <Nav />
     </main>
   );
 }

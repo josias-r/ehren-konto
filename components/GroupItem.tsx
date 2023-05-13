@@ -9,7 +9,7 @@ interface GroupItemProps {
 
 function GroupItem({ name, role, amount, avatar }: GroupItemProps) {
   return (
-    <div className="flex mb-8 last:mb-0">
+    <div className="flex">
       <Avatar className="mr-4">
         <AvatarImage src={avatar.url} />
         <AvatarFallback>{avatar.fallback}</AvatarFallback>
