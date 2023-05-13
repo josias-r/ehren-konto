@@ -30,7 +30,7 @@ function GroupCard({ id, name, description, members, events }: GroupCardProps) {
   const memberSliceSize = members.length === 6 ? 4 : 5;
   const slicedMembers = members.slice(0, memberSliceSize);
 
-  const eventSliceSize = events.length >= 6 ? 5 : 6;
+  const eventSliceSize = 5;
   const slicedEvents = events.slice(0, eventSliceSize);
 
   return (
@@ -50,14 +50,11 @@ function GroupCard({ id, name, description, members, events }: GroupCardProps) {
               date={event.date}
             />
           ))}
-          {events.length > eventSliceSize && (
-            <>
-              <GroupEventSheet
-                leftoverAmount={events.length - eventSliceSize}
-                events={events}
-              />
-            </>
-          )}
+          <GroupEventSheet
+            leftoverAmount={events.length - eventSliceSize}
+            events={events}
+            groupName={name}
+          />
         </div>
       </CardHeader>
       <CardContent>

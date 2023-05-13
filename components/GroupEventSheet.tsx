@@ -10,13 +10,21 @@ import { GroupEventShape } from "./GroupEvent";
 import GroupEventContainer from "./GroupEventContainer";
 import GroupEventListItem from "./GroupEventListItem";
 import { Separator } from "./ui/separator";
+import { ChevronRight } from "lucide-react";
+import { Button } from "./ui/button";
+import GroupCreateEventSheet from "./GroupCreateEventSheet";
 
 interface GroupEventSheetProps {
+  groupName: string;
   leftoverAmount: number;
   events: GroupEventShape[];
 }
 
-function GroupEventSheet({ leftoverAmount, events }: GroupEventSheetProps) {
+function GroupEventSheet({
+  groupName,
+  leftoverAmount,
+  events,
+}: GroupEventSheetProps) {
   const futureEvents: typeof events = [];
   const pastEvents: typeof events = [];
   events.forEach((event) => {
@@ -31,7 +39,13 @@ function GroupEventSheet({ leftoverAmount, events }: GroupEventSheetProps) {
     <Sheet>
       <GroupEventContainer>
         <SheetTrigger className="text-muted-foreground hover:bg-slate-800 rounded-sm flex absolute w-full h-full top-0 left-0">
-          <span className="m-auto">+{leftoverAmount}</span>
+          <span className="m-auto">
+            {leftoverAmount > 0 ? (
+              `+${leftoverAmount}`
+            ) : (
+              <ChevronRight className="h-4 w-4" />
+            )}
+          </span>
         </SheetTrigger>
       </GroupEventContainer>
       <SheetContent position="bottom" size={"content"}>
@@ -44,9 +58,9 @@ function GroupEventSheet({ leftoverAmount, events }: GroupEventSheetProps) {
           </SheetHeader>
         </div>
         <div
-          className="-mb-6 pb-6 overflow-y-auto"
+          className="overflow-y-auto"
           style={{
-            maxHeight: "calc(100vh - 10rem)",
+            maxHeight: "calc(100vh - 15rem)",
           }}
         >
           <div className="mx-auto max-w-md px-6 sm:px-0">
@@ -76,6 +90,9 @@ function GroupEventSheet({ leftoverAmount, events }: GroupEventSheetProps) {
               ))}
             </div>
           </div>
+        </div>
+        <div className="mx-auto max-w-md pt-6">
+          <GroupCreateEventSheet groupName={groupName} />
         </div>
       </SheetContent>
     </Sheet>

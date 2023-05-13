@@ -108,6 +108,7 @@ const groups = [
   {
     id: "2",
     ...groupTemplate,
+    events: groupTemplate.events.slice(0, 3),
   },
 ];
 
