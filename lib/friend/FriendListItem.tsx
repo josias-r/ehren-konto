@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 
 export type MemberShape = {
@@ -13,9 +13,15 @@ export type MemberShape = {
   id: string;
 };
 
-interface GroupItemProps extends MemberShape {}
+interface FriendListItemProps extends MemberShape {}
 
-function GroupItem({ name, nickname, role, ehre, avatar }: GroupItemProps) {
+function FriendListItem({
+  name,
+  nickname,
+  role,
+  ehre,
+  avatar,
+}: FriendListItemProps) {
   return (
     <div className="flex">
       <Avatar className="mr-4">
@@ -44,4 +50,4 @@ function GroupItem({ name, nickname, role, ehre, avatar }: GroupItemProps) {
   );
 }
 
-export default GroupItem;
+export default FriendListItem;

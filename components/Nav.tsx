@@ -28,6 +28,11 @@ function Nav({}: NavProps) {
               Groups
             </NavigationMenuLink>
           </Link>
+          <Link href="/friends" legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Friends
+            </NavigationMenuLink>
+          </Link>
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>

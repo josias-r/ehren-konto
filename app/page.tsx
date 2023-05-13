@@ -3,6 +3,17 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 
+// TODOs:
+// create group
+// update group
+// delete group
+
+// create event
+// update event
+// delete event
+
+// friends system
+
 export default function Home() {
   return (
     <main className="p-8 flex h-full z-10 relative">
