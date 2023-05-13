@@ -10,9 +10,7 @@ type EventRelativeDateReturn = {
   range: "minutes" | "hours" | "days" | "weeks" | "months" | "years";
 };
 
-function eventRelativeDate(date: string): EventRelativeDateReturn {
-  const relativeDate = new Date(date);
-
+function eventRelativeDate(relativeDate: Date): EventRelativeDateReturn {
   const diffInMilliseconds = relativeDate.getTime() - Date.now();
   const absoluteDiffInMilliseconds = Math.abs(diffInMilliseconds);
 

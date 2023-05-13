@@ -44,9 +44,9 @@ function GroupSheet({ leftoverAmount, members }: GroupSheetProps) {
             <div className="mt-8 grid gap-6">
               {members.map((member) => (
                 <GroupItem
-                  key={member.id}
-                  id={member.id}
-                  nickname={member.nickname}
+                  key={member.userId}
+                  userId={member.userId}
+                  nick={member.nick}
                   name={member.name}
                   role={member.role}
                   ehre={member.ehre}

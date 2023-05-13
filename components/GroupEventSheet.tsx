@@ -17,21 +17,21 @@ import GroupCreateEventSheet from "./GroupCreateEventSheet";
 interface GroupEventSheetProps {
   groupName: string;
   leftoverAmount: number;
-  events: GroupEventShape[];
+  activities: GroupEventShape[];
 }
 
 function GroupEventSheet({
   groupName,
   leftoverAmount,
-  events,
+  activities,
 }: GroupEventSheetProps) {
-  const futureEvents: typeof events = [];
-  const pastEvents: typeof events = [];
-  events.forEach((event) => {
-    if (new Date(event.date) > new Date()) {
-      futureEvents.push(event);
+  const futureEvents: typeof activities = [];
+  const pastEvents: typeof activities = [];
+  activities.forEach((activity) => {
+    if (activity.from > new Date()) {
+      futureEvents.push(activity);
     } else {
-      pastEvents.push(event);
+      pastEvents.push(activity);
     }
   });
 
@@ -51,9 +51,9 @@ function GroupEventSheet({
       <SheetContent position="bottom" size={"content"}>
         <div className="mx-auto max-w-md mb-8">
           <SheetHeader>
-            <SheetTitle>Group events</SheetTitle>
+            <SheetTitle>Group activities</SheetTitle>
             <SheetDescription>
-              There are {events.length} events in this group
+              There are {activities.length} activities in this group
             </SheetDescription>
           </SheetHeader>
         </div>
@@ -65,27 +65,27 @@ function GroupEventSheet({
         >
           <div className="mx-auto max-w-md px-6 sm:px-0">
             <div className="mt-8 grid gap-6">
-              {futureEvents.map((event) => (
+              {futureEvents.map((activity) => (
                 <GroupEventListItem
-                  key={event.id}
-                  id={event.id}
-                  name={event.name}
-                  emoji={event.emoji}
-                  color={event.color}
-                  date={event.date}
-                  members={event.members}
+                  key={activity.activityId}
+                  activityId={activity.activityId}
+                  name={activity.name}
+                  emoji={activity.emoji}
+                  color={activity.color}
+                  from={activity.from}
+                  // members={activity.members}
                 />
               ))}
               {!!pastEvents.length && !!futureEvents.length && <Separator />}
-              {pastEvents.map((event) => (
+              {pastEvents.map((activity) => (
                 <GroupEventListItem
-                  key={event.id}
-                  id={event.id}
-                  name={event.name}
-                  emoji={event.emoji}
-                  color={event.color}
-                  date={event.date}
-                  members={event.members}
+                  key={activity.activityId}
+                  activityId={activity.activityId}
+                  name={activity.name}
+                  emoji={activity.emoji}
+                  color={activity.color}
+                  from={activity.from}
+                  // members={activity.members}
                 />
               ))}
             </div>

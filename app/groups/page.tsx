@@ -1,34 +1,30 @@
 import GroupCard from "@/components/GroupCard";
 import Nav from "@/components/Nav";
-import { prisma } from "@/lib/utilities/prisma-client";
+import { validateCookieToken } from "@/lib/auth.server";
+import getAllGroupsForUser from "@/lib/group/getAllGroupsForUser";
+import { redirect } from "next/navigation";
 
 export default async function Groups() {
+  const isLoggedIn = await validateCookieToken();
+  if (isLoggedIn === false) {
+    redirect("/login");
+  }
   // get all groups from prisma where user with id "X" is in
-  const groups = await prisma.group.findMany({
-    where: {
-      users: {
-        some: {
-          userId: 1,
-        },
-      },
-    },
-  });
+  const groups = await getAllGroupsForUser(isLoggedIn.userId);
 
   // return comp
   return (
     <main className="relative">
       <section className="mx-auto p-8 max-w-md grid gap-4">
-        {groups.map((group) => (
-          <div key="id">
-            {/* <GroupCard
-              key={group.id}
-              id={group.id}
-              name={group.name}
-              description={group.description}
-              members={group.members}
-              events={group.events}
-            /> */}
-          </div>
+        {groups?.map((group) => (
+          <GroupCard
+            key={group.groupId}
+            id={group.groupId}
+            name={group.name}
+            description={group.description}
+            members={group.members}
+            activities={group.activities}
+          />
         ))}
       </section>
 

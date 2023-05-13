@@ -5,39 +5,40 @@ import eventRelativeDate from "@/lib/utilities/eventRelativeDate";
 interface GroupEventListItemProps extends GroupEventShape {}
 
 function GroupEventListItem({
-  id,
+  activityId,
   name,
   emoji,
   color,
-  date,
-  members,
-}: GroupEventListItemProps) {
+  from,
+}: // members,
+GroupEventListItemProps) {
+  const participants: never[] = [];
   return (
     <div className="flex">
       <div className="w-12 mr-4">
         <GroupEvent
-          id={id}
+          activityId={activityId}
           emoji={emoji}
           color={color}
           name={name}
-          date={date}
-          members={members}
+          from={from}
+          // members={members}
         />
       </div>
       <div className="flex justify-between w-full items-center">
         <div className="text-sm">
           <p>{name}</p>
           <p className="text-sm text-muted-foreground">
-            {eventRelativeDate(date).formatted}
+            {eventRelativeDate(from).formatted}
           </p>
         </div>
         <div
           className={`${
-            !members.length ? "text-amber-600" : "text-muted-foreground"
+            !participants.length ? "text-amber-600" : "text-muted-foreground"
           } flex items-center text-sm`}
         >
           <span className="mr-2">
-            {members.length ? members.length : <>no one</>}
+            {participants.length ? participants.length : <>no one</>}
           </span>
           <Users size="1rem" />
         </div>

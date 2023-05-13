@@ -1,7 +1,7 @@
 const eventColors = {
-  sunset: ["#EE7C2F", "#740D39"],
-  mars: ["#FEECA2", "#BBB47A", "#774412"],
-  ice: ["#01F5F2", "#9CF6E3", "#003654"],
+  SUNSET: ["#EE7C2F", "#740D39"],
+  MARS: ["#FEECA2", "#BBB47A", "#774412"],
+  // ice: ["#01F5F2", "#9CF6E3", "#003654"],
 };
 
 export type EventColor = keyof typeof eventColors;

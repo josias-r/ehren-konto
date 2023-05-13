@@ -16,34 +16,61 @@ model User {
   name      String   @db.VarChar(50)
   nick      String   @db.VarChar(15)
   avatar    String
-  groups    Group[]  @relation("userGroups")
 
-  FriendshipOutgoing Friendship[] @relation("userOutgoingFriendships")
-  FriendshipIncoming Friendship[] @relation("userIncomingFriendships")
+  FriendshipOutgoing Friendship[]  @relation("userOutgoingFriendships")
+  FriendshipIncoming Friendship[]  @relation("userIncomingFriendships")
+  GroupMember        GroupMember[]
 }
 
 model Group {
-  groupId     Int      @id @default(autoincrement())
-  createdAt   DateTime @default(now())
-  name        String
-  description String
-  users       User[]   @relation("userGroups")
+  groupId      Int           @id @default(autoincrement())
+  createdAt    DateTime      @default(now())
+  name         String
+  description  String
+  GroupMembers GroupMember[]
+  Activities   Activity[]
+}
+
+enum GroupMemberRole {
+  ADMIN
+  MEMBER
+}
+
+model GroupMember {
+  groupMemberId Int             @id @default(autoincrement())
+  createdAt     DateTime        @default(now())
+  role          GroupMemberRole @default(MEMBER)
+  ehre          Int             @default(0)
+  Group         Group           @relation(fields: [groupId], references: [groupId])
+  groupId       Int
+  User          User            @relation(fields: [userId], references: [userId])
+  userId        Int
+
+  @@unique([userId, groupId])
 }
 
 model Friendship {
   friendshipId   Int      @id @default(autoincrement())
   createdAt      DateTime @default(now())
-  outgoingUser   User     @relation("userOutgoingFriendships", fields: [outgoingUserId], references: [userId])
+  OutgoingUser   User     @relation("userOutgoingFriendships", fields: [outgoingUserId], references: [userId])
   outgoingUserId Int
-  incomingUser   User     @relation("userIncomingFriendships", fields: [incomingUserId], references: [userId])
+  IncomingUser   User     @relation("userIncomingFriendships", fields: [incomingUserId], references: [userId])
   incomingUserId Int
 }
 
+enum ActivityColor {
+  SUNSET
+  MARS
+}
+
 model Activity {
-  activityId Int       @id @default(autoincrement())
-  createdAt  DateTime  @default(now())
+  activityId Int           @id @default(autoincrement())
+  createdAt  DateTime      @default(now())
   from       DateTime
   to         DateTime?
-  name       String    @db.VarChar(50)
-  emoji      String    @db.VarChar(20)
+  name       String        @db.VarChar(50)
+  emoji      String        @db.VarChar(20)
+  color      ActivityColor
+  Group      Group         @relation(fields: [groupId], references: [groupId])
+  groupId    Int
 }

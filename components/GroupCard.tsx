@@ -6,20 +6,26 @@ import GroupEvent, { GroupEventShape } from "./GroupEvent";
 import GroupEventSheet from "./GroupEventSheet";
 
 interface GroupCardProps {
-  id: string;
+  id: number;
   name: string;
   description: string;
   members: MemberShape[];
-  events: GroupEventShape[];
+  activities: GroupEventShape[];
 }
 
-function GroupCard({ id, name, description, members, events }: GroupCardProps) {
+function GroupCard({
+  id,
+  name,
+  description,
+  members,
+  activities,
+}: GroupCardProps) {
   // condition makes sure that the slize never is "1 more" which is odd
   const memberSliceSize = members.length === 6 ? 4 : 5;
   const slicedMembers = members.slice(0, memberSliceSize);
 
-  const eventSliceSize = 5;
-  const slicedEvents = events.slice(0, eventSliceSize);
+  const activitySliceSize = 5;
+  const slicedEvents = activities.slice(0, activitySliceSize);
 
   return (
     <Card>
@@ -27,20 +33,20 @@ function GroupCard({ id, name, description, members, events }: GroupCardProps) {
         {name}
         <p className="text-sm text-muted-foreground mb-2">{description}</p>
         <div className="grid gap-2 grid-cols-6">
-          {slicedEvents.map((event) => (
+          {slicedEvents.map((activity) => (
             <GroupEvent
-              key={event.id}
-              id={event.id}
-              emoji={event.emoji}
-              name={event.name}
-              members={event.members}
-              color={event.color}
-              date={event.date}
+              key={activity.activityId}
+              activityId={activity.activityId}
+              emoji={activity.emoji}
+              name={activity.name}
+              // members={activity.members}
+              color={activity.color}
+              from={activity.from}
             />
           ))}
           <GroupEventSheet
-            leftoverAmount={events.length - eventSliceSize}
-            events={events}
+            leftoverAmount={activities.length - activitySliceSize}
+            activities={activities}
             groupName={name}
           />
         </div>
@@ -49,9 +55,9 @@ function GroupCard({ id, name, description, members, events }: GroupCardProps) {
         <div className="grid gap-6 mb-4">
           {slicedMembers.map((member) => (
             <GroupItem
-              key={member.id}
-              id={member.id}
-              nickname={member.nickname}
+              key={member.userId}
+              userId={member.userId}
+              nick={member.nick}
               name={member.name}
               role={member.role}
               ehre={member.ehre}

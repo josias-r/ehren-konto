@@ -2,17 +2,17 @@ import { EventColor, getEventGradient } from "@/lib/utilities/event-colors";
 import GroupEventContainer from "./GroupEventContainer";
 
 export type GroupEventShape = {
-  id: string;
+  activityId: number;
   emoji: string;
   color: EventColor;
   name: string;
-  date: string;
-  members: string[];
+  from: Date;
+  // participants: string[];
 };
 
 interface GroupEventProps extends GroupEventShape {}
 
-function GroupEvent({ color, emoji, name, date, members }: GroupEventProps) {
+function GroupEvent({ color, emoji }: GroupEventProps) {
   const gradient = getEventGradient(color);
   return (
     <div className="w-full">
