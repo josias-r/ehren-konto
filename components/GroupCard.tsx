@@ -8,20 +8,34 @@ import GroupEventEmpty from "./GroupEventEmpty";
 import GroupActivitySheetTrigger from "./GroupActivitySheetTrigger";
 import { Button } from "./ui/button";
 import GroupEventWithPopover from "./GroupEventWithPopover";
+
+export type GroupFriend = {
+  userId: number;
+  name: string;
+  nick: string;
+  avatar: string;
+  groups: {
+    groupId: number;
+  }[];
+};
 interface GroupCardProps {
-  id: number;
+  groupId: number;
   name: string;
   description: string;
   members: MemberShape[];
   activities: GroupEventShape[];
+
+  friends: GroupFriend[];
 }
 
 function GroupCard({
-  id,
+  groupId,
   name,
   description,
   members,
   activities,
+
+  friends,
 }: GroupCardProps) {
   // condition makes sure that the slize never is "1 more" which is odd
   const memberSliceSize = members.length === 6 ? 4 : 5;
@@ -79,15 +93,13 @@ function GroupCard({
             />
           ))}
         </div>
-        {members.length > memberSliceSize && (
-          <>
-            <Separator />
-            <GroupSheet
-              leftoverAmount={members.length - memberSliceSize}
-              members={members}
-            />
-          </>
-        )}
+        <Separator />
+        <GroupSheet
+          leftoverAmount={members.length - memberSliceSize}
+          members={members}
+          groupId={groupId}
+          friends={friends}
+        />
       </CardContent>
     </Card>
   );

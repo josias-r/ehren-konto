@@ -6,11 +6,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "./ui/sheet";
-import { GroupEventShape } from "./GroupEvent";
-import GroupEventContainer from "./GroupEventContainer";
-import GroupEventListItem from "./GroupEventListItem";
-import { Separator } from "./ui/separator";
-import { ChevronRight } from "lucide-react";
 import { Button } from "./ui/button";
 
 interface GroupCreateEventSheetProps {
@@ -22,7 +17,7 @@ function GroupCreateEventSheet({ groupName }: GroupCreateEventSheetProps) {
     <Sheet>
       <SheetTrigger asChild>
         <Button variant="outline" className="block w-full">
-          Create new event or activity
+          Create new group activity
         </Button>
       </SheetTrigger>
       <SheetContent position="bottom" size={"content"}>

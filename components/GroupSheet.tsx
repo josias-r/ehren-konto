@@ -8,18 +8,32 @@ import {
   SheetTrigger,
 } from "./ui/sheet";
 import GroupItem, { MemberShape } from "./GroupItem";
+import { GroupFriend } from "./GroupCard";
+import GroupAddMemberSheet from "./GroupAddMemberSheet";
+import { Separator } from "./ui/separator";
 
 interface GroupSheetProps {
   leftoverAmount: number;
   members: MemberShape[];
+
+  groupId: number;
+  friends: GroupFriend[];
 }
 
-function GroupSheet({ leftoverAmount, members }: GroupSheetProps) {
+function GroupSheet({
+  leftoverAmount,
+  members,
+  friends,
+  groupId,
+}: GroupSheetProps) {
   return (
     <Sheet>
       <div className="relative -mx-2 -mb-2 text-muted-foreground">
         <SheetTrigger className="hover:bg-slate-800 rounded-sm w-full flex justify-between items-center text-sm p-2 mt-2">
-          <div>Show {leftoverAmount} more</div>
+          <div>
+            {leftoverAmount > 1 && <>Show {leftoverAmount} more</>}
+            {leftoverAmount <= 1 && <>Manage group</>}
+          </div>
           <div>
             <ChevronRight className="h-4 w-4" />
           </div>
@@ -55,6 +69,11 @@ function GroupSheet({ leftoverAmount, members }: GroupSheetProps) {
               ))}
             </div>
           </div>
+        </div>
+
+        <div className="mx-auto max-w-md mb-8">
+          <Separator className="my-4" />
+          <GroupAddMemberSheet friends={friends} groupId={groupId} />
         </div>
       </SheetContent>
     </Sheet>

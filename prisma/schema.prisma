@@ -50,13 +50,20 @@ model GroupMember {
   @@unique([userId, groupId])
 }
 
+enum FriendshipStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
+}
+
 model Friendship {
-  friendshipId   Int      @id @default(autoincrement())
-  createdAt      DateTime @default(now())
-  OutgoingUser   User     @relation("userOutgoingFriendships", fields: [outgoingUserId], references: [userId])
+  friendshipId   Int              @id @default(autoincrement())
+  createdAt      DateTime         @default(now())
+  OutgoingUser   User             @relation("userOutgoingFriendships", fields: [outgoingUserId], references: [userId])
   outgoingUserId Int
-  IncomingUser   User     @relation("userIncomingFriendships", fields: [incomingUserId], references: [userId])
+  IncomingUser   User             @relation("userIncomingFriendships", fields: [incomingUserId], references: [userId])
   incomingUserId Int
+  status         FriendshipStatus @default(PENDING)
 
   @@unique([outgoingUserId, incomingUserId])
 }
