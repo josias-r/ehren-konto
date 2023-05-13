@@ -4,6 +4,11 @@ async function getAllGroupsForUser(userId: number) {
   const userWithGroups = await prisma.user.findFirst({
     select: {
       GroupMember: {
+        orderBy: {
+          Group: {
+            createdAt: "desc",
+          },
+        },
         select: {
           Group: {
             select: {
