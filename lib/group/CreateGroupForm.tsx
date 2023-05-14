@@ -43,7 +43,7 @@ function CreateGroupForm({
 
   const onSubmit: SubmitHandler<FormShape> = async (data) => {
     startTransition(async () => {
-      await createGroup({ ...data, members: [...data.members, 1] });
+      await createGroup({ ...data });
     });
   };
 

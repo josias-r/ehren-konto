@@ -1,6 +1,8 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { prisma } from "../utilities/prisma-client";
+import createAuthProtectedAction from "../createAuthProtectedAction";
 
 interface CreateGroupArgs {
   name: string;
@@ -8,21 +10,27 @@ interface CreateGroupArgs {
   members: number[];
 }
 
-export async function createGroup({
-  name,
-  description,
-  members,
-}: CreateGroupArgs) {
-  const createdGroup = await prisma.group.create({
-    data: {
-      name,
-      description,
-      GroupMembers: { create: members.map((userId) => ({ userId })) },
-    },
-  });
+export const createGroup = createAuthProtectedAction(
+  async (loggedInUserId, { name, description, members }: CreateGroupArgs) => {
+    const createdGroup = await prisma.group.create({
+      data: {
+        name,
+        description,
+        GroupMembers: {
+          create: [
+            ...members.map((userId) => ({ userId })),
+            // Add the creator to the group
+            { userId: loggedInUserId },
+          ],
+        },
+      },
+    });
 
-  return createdGroup.groupId;
-}
+    revalidatePath("/groups");
+
+    return createdGroup.groupId;
+  }
+);
 
 interface UpdateGroupArgs {
   groupId: number;
@@ -31,31 +39,34 @@ interface UpdateGroupArgs {
   members?: number[];
 }
 
-export async function updateGroup({
-  groupId,
-  name,
-  description,
-  members,
-}: UpdateGroupArgs) {
-  const updatedGroup = await prisma.group.update({
-    where: { groupId },
-    data: {
-      name,
-      description,
-      GroupMembers: members && {
-        deleteMany: { groupId },
-        create: members.map((userId) => ({ userId })),
+export const updateGroup = createAuthProtectedAction(
+  async (
+    loggedInUserId,
+    { groupId, name, description, members }: UpdateGroupArgs
+  ) => {
+    const updatedGroup = await prisma.group.update({
+      where: { groupId },
+      data: {
+        name,
+        description,
+        GroupMembers: members && {
+          deleteMany: { groupId },
+          create: members.map((userId) => ({ userId })),
+        },
       },
-    },
-  });
-
-  return updatedGroup.groupId;
-}
+    });
+    revalidatePath("/groups");
+    return updatedGroup.groupId;
+  }
+);
 
 interface DeleteGroupArgs {
   groupId: number;
 }
 
-export async function deleteGroup({ groupId }: DeleteGroupArgs) {
-  await prisma.group.delete({ where: { groupId } });
-}
+export const deleteGroup = createAuthProtectedAction(
+  async (loggedInUserId, { groupId }: DeleteGroupArgs) => {
+    await prisma.group.delete({ where: { groupId } });
+    revalidatePath("/groups");
+  }
+);
