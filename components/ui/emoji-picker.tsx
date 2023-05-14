@@ -18,6 +18,14 @@ import {
 } from "@/components/ui/popover";
 import { Button } from "./button";
 import { cn } from "@/lib/utils";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "./sheet";
 
 interface EmojiPickerProps {
   id?: string;
@@ -43,8 +51,8 @@ function EmojiPicker({
     value === undefined ? uncontrolledSelectedEmoji : value || undefined;
 
   return (
-    <Popover>
-      <PopoverTrigger asChild>
+    <Sheet>
+      <SheetTrigger asChild>
         <Button
           variant="outline"
           className={cn(
@@ -66,53 +74,61 @@ function EmojiPicker({
             onChange={() => {}}
           />
         </Button>
-      </PopoverTrigger>
-      <PopoverContentNoPortal className="w-auto p-0 border-none">
-        <EmojiPickerReact
-          onEmojiClick={(emojiData) => {
-            setUncontrolledSelectedEmoji(emojiData.unified);
-            onChange?.(emojiData.unified);
-          }}
-          autoFocusSearch={false}
-          theme={Theme.DARK}
-          emojiStyle={EmojiStyle.APPLE}
-          lazyLoadEmojis
-          // searchDisabled
-          // skinTonePickerLocation={SkinTonePickerLocation.PREVIEW}
-          // height={350}
-          // width="50%"
-          // emojiVersion="0.6"
-          // lazyLoadEmojis={true}
-          // previewConfig={{
-          //   defaultCaption: "Pick one!",
-          //   defaultEmoji: "1f92a" // 🤪
-          // }}
-          suggestedEmojisMode={SuggestionMode.RECENT}
-          // skinTonesDisabled
-          // searchPlaceHolder="Filter"
-          // defaultSkinTone={SkinTones.MEDIUM}
-          // emojiStyle={EmojiStyle.NATIVE}
-          // categories={[
-          //   {
-          //     name: "Fun and Games",
-          //     category: Categories.ACTIVITIES
-          //   },
-          //   {
-          //     name: "Smiles & Emotions",
-          //     category: Categories.SMILEYS_PEOPLE
-          //   },
-          //   {
-          //     name: "Flags",
-          //     category: Categories.FLAGS
-          //   },
-          //   {
-          //     name: "Yum Yum",
-          //     category: Categories.FOOD_DRINK
-          //   }
-          // ]}
-        />
-      </PopoverContentNoPortal>
-    </Popover>
+      </SheetTrigger>
+      <SheetContent position="bottom" size={"content"}>
+        <div className="mx-auto max-w-md mb-8">
+          <SheetHeader>
+            <SheetTitle>Pick emoji</SheetTitle>
+          </SheetHeader>
+        </div>
+        <div className="mx-auto max-w-md mb-8">
+          <EmojiPickerReact
+            width={"100%"}
+            onEmojiClick={(emojiData) => {
+              setUncontrolledSelectedEmoji(emojiData.unified);
+              onChange?.(emojiData.unified);
+            }}
+            autoFocusSearch={false}
+            theme={Theme.DARK}
+            emojiStyle={EmojiStyle.APPLE}
+            lazyLoadEmojis
+            // searchDisabled
+            // skinTonePickerLocation={SkinTonePickerLocation.PREVIEW}
+            // height={350}
+            // width="50%"
+            // emojiVersion="0.6"
+            // lazyLoadEmojis={true}
+            // previewConfig={{
+            //   defaultCaption: "Pick one!",
+            //   defaultEmoji: "1f92a" // 🤪
+            // }}
+            suggestedEmojisMode={SuggestionMode.RECENT}
+            // skinTonesDisabled
+            // searchPlaceHolder="Filter"
+            // defaultSkinTone={SkinTones.MEDIUM}
+            // emojiStyle={EmojiStyle.NATIVE}
+            // categories={[
+            //   {
+            //     name: "Fun and Games",
+            //     category: Categories.ACTIVITIES
+            //   },
+            //   {
+            //     name: "Smiles & Emotions",
+            //     category: Categories.SMILEYS_PEOPLE
+            //   },
+            //   {
+            //     name: "Flags",
+            //     category: Categories.FLAGS
+            //   },
+            //   {
+            //     name: "Yum Yum",
+            //     category: Categories.FOOD_DRINK
+            //   }
+            // ]}
+          />
+        </div>
+      </SheetContent>
+    </Sheet>
   );
 }
 
