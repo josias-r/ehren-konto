@@ -1,6 +1,6 @@
 import FriendListItem from "./FriendListItem";
-import { GroupFriend, GroupFriendGroup } from "./GroupCard";
-import { Button } from "./ui/button";
+import { GroupFriend, GroupFriendGroup } from "../group/GroupCard";
+import { Button } from "../../components/ui/button";
 import {
   Sheet,
   SheetContent,
@@ -8,19 +8,19 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "./ui/sheet";
+} from "../../components/ui/sheet";
 
-interface GroupAddMemberSheetProps {
+interface AddFriendToGroupSheetProps {
   groupId: number;
   friends: GroupFriend[];
   friendGroups: GroupFriendGroup[];
 }
 
-function GroupAddMemberSheet({
+function AddFriendToGroupSheet({
   friends,
   groupId,
   friendGroups,
-}: GroupAddMemberSheetProps) {
+}: AddFriendToGroupSheetProps) {
   const friendsInGroup: typeof friends = [];
   const friendsNotInGroup: typeof friends = [];
 
@@ -88,4 +88,4 @@ function GroupAddMemberSheet({
   );
 }
 
-export default GroupAddMemberSheet;
+export default AddFriendToGroupSheet;

@@ -1,17 +1,17 @@
 import { Users } from "lucide-react";
-import GroupEvent, { GroupEventShape } from "./GroupEvent";
+import GroupEvent, { ActivityShape } from "./Activity";
 import eventRelativeDate from "@/lib/utilities/eventRelativeDate";
 
-interface GroupEventListItemProps extends GroupEventShape {}
+interface ActivityListItemProps extends ActivityShape {}
 
-function GroupEventListItem({
+function ActivityListItem({
   activityId,
   name,
   emoji,
   color,
   from,
   participants,
-}: GroupEventListItemProps) {
+}: ActivityListItemProps) {
   return (
     <div className="flex">
       <div className="w-12 mr-4">
@@ -46,4 +46,4 @@ function GroupEventListItem({
   );
 }
 
-export default GroupEventListItem;
+export default ActivityListItem;

@@ -1,4 +1,8 @@
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "../../components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 
 export type MemberShape = {

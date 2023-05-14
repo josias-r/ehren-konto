@@ -1,13 +1,13 @@
 import GroupMemberListItem, { MemberShape } from "./GroupMemberListItem";
-import { Card, CardContent, CardHeader } from "./ui/card";
-import { Separator } from "./ui/separator";
+import { Card, CardContent, CardHeader } from "../../components/ui/card";
+import { Separator } from "../../components/ui/separator";
 import GroupSheet from "./GroupSheet";
-import { GroupEventShape } from "./GroupEvent";
-import GroupEventSheet from "./GroupEventSheet";
-import GroupEventEmpty from "./GroupEventEmpty";
-import GroupActivitySheetTrigger from "./GroupActivitySheetTrigger";
-import { Button } from "./ui/button";
-import GroupEventWithPopover from "./GroupEventWithPopover";
+import { ActivityShape } from "../activity/Activity";
+import ActivityListSheet from "../activity/ActivityListSheet";
+import EmptyActivity from "../activity/EmptyActivity";
+import ActivitySheetTrigger from "../activity/ActivitySheetTrigger";
+import { Button } from "../../components/ui/button";
+import ActivityWithPopover from "../activity/ActivityWithPopover";
 
 export type GroupFriend = {
   userId: number;
@@ -29,7 +29,7 @@ interface GroupCardProps {
   name: string;
   description: string;
   members: MemberShape[];
-  activities: GroupEventShape[];
+  activities: ActivityShape[];
 
   friends: GroupFriend[];
   friendGroups: GroupFriendGroup[];
@@ -59,17 +59,17 @@ function GroupCard({
         <p className="text-sm text-muted-foreground mb-2">{description}</p>
         <div className="grid gap-2 grid-cols-6">
           {!slicedEvents.length && (
-            <GroupEventSheet activities={activities} groupName={name}>
+            <ActivityListSheet activities={activities} groupName={name}>
               <Button
                 variant="ghost"
                 className="hover:scale-105 block transition-transform scale-100 p-0"
               >
-                <GroupEventEmpty />
+                <EmptyActivity />
               </Button>
-            </GroupEventSheet>
+            </ActivityListSheet>
           )}
           {slicedEvents.map((activity) => (
-            <GroupEventWithPopover
+            <ActivityWithPopover
               key={activity.activityId}
               activityId={activity.activityId}
               emoji={activity.emoji}
@@ -80,11 +80,11 @@ function GroupCard({
               members={members}
             />
           ))}
-          <GroupEventSheet activities={activities} groupName={name}>
-            <GroupActivitySheetTrigger
+          <ActivityListSheet activities={activities} groupName={name}>
+            <ActivitySheetTrigger
               leftoverAmount={activities.length - activitySliceSize}
             />
-          </GroupEventSheet>
+          </ActivityListSheet>
         </div>
       </CardHeader>
       <CardContent>

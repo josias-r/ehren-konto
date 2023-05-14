@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { forwardRef } from "react";
 
-const GroupEventContainer = forwardRef<
+const ActivityContainer = forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, children, ...props }, ref) => (
@@ -15,6 +15,6 @@ const GroupEventContainer = forwardRef<
     </div>
   </div>
 ));
-GroupEventContainer.displayName = "GroupEventContainer";
+ActivityContainer.displayName = "ActivityContainer";
 
-export default GroupEventContainer;
+export default ActivityContainer;

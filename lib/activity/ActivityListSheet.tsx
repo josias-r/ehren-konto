@@ -5,27 +5,25 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "./ui/sheet";
-import { GroupEventShape } from "./GroupEvent";
-import GroupEventContainer from "./GroupEventContainer";
-import GroupEventListItem from "./GroupEventListItem";
-import { Separator } from "./ui/separator";
-import { ChevronRight } from "lucide-react";
-import { Button } from "./ui/button";
-import GroupCreateEventSheet from "./GroupCreateEventSheet";
+} from "../../components/ui/sheet";
+import { ActivityShape } from "./Activity";
+import GroupEventContainer from "./ActivityContainer";
+import ActivityListItem from "./ActivityListItem";
+import { Separator } from "../../components/ui/separator";
+import CreateActivitySheet from "./CreateActivitySheet";
 import { ReactNode } from "react";
 
-interface GroupEventSheetProps {
+interface ActivityListSheetProps {
   groupName: string;
-  activities: GroupEventShape[];
+  activities: ActivityShape[];
   children: ReactNode;
 }
 
-function GroupEventSheet({
+function ActivityListSheet({
   groupName,
   activities,
   children,
-}: GroupEventSheetProps) {
+}: ActivityListSheetProps) {
   const futureEvents: typeof activities = [];
   const pastEvents: typeof activities = [];
   activities.forEach((activity) => {
@@ -64,7 +62,7 @@ function GroupEventSheet({
           <div className="mx-auto max-w-md px-6 sm:px-0">
             <div className="mt-8 grid gap-6">
               {futureEvents.map((activity) => (
-                <GroupEventListItem
+                <ActivityListItem
                   key={activity.activityId}
                   activityId={activity.activityId}
                   name={activity.name}
@@ -76,7 +74,7 @@ function GroupEventSheet({
               ))}
               {!!pastEvents.length && !!futureEvents.length && <Separator />}
               {pastEvents.map((activity) => (
-                <GroupEventListItem
+                <ActivityListItem
                   key={activity.activityId}
                   activityId={activity.activityId}
                   name={activity.name}
@@ -90,11 +88,11 @@ function GroupEventSheet({
           </div>
         </div>
         <div className="mx-auto max-w-md pt-6">
-          <GroupCreateEventSheet groupName={groupName} />
+          <CreateActivitySheet groupName={groupName} />
         </div>
       </SheetContent>
     </Sheet>
   );
 }
 
-export default GroupEventSheet;
+export default ActivityListSheet;

@@ -3,12 +3,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import GroupEvent, { GroupEventShape } from "./GroupEvent";
+import GroupEvent, { ActivityShape } from "./Activity";
 import eventRelativeDate from "@/lib/utilities/eventRelativeDate";
-import { Separator } from "./ui/separator";
+import { Separator } from "../../components/ui/separator";
 import { CheckCircle, Clock2, Users } from "lucide-react";
 
-interface GroupEventWithPopoverProps extends GroupEventShape {
+interface GroupEventWithPopoverProps extends ActivityShape {
   members: {
     userId: number;
     name: string;

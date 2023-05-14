@@ -5,14 +5,14 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "./ui/sheet";
-import { Button } from "./ui/button";
+} from "../../components/ui/sheet";
+import { Button } from "../../components/ui/button";
 
-interface GroupCreateEventSheetProps {
+interface CreateActivitySheetProps {
   groupName: string;
 }
 
-function GroupCreateEventSheet({ groupName }: GroupCreateEventSheetProps) {
+function CreateActivitySheet({ groupName }: CreateActivitySheetProps) {
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -42,4 +42,4 @@ function GroupCreateEventSheet({ groupName }: GroupCreateEventSheetProps) {
   );
 }
 
-export default GroupCreateEventSheet;
+export default CreateActivitySheet;

@@ -6,18 +6,18 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "./ui/sheet";
+} from "../../components/ui/sheet";
 import GroupMemberListItem, { MemberShape } from "./GroupMemberListItem";
 import { GroupFriend, GroupFriendGroup } from "./GroupCard";
-import GroupAddMemberSheet from "./GroupAddMemberSheet";
-import { Separator } from "./ui/separator";
+import AddFriendToGroupSheet from "../friend/AddFriendToGroupSheet";
+import { Separator } from "../../components/ui/separator";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
-import { Button } from "./ui/button";
+} from "../../components/ui/dropdown-menu";
+import { Button } from "../../components/ui/button";
 
 interface GroupSheetProps {
   leftoverAmount: number;
@@ -97,7 +97,7 @@ function GroupSheet({
 
         <div className="mx-auto max-w-md mb-8">
           <Separator className="my-4" />
-          <GroupAddMemberSheet
+          <AddFriendToGroupSheet
             friends={friends}
             groupId={groupId}
             friendGroups={friendGroups}

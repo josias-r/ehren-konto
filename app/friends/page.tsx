@@ -1,4 +1,4 @@
-import FriendListItem from "@/components/FriendListItem";
+import FriendListItem from "@/lib/friend/FriendListItem";
 import Nav from "@/components/Nav";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";

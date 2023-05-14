@@ -1,9 +1,10 @@
-import GroupCard from "@/components/GroupCard";
+import GroupCard from "@/lib/group/GroupCard";
 import Nav from "@/components/Nav";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
 import { validateCookieToken } from "@/lib/auth.server";
 import getAllFriendsForUser from "@/lib/friend/getAllFriendsForUser";
+import CreateGroupSheet from "@/lib/group/CreateGroupSheet";
 import getAllGroupsForUser from "@/lib/group/getAllGroupsForUser";
 import Image from "next/image";
 import { redirect } from "next/navigation";
@@ -24,7 +25,9 @@ export default async function Groups() {
     <main className="relative">
       <h1 className="text-2xl font-bold mb-4 mx-auto max-w-md pt-6 px-4 flex justify-between">
         <span>Groups</span>
-        <Button variant="outline">Create group</Button>
+        <CreateGroupSheet>
+          <Button variant="outline">Create group</Button>
+        </CreateGroupSheet>
       </h1>
       <section className="mx-auto p-4 max-w-md grid gap-4">
         {!groups?.length && (
@@ -38,7 +41,9 @@ export default async function Groups() {
             }
             className="h-[80vh]"
           >
-            <Button>Create group</Button>
+            <CreateGroupSheet>
+              <Button>Create group</Button>
+            </CreateGroupSheet>
           </EmptyState>
         )}
         {groups?.map((group) => (

@@ -1,7 +1,7 @@
 import { EventColor, getEventGradient } from "@/lib/utilities/event-colors";
-import GroupEventContainer from "./GroupEventContainer";
+import ActivityContainer from "./ActivityContainer";
 
-export type GroupEventShape = {
+export type ActivityShape = {
   activityId: number;
   emoji: string;
   color: EventColor;
@@ -10,23 +10,23 @@ export type GroupEventShape = {
   participants: { userId: number; confirmed: boolean }[];
 };
 
-interface GroupEventProps extends GroupEventShape {}
+interface ActivityProps extends ActivityShape {}
 
-function GroupEvent({ color, emoji }: GroupEventProps) {
+function Activity({ color, emoji }: ActivityProps) {
   const gradient = getEventGradient(color);
   return (
     <div className="w-full">
-      <GroupEventContainer
+      <ActivityContainer
         className="flex"
         style={{
           background: gradient,
         }}
       >
         <span className="m-auto">{emoji}</span>
-      </GroupEventContainer>
+      </ActivityContainer>
       {/* <p className="text-xs text-muted-foreground text-center">in 9 days</p> */}
     </div>
   );
 }
 
-export default GroupEvent;
+export default Activity;
