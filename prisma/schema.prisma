@@ -79,7 +79,7 @@ model Activity {
   from       DateTime
   to         DateTime?
   name       String        @db.VarChar(50)
-  emoji      String        @db.VarChar(20)
+  emoji      String        @db.VarChar(50)
   color      ActivityColor
   Group      Group         @relation(fields: [groupId], references: [groupId])
   groupId    Int
