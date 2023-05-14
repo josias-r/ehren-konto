@@ -142,29 +142,75 @@ const sheetVariants = cva(
   }
 );
 
+interface SheetCloseProps {
+  children: React.ReactNode;
+  className?: string;
+}
+const SheetClose = ({ children, className }: SheetCloseProps) => (
+  <SheetPrimitive.Close className={className}>
+    {children}
+    <span className="sr-only">Close</span>
+  </SheetPrimitive.Close>
+);
+
 export interface DialogContentProps
   extends React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content>,
-    VariantProps<typeof sheetVariants> {}
+    VariantProps<typeof sheetVariants> {
+  headerChildren?: React.ReactNode;
+  footerChildren?: React.ReactNode;
+}
 
 const SheetContent = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Content>,
   DialogContentProps
->(({ position, size, className, children, ...props }, ref) => (
-  <SheetPortal position={position}>
-    <SheetOverlay />
-    <SheetPrimitive.Content
-      ref={ref}
-      className={cn(sheetVariants({ position, size }), className)}
-      {...props}
-    >
-      {children}
-      <SheetPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
-        <X className="h-4 w-4" />
-        <span className="sr-only">Close</span>
-      </SheetPrimitive.Close>
-    </SheetPrimitive.Content>
-  </SheetPortal>
-));
+>(
+  (
+    {
+      position = "bottom",
+      size = "content",
+      className,
+      children,
+      headerChildren,
+      footerChildren,
+      ...props
+    },
+    ref
+  ) => (
+    <SheetPortal position={position}>
+      <SheetOverlay />
+      <SheetPrimitive.Content
+        ref={ref}
+        className={cn(sheetVariants({ position, size }), className)}
+        {...props}
+      >
+        <div
+          className="flex flex-col gap-8 items-center"
+          style={{
+            maxHeight: "calc(100vh - 10rem)",
+          }}
+        >
+          {headerChildren && (
+            <div className="w-full max-w-md flex-shrink-0 flex-grow-0">
+              {headerChildren}
+            </div>
+          )}
+          <div className="overflow-y-auto flex-shrink flex-grow-0 w-full py-4 -my-4">
+            <div className="max-w-md mx-auto">{children}</div>
+          </div>
+          {footerChildren && (
+            <div className="w-full max-w-md flex-shrink-0 flex-grow-0">
+              {footerChildren}
+            </div>
+          )}
+        </div>
+
+        <SheetClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
+          <X className="h-4 w-4" />
+        </SheetClose>
+      </SheetPrimitive.Content>
+    </SheetPortal>
+  )
+);
 SheetContent.displayName = SheetPrimitive.Content.displayName;
 
 const SheetHeader = ({
@@ -185,13 +231,7 @@ const SheetFooter = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div
-    className={cn(
-      "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
-      className
-    )}
-    {...props}
-  />
+  <div className={cn("flex gap-2 justify-end", className)} {...props} />
 );
 SheetFooter.displayName = "SheetFooter";
 
@@ -223,6 +263,7 @@ export {
   Sheet,
   SheetTrigger,
   SheetContent,
+  SheetClose,
   SheetHeader,
   SheetFooter,
   SheetTitle,

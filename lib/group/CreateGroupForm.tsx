@@ -9,6 +9,10 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { cn } from "../utils";
 import useControlledForm from "../hooks/useControlledForm";
 import { Users } from "lucide-react";
+import { GroupFriend, GroupFriendGroup } from "./GroupCard";
+import AddFriendToGroupSheet from "../friend/AddFriendToGroupSheet";
+import { SheetTrigger } from "@/components/ui/sheet";
+import SelectFriendsSheet from "../friend/SelectFriendsSheet";
 
 interface FormShape {
   name: string;
@@ -18,9 +22,16 @@ interface FormShape {
 
 interface CreateGroupFormProps {
   formId: string;
+
+  friends: GroupFriend[];
+  friendGroups: GroupFriendGroup[];
 }
 
-function CreateGroupForm({ formId }: CreateGroupFormProps) {
+function CreateGroupForm({
+  formId,
+  friends,
+  friendGroups,
+}: CreateGroupFormProps) {
   const [isPending, startTransition] = useTransition();
 
   const {
@@ -79,23 +90,27 @@ function CreateGroupForm({ formId }: CreateGroupFormProps) {
                   },
                 ],
                 ({ field: { onChange, onBlur, value } }) => (
-                  <Button
-                    type="button"
-                    id={id}
-                    onBlur={onBlur}
-                    variant="outline"
-                    className={cn(className, "h-8 text-sm")}
-                    onClick={() => {
-                      onChange([...value, 1]);
-                    }}
+                  <SelectFriendsSheet
+                    chosenFriends={value}
+                    friends={friends}
+                    friendGroups={friendGroups}
+                    onChosenFriendsChange={onChange}
                   >
-                    <span className="mr-2">
-                      <Users size="1rem" />
-                    </span>
-                    <span>
-                      {value.length ? <>{value.length}</> : <>no one</>}
-                    </span>
-                  </Button>
+                    <Button
+                      type="button"
+                      className={cn(className, "h-8 text-sm")}
+                      id={id}
+                      onBlur={onBlur}
+                      variant="outline"
+                    >
+                      <span className="mr-2">
+                        <Users size="1rem" />
+                      </span>
+                      <span>
+                        {value.length ? <>{value.length}</> : <>no one</>}
+                      </span>
+                    </Button>
+                  </SelectFriendsSheet>
                 )
               )}
             </>
