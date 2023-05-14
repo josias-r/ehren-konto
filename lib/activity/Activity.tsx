@@ -3,6 +3,7 @@
 import { EventColor, getEventGradient } from "@/lib/utilities/event-colors";
 import ActivityContainer from "./ActivityContainer";
 import { Emoji, EmojiStyle } from "emoji-picker-react";
+import { useEffect, useState } from "react";
 
 export type ActivityShape = {
   activityId: number;
@@ -17,6 +18,14 @@ interface ActivityProps extends ActivityShape {}
 
 function Activity({ color, emoji }: ActivityProps) {
   const gradient = getEventGradient(color);
+
+  // otherwise getting SSR errors from next
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <div className="w-full">
       <ActivityContainer
@@ -26,7 +35,9 @@ function Activity({ color, emoji }: ActivityProps) {
         }}
       >
         <span className="m-auto">
-          <Emoji unified={emoji} emojiStyle={EmojiStyle.APPLE} size={22} />
+          {mounted && (
+            <Emoji unified={emoji} emojiStyle={EmojiStyle.APPLE} size={22} />
+          )}
         </span>
       </ActivityContainer>
       {/* <p className="text-xs text-muted-foreground text-center">in 9 days</p> */}
