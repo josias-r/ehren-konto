@@ -81,7 +81,7 @@ model Activity {
   name       String        @db.VarChar(50)
   emoji      String        @db.VarChar(50)
   color      ActivityColor
-  Group      Group         @relation(fields: [groupId], references: [groupId])
+  Group      Group         @relation(fields: [groupId], references: [groupId], onDelete: Cascade)
   groupId    Int
 
   ActivityParticipants ActivityParticipant[]
