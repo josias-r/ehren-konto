@@ -23,15 +23,15 @@ function useControlledForm<
   TControl extends Control<any>,
   TFieldValues extends FieldValues = FieldValuesFromControl<TControl>
 >(control: TControl) {
-  const controlledRender = <TName extends FieldPath<TFieldValues>>(
-    name: TName,
-    controllerProps:
-      | null
-      | (Omit<
-          ControllerProps<TFieldValues, TName>,
-          "name" | "render" | "control" | "defaultVariants"
-        > &
-          DefaultValueIfNeeded<FieldPathValue<TFieldValues, TName>>),
+  const controlledRender = <
+    TName extends FieldPath<TFieldValues>,
+    TOptions = Omit<
+      ControllerProps<TFieldValues, TName>,
+      "name" | "render" | "control" | "defaultVariants"
+    > &
+      DefaultValueIfNeeded<FieldPathValue<TFieldValues, TName>>
+  >(
+    name: TName | [TName] | [TName, TOptions],
     render: (renderArgs: {
       field: {
         onChange: (newValue: FieldPathValue<TFieldValues, TName>) => void;
@@ -43,24 +43,27 @@ function useControlledForm<
       fieldState: ControllerFieldState;
       formState: UseFormStateReturn<TFieldValues>;
     }) => ReactNode
-  ) => (
-    <Controller
-      {...((controllerProps || {}) as {})}
-      name={name}
-      control={control}
-      render={(renderArgs) => (
-        <>
-          {render({
-            ...renderArgs,
-            field: {
-              ...renderArgs.field,
-              value: renderArgs.field.value as any,
-            },
-          })}
-        </>
-      )}
-    />
-  );
+  ) => {
+    const controllerProps = Array.isArray(name) ? name[1] || {} : {};
+    return (
+      <Controller
+        {...controllerProps}
+        name={Array.isArray(name) ? name[0] : name}
+        control={control}
+        render={(renderArgs) => (
+          <>
+            {render({
+              ...renderArgs,
+              field: {
+                ...renderArgs.field,
+                value: renderArgs.field.value as any,
+              },
+            })}
+          </>
+        )}
+      />
+    );
+  };
 
   return controlledRender;
 }
