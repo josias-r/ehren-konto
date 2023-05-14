@@ -17,26 +17,18 @@ import { ReactNode } from "react";
 interface ActivityListSheetProps {
   groupId: number;
   groupName: string;
-  activities: ActivityShape[];
+  futureEvents: ActivityShape[];
+  pastEvents: ActivityShape[];
   children: ReactNode;
 }
 
 function ActivityListSheet({
   groupId,
   groupName,
-  activities,
+  futureEvents,
+  pastEvents,
   children,
 }: ActivityListSheetProps) {
-  const futureEvents: typeof activities = [];
-  const pastEvents: typeof activities = [];
-  activities.forEach((activity) => {
-    if (activity.from > new Date()) {
-      futureEvents.push(activity);
-    } else {
-      pastEvents.push(activity);
-    }
-  });
-
   return (
     <Sheet>
       <ActivityContainer>
@@ -52,7 +44,8 @@ function ActivityListSheet({
           <SheetHeader>
             <SheetTitle>Group activities</SheetTitle>
             <SheetDescription>
-              There are {activities.length} activities in this group
+              There are {futureEvents.length} upcoming activities and{" "}
+              {pastEvents.length} past activities in this group.
             </SheetDescription>
           </SheetHeader>
         }

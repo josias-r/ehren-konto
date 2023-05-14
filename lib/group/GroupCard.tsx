@@ -45,12 +45,23 @@ function GroupCard({
   friends,
   friendGroups,
 }: GroupCardProps) {
+  const futureEvents: typeof activities = [];
+  const pastEvents: typeof activities = [];
+
+  activities.forEach((activity) => {
+    if (activity.from > new Date()) {
+      futureEvents.push(activity);
+    } else {
+      pastEvents.push(activity);
+    }
+  });
+
   // condition makes sure that the slize never is "1 more" which is odd
   const memberSliceSize = members.length === 6 ? 4 : 5;
   const slicedMembers = members.slice(0, memberSliceSize);
 
   const activitySliceSize = 5;
-  const slicedEvents = activities.slice(0, activitySliceSize);
+  const slicedEvents = futureEvents.slice(0, activitySliceSize);
 
   return (
     <Card>
@@ -60,7 +71,8 @@ function GroupCard({
         <div className="grid gap-2 grid-cols-6">
           {!slicedEvents.length && (
             <ActivityListSheet
-              activities={activities}
+              futureEvents={futureEvents}
+              pastEvents={pastEvents}
               groupName={name}
               groupId={groupId}
             >
@@ -86,11 +98,12 @@ function GroupCard({
           ))}
           <ActivityListSheet
             groupId={groupId}
-            activities={activities}
+            futureEvents={futureEvents}
+            pastEvents={pastEvents}
             groupName={name}
           >
             <ActivitySheetTrigger
-              leftoverAmount={activities.length - activitySliceSize}
+              leftoverAmount={futureEvents.length - activitySliceSize}
             />
           </ActivityListSheet>
         </div>

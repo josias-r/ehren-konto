@@ -40,6 +40,9 @@ async function getAllGroupsForUser(userId: number) {
                 },
               },
               Activities: {
+                orderBy: {
+                  from: "asc",
+                },
                 select: {
                   activityId: true,
                   name: true,
