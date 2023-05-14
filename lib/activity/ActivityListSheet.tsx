@@ -8,7 +8,7 @@ import {
   SheetTrigger,
 } from "../../components/ui/sheet";
 import { ActivityShape } from "./Activity";
-import GroupEventContainer from "./ActivityContainer";
+import ActivityContainer from "./ActivityContainer";
 import ActivityListItem from "./ActivityListItem";
 import { Separator } from "../../components/ui/separator";
 import CreateActivitySheet from "./CreateActivitySheet";
@@ -37,14 +37,14 @@ function ActivityListSheet({
 
   return (
     <Sheet>
-      <GroupEventContainer>
+      <ActivityContainer>
         <SheetTrigger
           asChild
           className="flex absolute w-full h-full top-0 left-0"
         >
           {children}
         </SheetTrigger>
-      </GroupEventContainer>
+      </ActivityContainer>
       <SheetContent
         headerChildren={
           <SheetHeader>

@@ -1,5 +1,5 @@
 import { Users } from "lucide-react";
-import GroupEvent, { ActivityShape } from "./Activity";
+import Activity, { ActivityShape } from "./Activity";
 import eventRelativeDate from "@/lib/utilities/eventRelativeDate";
 
 interface ActivityListItemProps extends ActivityShape {}
@@ -15,7 +15,7 @@ function ActivityListItem({
   return (
     <div className="flex">
       <div className="w-12 mr-4">
-        <GroupEvent
+        <Activity
           activityId={activityId}
           emoji={emoji}
           color={color}

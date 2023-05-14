@@ -1,5 +1,8 @@
+"use client";
+
 import { EventColor, getEventGradient } from "@/lib/utilities/event-colors";
 import ActivityContainer from "./ActivityContainer";
+import { Emoji, EmojiStyle } from "emoji-picker-react";
 
 export type ActivityShape = {
   activityId: number;
@@ -22,7 +25,9 @@ function Activity({ color, emoji }: ActivityProps) {
           background: gradient,
         }}
       >
-        <span className="m-auto">{emoji}</span>
+        <span className="m-auto">
+          <Emoji unified={emoji} emojiStyle={EmojiStyle.APPLE} size={22} />
+        </span>
       </ActivityContainer>
       {/* <p className="text-xs text-muted-foreground text-center">in 9 days</p> */}
     </div>

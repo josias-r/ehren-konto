@@ -5,7 +5,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import GroupEvent, { ActivityShape } from "./Activity";
+import Activity, { ActivityShape } from "./Activity";
 import eventRelativeDate from "@/lib/utilities/eventRelativeDate";
 import { Separator } from "../../components/ui/separator";
 import { CheckCircle, Clock2, Users } from "lucide-react";
@@ -13,14 +13,14 @@ import { Button } from "@/components/ui/button";
 import EditActivitySheet from "./EditActivitySheet";
 import { useState } from "react";
 
-interface GroupEventWithPopoverProps extends ActivityShape {
+interface ActivityWithPopoverProps extends ActivityShape {
   members: {
     userId: number;
     name: string;
   }[];
 }
 
-function GroupEventWithPopover({
+function ActivityWithPopover({
   activityId,
   emoji,
   name,
@@ -28,7 +28,7 @@ function GroupEventWithPopover({
   from,
   participants,
   members,
-}: GroupEventWithPopoverProps) {
+}: ActivityWithPopoverProps) {
   const [editSheetOpen, setEditSheetOpen] = useState(false);
 
   const hours = from.getHours().toString().padStart(2, "0");
@@ -38,7 +38,7 @@ function GroupEventWithPopover({
     <>
       <Popover>
         <PopoverTrigger>
-          <GroupEvent
+          <Activity
             activityId={activityId}
             emoji={emoji}
             name={name}
@@ -134,4 +134,4 @@ function GroupEventWithPopover({
   );
 }
 
-export default GroupEventWithPopover;
+export default ActivityWithPopover;
