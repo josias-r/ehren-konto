@@ -183,12 +183,7 @@ const SheetContent = React.forwardRef<
         className={cn(sheetVariants({ position, size }), className)}
         {...props}
       >
-        <div
-          className="flex flex-col gap-8 items-center"
-          style={{
-            maxHeight: "calc(100vh - 10rem)",
-          }}
-        >
+        <div className="flex flex-col gap-8 items-center max-h-[calc(100vh_-_5rem)] sm:max-h-[calc(100vh_-_10rem)]">
           {headerChildren && (
             <div className="w-full max-w-md flex-shrink-0 flex-grow-0">
               {headerChildren}
