@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { DatePicker } from "@/components/ui/date-picker";
 import EmojiPicker from "@/components/ui/emoji-picker";
+import ColorRadioGroup from "@/components/ui/color-radio-group";
 
 interface CreateActivitySheetProps {
   groupName: string;
@@ -43,7 +44,15 @@ function CreateActivitySheet({ groupName }: CreateActivitySheetProps) {
               <div className="mt-8 grid gap-2">
                 <div className="grid grid-cols-3 items-center gap-4">
                   <Label htmlFor="icon">Icon</Label>
-                  <EmojiPicker className="h-8 w-full col-span-2" />
+                  <div className="h-8 w-full col-span-2 grid grid-cols-4">
+                    <EmojiPicker className="h-8 w-full flex justify-center" />
+                    <ColorRadioGroup
+                      id="color"
+                      required
+                      defaultValue={"SUNSET"}
+                      className="h-8 px-4 col-span-3 py-1"
+                    />
+                  </div>
                 </div>
                 <div className="grid grid-cols-3 items-center gap-4">
                   <Label htmlFor="name">Name</Label>

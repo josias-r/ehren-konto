@@ -16,3 +16,7 @@ function generateCSSGradient(colors: string[]) {
 
 export const getEventGradient = (color: EventColor) =>
   generateCSSGradient(getColors(color));
+
+export function getEventColors() {
+  return Object.keys(eventColors) as EventColor[];
+}
