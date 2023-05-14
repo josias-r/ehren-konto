@@ -15,12 +15,14 @@ interface EditActivitySheetProps {
   defaultValues: ActivityEditFormShape;
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  activityId: number;
 }
 
 function EditActivitySheet({
   open,
   onOpenChange,
   defaultValues,
+  activityId,
 }: EditActivitySheetProps) {
   const formId = "create-activity";
   return (
@@ -42,7 +44,14 @@ function EditActivitySheet({
           </SheetFooter>
         }
       >
-        <EditActivityForm formId={formId} defaultValues={defaultValues} />
+        <EditActivityForm
+          formId={formId}
+          defaultValues={defaultValues}
+          onDone={() => {
+            onOpenChange(false);
+          }}
+          activityId={activityId}
+        />
       </SheetContent>
     </Sheet>
   );

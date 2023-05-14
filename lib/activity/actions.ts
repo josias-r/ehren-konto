@@ -44,3 +44,32 @@ export const createActivity = createAuthProtectedAction(
     return createdActivity.activityId;
   }
 );
+
+interface UpdateActivityArgs {
+  activityId: number;
+  name: string;
+  from: Date;
+  emoji: string;
+  color: EventColor;
+}
+
+export const updateActivity = createAuthProtectedAction(
+  async (
+    loggedInUserId,
+    { activityId, name, from, emoji, color }: UpdateActivityArgs
+  ) => {
+    const updatedActivity = await prisma.activity.update({
+      where: { activityId },
+      data: {
+        name,
+        from,
+        emoji,
+        color,
+      },
+    });
+
+    revalidatePath("/activities");
+
+    return updatedActivity.activityId;
+  }
+);

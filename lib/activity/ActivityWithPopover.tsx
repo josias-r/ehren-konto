@@ -129,6 +129,7 @@ function ActivityWithPopover({
         }}
         open={editSheetOpen}
         onOpenChange={setEditSheetOpen}
+        activityId={activityId}
       />
     </>
   );
