@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Sheet,
   SheetContent,
@@ -5,11 +7,9 @@ import {
   SheetFooter,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from "../../components/ui/sheet";
 import { Button } from "../../components/ui/button";
 import EditActivityForm, { ActivityEditFormShape } from "./EditActivityForm";
-import { ReactNode } from "react";
 
 interface EditActivitySheetProps {
   defaultValues: ActivityEditFormShape;
