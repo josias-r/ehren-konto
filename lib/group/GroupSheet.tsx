@@ -1,3 +1,5 @@
+"use client";
+
 import {
   CheckCircle2,
   ChevronRight,
@@ -16,7 +18,6 @@ import {
 import GroupMemberListItem, { MemberShape } from "./GroupMemberListItem";
 import { GroupFriend, GroupFriendGroup } from "./GroupCard";
 import AddFriendToGroupSheet from "../friend/AddFriendToGroupSheet";
-import { Separator } from "../../components/ui/separator";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -36,6 +37,8 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import EditGroupSheet from "./EditGroupSheet";
+import { useTransition } from "react";
+import { deleteGroup } from "./actions";
 
 interface GroupSheetProps {
   leftoverAmount: number;
@@ -57,6 +60,8 @@ function GroupSheet({
   friendGroups,
   groupId,
 }: GroupSheetProps) {
+  const [isPending, startTransition] = useTransition();
+
   return (
     <Sheet>
       <div className="relative -mx-2 -mb-2 text-muted-foreground">
@@ -152,7 +157,15 @@ function GroupSheet({
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction>Continue</AlertDialogAction>
+                  <AlertDialogAction
+                    onClick={() => {
+                      startTransition(async () => {
+                        await deleteGroup({ groupId });
+                      });
+                    }}
+                  >
+                    Continue
+                  </AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>

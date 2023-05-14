@@ -44,10 +44,18 @@ export async function updateGroup({
       description,
       GroupMembers: members && {
         deleteMany: { groupId },
-        create: members?.map((userId) => ({ userId })),
+        create: members.map((userId) => ({ userId })),
       },
     },
   });
 
   return updatedGroup.groupId;
+}
+
+interface DeleteGroupArgs {
+  groupId: number;
+}
+
+export async function deleteGroup({ groupId }: DeleteGroupArgs) {
+  await prisma.group.delete({ where: { groupId } });
 }

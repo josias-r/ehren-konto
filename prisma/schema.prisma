@@ -42,9 +42,9 @@ model GroupMember {
   createdAt     DateTime        @default(now())
   role          GroupMemberRole @default(MEMBER)
   ehre          Int             @default(0)
-  Group         Group           @relation(fields: [groupId], references: [groupId])
+  Group         Group           @relation(fields: [groupId], references: [groupId], onDelete: Cascade)
   groupId       Int
-  User          User            @relation(fields: [userId], references: [userId])
+  User          User            @relation(fields: [userId], references: [userId], onDelete: Cascade)
   userId        Int
 
   @@unique([userId, groupId])
