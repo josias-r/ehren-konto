@@ -15,12 +15,14 @@ import CreateActivitySheet from "./CreateActivitySheet";
 import { ReactNode } from "react";
 
 interface ActivityListSheetProps {
+  groupId: number;
   groupName: string;
   activities: ActivityShape[];
   children: ReactNode;
 }
 
 function ActivityListSheet({
+  groupId,
   groupName,
   activities,
   children,
@@ -56,7 +58,7 @@ function ActivityListSheet({
         }
         footerChildren={
           <SheetFooter>
-            <CreateActivitySheet groupName={groupName} />
+            <CreateActivitySheet groupName={groupName} groupId={groupId} />
           </SheetFooter>
         }
       >

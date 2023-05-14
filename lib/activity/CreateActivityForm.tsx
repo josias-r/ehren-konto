@@ -11,6 +11,7 @@ import EmojiPicker from "@/components/ui/emoji-picker";
 import ColorRadioGroup from "@/components/ui/color-radio-group";
 import { EventColor } from "../utilities/event-colors";
 import { DatePicker } from "@/components/ui/date-picker";
+import { createActivity } from "./actions";
 
 interface FormShape {
   color: EventColor;
@@ -22,9 +23,16 @@ interface FormShape {
 
 interface CreateActivityFormProps {
   formId: string;
+  groupId: number;
+
+  onDone: () => void;
 }
 
-function CreateActivityForm({ formId }: CreateActivityFormProps) {
+function CreateActivityForm({
+  formId,
+  onDone,
+  groupId,
+}: CreateActivityFormProps) {
   const [isPending, startTransition] = useTransition();
 
   const {
@@ -37,10 +45,23 @@ function CreateActivityForm({ formId }: CreateActivityFormProps) {
   const controlledRender = useControlledForm(control);
 
   const onSubmit: SubmitHandler<FormShape> = async (data) => {
-    startTransition(() => {
-      console.log(data);
+    startTransition(async () => {
+      if (!data.from) {
+        throw new Error("No from date");
+      }
+      const fullFromDate = new Date(data.from);
+      const [hours, minutes] = data.fromTime.split(":");
+      fullFromDate.setHours(parseInt(hours));
+      fullFromDate.setMinutes(parseInt(minutes));
 
-      alert("WIP");
+      await createActivity({
+        name: data.name,
+        emoji: data.emoji,
+        color: data.color,
+        from: fullFromDate,
+        groupId,
+      });
+      onDone();
     });
   };
 

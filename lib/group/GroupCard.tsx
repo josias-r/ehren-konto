@@ -59,7 +59,11 @@ function GroupCard({
         <p className="text-sm text-muted-foreground mb-2">{description}</p>
         <div className="grid gap-2 grid-cols-6">
           {!slicedEvents.length && (
-            <ActivityListSheet activities={activities} groupName={name}>
+            <ActivityListSheet
+              activities={activities}
+              groupName={name}
+              groupId={groupId}
+            >
               <Button
                 variant="ghost"
                 className="hover:scale-105 block transition-transform scale-100 p-0"
@@ -80,7 +84,11 @@ function GroupCard({
               members={members}
             />
           ))}
-          <ActivityListSheet activities={activities} groupName={name}>
+          <ActivityListSheet
+            groupId={groupId}
+            activities={activities}
+            groupName={name}
+          >
             <ActivitySheetTrigger
               leftoverAmount={activities.length - activitySliceSize}
             />
