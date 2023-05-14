@@ -25,20 +25,11 @@ import {
   DropdownMenuTrigger,
 } from "../../components/ui/dropdown-menu";
 import { Button } from "../../components/ui/button";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+
 import EditGroupSheet from "./EditGroupSheet";
-import { useTransition } from "react";
-import { deleteGroup } from "./actions";
+import DeleteGroup from "./DeleteGroup";
+import LeaveGroup from "./LeaveGroup";
+import { useState } from "react";
 
 interface GroupSheetProps {
   leftoverAmount: number;
@@ -60,10 +51,9 @@ function GroupSheet({
   friendGroups,
   groupId,
 }: GroupSheetProps) {
-  const [isPending, startTransition] = useTransition();
-
+  const [open, setOpen] = useState(false);
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <div className="relative -mx-2 -mb-2 text-muted-foreground">
         <SheetTrigger className="hover:bg-slate-800 rounded-sm w-full flex justify-between items-center text-sm p-2 mt-2">
           <div>
@@ -121,54 +111,8 @@ function GroupSheet({
               groupId={groupId}
               friendGroups={friendGroups}
             />
-            <AlertDialog>
-              <AlertDialogTrigger asChild>
-                <Button variant="destructive">Leave group</Button>
-              </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>
-                    Are you sure absolutely sure?
-                  </AlertDialogTitle>
-                  <AlertDialogDescription>
-                    This action cannot be undone. You will not have access to
-                    the group anymore.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction>Continue</AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
-            <AlertDialog>
-              <AlertDialogTrigger asChild>
-                <Button variant="destructive">Delete group</Button>
-              </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>
-                    Are you sure absolutely sure?
-                  </AlertDialogTitle>
-                  <AlertDialogDescription>
-                    This action cannot be undone. This group will be deleted for
-                    all members.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction
-                    onClick={() => {
-                      startTransition(async () => {
-                        await deleteGroup({ groupId });
-                      });
-                    }}
-                  >
-                    Continue
-                  </AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
+            <DeleteGroup groupId={groupId} onDone={() => setOpen(false)} />
+            <LeaveGroup groupId={groupId} />
           </SheetFooter>
         }
       >
