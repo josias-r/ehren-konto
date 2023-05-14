@@ -29,7 +29,9 @@ function EditActivitySheet({
         headerChildren={
           <SheetHeader>
             <SheetTitle>Edit group activity</SheetTitle>
-            <SheetDescription>Edit details of this activity</SheetDescription>
+            <SheetDescription>
+              Edit details of &quot;{defaultValues.name}&quot;
+            </SheetDescription>
           </SheetHeader>
         }
         footerChildren={
