@@ -11,7 +11,8 @@ import {
 } from "../../components/ui/sheet";
 
 interface AddFriendToGroupSheetProps {
-  groupId: number;
+  /** null indicates the modal is used for a create group modal */
+  groupId: number | null;
   friends: GroupFriend[];
   friendGroups: GroupFriendGroup[];
 }
@@ -24,26 +25,22 @@ function AddFriendToGroupSheet({
   const friendsInGroup: typeof friends = [];
   const friendsNotInGroup: typeof friends = [];
 
-  friends.forEach((friend) => {
-    if (friend.groups.some((group) => group.groupId === groupId)) {
-      friendsInGroup.push(friend);
-    } else {
-      friendsNotInGroup.push(friend);
-    }
-  });
+  if (groupId !== null) {
+    friends.forEach((friend) => {
+      if (friend.groups.some((group) => group.groupId === groupId)) {
+        friendsInGroup.push(friend);
+      } else {
+        friendsNotInGroup.push(friend);
+      }
+    });
+  }
 
   return (
     <Sheet>
-      <div className="relative -mx-2 -mb-2 text-muted-foreground">
+      <div className="relative text-muted-foreground">
         <SheetTrigger asChild className="block w-full">
           <Button variant="outline">Add member to group</Button>
         </SheetTrigger>
-        <Button className="block w-full mt-4" variant="destructive">
-          Leave group
-        </Button>
-        <Button className="block w-full mt-4" variant="destructive">
-          Delete group
-        </Button>
       </div>
       <SheetContent position="bottom" size={"content"}>
         <div className="mx-auto max-w-md mb-8">

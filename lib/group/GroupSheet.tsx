@@ -102,6 +102,12 @@ function GroupSheet({
             groupId={groupId}
             friendGroups={friendGroups}
           />
+          <Button className="block w-full mt-4" variant="destructive">
+            Leave group
+          </Button>
+          <Button className="block w-full mt-4" variant="destructive">
+            Delete group
+          </Button>
         </div>
       </SheetContent>
     </Sheet>

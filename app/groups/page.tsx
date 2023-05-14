@@ -6,7 +6,6 @@ import { validateCookieToken } from "@/lib/auth.server";
 import getAllFriendsForUser from "@/lib/friend/getAllFriendsForUser";
 import CreateGroupSheet from "@/lib/group/CreateGroupSheet";
 import getAllGroupsForUser from "@/lib/group/getAllGroupsForUser";
-import Image from "next/image";
 import { redirect } from "next/navigation";
 
 export default async function Groups() {
@@ -25,7 +24,7 @@ export default async function Groups() {
     <main className="relative">
       <h1 className="text-2xl font-bold mb-4 mx-auto max-w-md pt-6 px-4 flex justify-between">
         <span>Groups</span>
-        <CreateGroupSheet>
+        <CreateGroupSheet friends={userFriends} friendGroups={userGroups}>
           <Button variant="outline">Create group</Button>
         </CreateGroupSheet>
       </h1>
@@ -41,7 +40,7 @@ export default async function Groups() {
             }
             className="h-[80vh]"
           >
-            <CreateGroupSheet>
+            <CreateGroupSheet friends={userFriends} friendGroups={userGroups}>
               <Button>Create group</Button>
             </CreateGroupSheet>
           </EmptyState>
