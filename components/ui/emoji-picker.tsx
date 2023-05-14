@@ -33,7 +33,7 @@ interface EmojiPickerProps {
 
   /** passing null or a date tells this component that is should be controlled */
   value?: string | null;
-  onChange?: (newDate?: string) => void;
+  onChange?: (newEmoji: string) => void;
 }
 
 function EmojiPicker({
@@ -81,59 +81,58 @@ function EmojiPicker({
           />
         </Button>
       </SheetTrigger>
-      <SheetContent position="bottom" size={"content"}>
-        <div className="mx-auto max-w-md mb-8">
+      <SheetContent
+        headerChildren={
           <SheetHeader>
             <SheetTitle>Pick emoji</SheetTitle>
           </SheetHeader>
-        </div>
-        <div className="mx-auto max-w-md mb-8">
-          <EmojiPickerReact
-            width={"100%"}
-            onEmojiClick={(emojiData) => {
-              setUncontrolledSelectedEmoji(emojiData.unified);
-              onChange?.(emojiData.unified);
-              setOpen(false);
-            }}
-            autoFocusSearch={false}
-            theme={Theme.DARK}
-            emojiStyle={EmojiStyle.APPLE}
-            lazyLoadEmojis
-            // searchDisabled
-            // skinTonePickerLocation={SkinTonePickerLocation.PREVIEW}
-            // height={350}
-            // width="50%"
-            // emojiVersion="0.6"
-            // lazyLoadEmojis={true}
-            // previewConfig={{
-            //   defaultCaption: "Pick one!",
-            //   defaultEmoji: "1f92a" // 🤪
-            // }}
-            suggestedEmojisMode={SuggestionMode.RECENT}
-            // skinTonesDisabled
-            // searchPlaceHolder="Filter"
-            // defaultSkinTone={SkinTones.MEDIUM}
-            // emojiStyle={EmojiStyle.NATIVE}
-            // categories={[
-            //   {
-            //     name: "Fun and Games",
-            //     category: Categories.ACTIVITIES
-            //   },
-            //   {
-            //     name: "Smiles & Emotions",
-            //     category: Categories.SMILEYS_PEOPLE
-            //   },
-            //   {
-            //     name: "Flags",
-            //     category: Categories.FLAGS
-            //   },
-            //   {
-            //     name: "Yum Yum",
-            //     category: Categories.FOOD_DRINK
-            //   }
-            // ]}
-          />
-        </div>
+        }
+      >
+        <EmojiPickerReact
+          width={"100%"}
+          onEmojiClick={(emojiData) => {
+            setUncontrolledSelectedEmoji(emojiData.unified);
+            onChange?.(emojiData.unified);
+            setOpen(false);
+          }}
+          autoFocusSearch={false}
+          theme={Theme.DARK}
+          emojiStyle={EmojiStyle.APPLE}
+          lazyLoadEmojis
+          // searchDisabled
+          // skinTonePickerLocation={SkinTonePickerLocation.PREVIEW}
+          // height={350}
+          // width="50%"
+          // emojiVersion="0.6"
+          // lazyLoadEmojis={true}
+          // previewConfig={{
+          //   defaultCaption: "Pick one!",
+          //   defaultEmoji: "1f92a" // 🤪
+          // }}
+          suggestedEmojisMode={SuggestionMode.RECENT}
+          // skinTonesDisabled
+          // searchPlaceHolder="Filter"
+          // defaultSkinTone={SkinTones.MEDIUM}
+          // emojiStyle={EmojiStyle.NATIVE}
+          // categories={[
+          //   {
+          //     name: "Fun and Games",
+          //     category: Categories.ACTIVITIES
+          //   },
+          //   {
+          //     name: "Smiles & Emotions",
+          //     category: Categories.SMILEYS_PEOPLE
+          //   },
+          //   {
+          //     name: "Flags",
+          //     category: Categories.FLAGS
+          //   },
+          //   {
+          //     name: "Yum Yum",
+          //     category: Categories.FOOD_DRINK
+          //   }
+          // ]}
+        />
       </SheetContent>
     </Sheet>
   );

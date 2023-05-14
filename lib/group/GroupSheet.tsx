@@ -8,6 +8,7 @@ import {
   Sheet,
   SheetContent,
   SheetDescription,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -65,111 +66,101 @@ function GroupSheet({
           </div>
         </SheetTrigger>
       </div>
-      <SheetContent position="bottom" size={"content"}>
-        <div className="mx-auto max-w-md mb-8 flex justify-between">
-          <SheetHeader>
-            <SheetTitle className="flex justify-between">
-              <span>Group members</span>
-            </SheetTitle>
-            <SheetDescription>
-              There are {members.length} members in this group
-            </SheetDescription>
-          </SheetHeader>
-          <div>
-            <CreateGroupSheet friends={friends} friendGroups={friendGroups}>
-              <Button variant="ghost">
-                <Edit2 className="h-5 w-5" />
-              </Button>
-            </CreateGroupSheet>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
+      <SheetContent
+        headerChildren={
+          <div className="flex justify-between">
+            <SheetHeader>
+              <SheetTitle className="flex justify-between">
+                <span>Group members</span>
+              </SheetTitle>
+              <SheetDescription>
+                There are {members.length} members in this group
+              </SheetDescription>
+            </SheetHeader>
+            <div>
+              <CreateGroupSheet friends={friends} friendGroups={friendGroups}>
                 <Button variant="ghost">
-                  <CircleEllipsis className="h-5 w-5" />
+                  <Edit2 className="h-5 w-5" />
                 </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem>
-                  <CheckCircle2 className="w-4 h-4 mr-2" />
-                  <span>Select</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-        </div>
-        <div
-          className="-mb-6 pb-6 overflow-y-auto"
-          style={{
-            maxHeight: "calc(100vh - 10rem)",
-          }}
-        >
-          <div className="mx-auto max-w-md px-6 sm:px-0">
-            <div className="mt-8 grid gap-6">
-              {members.map((member) => (
-                <GroupMemberListItem
-                  key={member.userId}
-                  userId={member.userId}
-                  nick={member.nick}
-                  name={member.name}
-                  role={member.role}
-                  ehre={member.ehre}
-                  avatar={member.avatar}
-                />
-              ))}
+              </CreateGroupSheet>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost">
+                    <CircleEllipsis className="h-5 w-5" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem>
+                    <CheckCircle2 className="w-4 h-4 mr-2" />
+                    <span>Select</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           </div>
-        </div>
-
-        <div className="mx-auto max-w-md mb-8">
-          <Separator className="my-4" />
-          <AddFriendToGroupSheet
-            friends={friends}
-            groupId={groupId}
-            friendGroups={friendGroups}
-          />
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button className="block w-full mt-4" variant="destructive">
-                Leave group
-              </Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>
-                  Are you sure absolutely sure?
-                </AlertDialogTitle>
-                <AlertDialogDescription>
-                  This action cannot be undone. You will not have access to the
-                  group anymore.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction>Continue</AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button className="block w-full mt-4" variant="destructive">
-                Delete group
-              </Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>
-                  Are you sure absolutely sure?
-                </AlertDialogTitle>
-                <AlertDialogDescription>
-                  This action cannot be undone. This group will be deleted for
-                  all members.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction>Continue</AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
+        }
+        footerChildren={
+          <SheetFooter className="grid justify-normal">
+            <AddFriendToGroupSheet
+              friends={friends}
+              groupId={groupId}
+              friendGroups={friendGroups}
+            />
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button variant="destructive">Leave group</Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>
+                    Are you sure absolutely sure?
+                  </AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This action cannot be undone. You will not have access to
+                    the group anymore.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction>Continue</AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button variant="destructive">Delete group</Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>
+                    Are you sure absolutely sure?
+                  </AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This action cannot be undone. This group will be deleted for
+                    all members.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction>Continue</AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </SheetFooter>
+        }
+      >
+        <div className="grid gap-6">
+          {members.map((member) => (
+            <GroupMemberListItem
+              key={member.userId}
+              userId={member.userId}
+              nick={member.nick}
+              name={member.name}
+              role={member.role}
+              ehre={member.ehre}
+              avatar={member.avatar}
+            />
+          ))}
         </div>
       </SheetContent>
     </Sheet>

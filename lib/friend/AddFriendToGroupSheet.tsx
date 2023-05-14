@@ -42,43 +42,33 @@ function AddFriendToGroupSheet({
           <Button variant="outline">Add member to group</Button>
         </SheetTrigger>
       </div>
-      <SheetContent position="bottom" size={"content"}>
-        <div className="mx-auto max-w-md mb-8">
+      <SheetContent
+        headerChildren={
           <SheetHeader>
             <SheetTitle>Add members to group</SheetTitle>
             <SheetDescription>
-              <div className="text-sm text-muted-foreground">
-                {!!friendsInGroup.length && (
-                  <>{friendsInGroup.length} friends are already in this group</>
-                )}
-                {!friendsInGroup.length && (
-                  <>None of your friends are in this group yet</>
-                )}
-              </div>
+              {!!friendsInGroup.length && (
+                <>{friendsInGroup.length} friends are already in this group</>
+              )}
+              {!friendsInGroup.length && (
+                <>None of your friends are in this group yet</>
+              )}
             </SheetDescription>
           </SheetHeader>
-        </div>
-        <div
-          className="-mb-6 pb-6 overflow-y-auto"
-          style={{
-            maxHeight: "calc(100vh - 10rem)",
-          }}
-        >
-          <div className="mx-auto max-w-md px-6 sm:px-0">
-            <div className="mt-8 grid gap-6">
-              {friendsNotInGroup.map((friends) => (
-                <FriendListItem
-                  key={friends.userId}
-                  userId={friends.userId}
-                  nick={friends.nick}
-                  name={friends.name}
-                  avatar={friends.avatar}
-                  groups={friends.groups}
-                  friendGroups={friendGroups}
-                />
-              ))}
-            </div>
-          </div>
+        }
+      >
+        <div className="grid gap-6">
+          {friendsNotInGroup.map((friends) => (
+            <FriendListItem
+              key={friends.userId}
+              userId={friends.userId}
+              nick={friends.nick}
+              name={friends.name}
+              avatar={friends.avatar}
+              groups={friends.groups}
+              friendGroups={friendGroups}
+            />
+          ))}
         </div>
       </SheetContent>
     </Sheet>

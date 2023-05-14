@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import {
   EventColor,
   getEventColors,
@@ -10,36 +9,20 @@ import * as RadioGroup from "@radix-ui/react-radio-group";
 import { cn } from "@/lib/utils";
 
 interface ColorRadioGroupProps {
-  id?: string;
-  required?: boolean;
   className?: string;
 
-  /** passing null or a date tells this component that is should be controlled */
-  defaultValue?: EventColor;
-  value?: EventColor | null;
-  onChange?: (newColor?: EventColor) => void;
+  value: EventColor;
+  onChange: (newColor: EventColor) => void;
 }
 
-function ColorRadioGroup({
-  id,
-  className,
-  required,
-  onChange,
-  defaultValue,
-  value,
-}: ColorRadioGroupProps) {
-  const [uncontrolledSelectedEmoji, setUncontrolledSelectedEmoji] =
-    useState<string>();
-
-  const selectedEmoji =
-    value === undefined ? uncontrolledSelectedEmoji : value || undefined;
-
+function ColorRadioGroup({ className, onChange, value }: ColorRadioGroupProps) {
   return (
     <RadioGroup.Root
       className={cn("flex gap-2", className)}
-      id={id}
-      required={required}
-      defaultValue={defaultValue}
+      value={value}
+      onValueChange={(newValue) => {
+        onChange(newValue as EventColor);
+      }}
     >
       {getEventColors().map((color) => {
         const gradient = getEventGradient(color);
