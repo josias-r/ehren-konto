@@ -100,3 +100,16 @@ export const removeGroupMembers = createAuthProtectedAction(
     revalidatePath("/groups");
   }
 );
+
+interface LeaveGroupArgs {
+  groupId: number;
+}
+
+export const leaveGroup = createAuthProtectedAction(
+  async (loggedInUserId, { groupId }: LeaveGroupArgs) => {
+    await prisma.groupMember.delete({
+      where: { userId_groupId: { groupId, userId: loggedInUserId } },
+    });
+    revalidatePath("/groups");
+  }
+);

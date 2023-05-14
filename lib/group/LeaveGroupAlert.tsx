@@ -11,6 +11,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { useTransition } from "react";
+import { leaveGroup } from "./actions";
 
 interface LeaveGroupAlertProps {
   groupId: number;
@@ -40,7 +41,16 @@ function LeaveGroupAlert({
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction>Continue</AlertDialogAction>
+          <AlertDialogAction
+            onClick={() => {
+              startTransition(async () => {
+                await leaveGroup({ groupId });
+                onDone();
+              });
+            }}
+          >
+            Continue
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
