@@ -33,6 +33,7 @@ import EditGroupSheet from "./EditGroupSheet";
 import DeleteGroupAlert from "./DeleteGroupAlert";
 import LeaveGroupAlert from "./LeaveGroupAlert";
 import { useState } from "react";
+import RemoveMembersFromGroup from "./RemoveMembersFromGroup";
 
 interface GroupSheetProps {
   leftoverAmount: number;
@@ -59,6 +60,7 @@ function GroupSheet({
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [leaveOpen, setLeaveOpen] = useState(false);
   const [addFriendOpen, setAddFriendOpen] = useState(false);
+  const [removeMembersOpen, setRemoveMembersOpen] = useState(false);
 
   return (
     <>
@@ -89,6 +91,12 @@ function GroupSheet({
         friends={friends}
         groupId={groupId}
         friendGroups={friendGroups}
+      />
+      <RemoveMembersFromGroup
+        open={removeMembersOpen}
+        onOpenChange={setRemoveMembersOpen}
+        members={members}
+        groupId={groupId}
       />
       <Sheet open={open} onOpenChange={setOpen}>
         <div className="relative -mx-2 -mb-2 text-muted-foreground">
@@ -137,7 +145,9 @@ function GroupSheet({
                       <UserPlus2 className="w-4 h-4 mr-2" />
                       <span>Add members</span>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => setRemoveMembersOpen(true)}
+                    >
                       <UserMinus2 className="w-4 h-4 mr-2" />
                       <span>Remove members</span>
                     </DropdownMenuItem>

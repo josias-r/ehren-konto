@@ -81,3 +81,22 @@ export const addGroupMembers = createAuthProtectedAction(
     revalidatePath("/groups");
   }
 );
+
+interface RemoveGroupMembersArgs {
+  groupId: number;
+  members: number[];
+}
+
+export const removeGroupMembers = createAuthProtectedAction(
+  async (loggedInUserId, { groupId, members }: RemoveGroupMembersArgs) => {
+    await prisma.group.update({
+      where: { groupId },
+      data: {
+        GroupMembers: {
+          deleteMany: members.map((userId) => ({ userId })),
+        },
+      },
+    });
+    revalidatePath("/groups");
+  }
+);
