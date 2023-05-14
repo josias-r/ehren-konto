@@ -12,7 +12,8 @@
     "prisma:reset": "dotenv -e .env.development.local prisma migrate reset",
     "prisma:migrate": "dotenv -e .env.development.local prisma migrate dev --create-only",
     "prisma:deploy": "dotenv -e .env.development.local prisma migrate deploy",
-    "build": "npm run prisma:generate && next build",
+    "build:local": "dotenv -e .env.development.local next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint"
   },
