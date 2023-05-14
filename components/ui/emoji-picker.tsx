@@ -21,7 +21,6 @@ import { cn } from "@/lib/utils";
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -44,6 +43,8 @@ function EmojiPicker({
   onChange,
   value,
 }: EmojiPickerProps) {
+  const [open, setOpen] = useState(false);
+
   const [uncontrolledSelectedEmoji, setUncontrolledSelectedEmoji] =
     useState<string>();
 
@@ -51,7 +52,12 @@ function EmojiPicker({
     value === undefined ? uncontrolledSelectedEmoji : value || undefined;
 
   return (
-    <Sheet>
+    <Sheet
+      onOpenChange={(newOpen) => {
+        setOpen(newOpen);
+      }}
+      open={open}
+    >
       <SheetTrigger asChild>
         <Button
           variant="outline"
@@ -87,6 +93,7 @@ function EmojiPicker({
             onEmojiClick={(emojiData) => {
               setUncontrolledSelectedEmoji(emojiData.unified);
               onChange?.(emojiData.unified);
+              setOpen(false);
             }}
             autoFocusSearch={false}
             theme={Theme.DARK}

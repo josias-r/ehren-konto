@@ -45,7 +45,7 @@ function CreateActivitySheet({ groupName }: CreateActivitySheetProps) {
                 <div className="grid grid-cols-3 items-center gap-4">
                   <Label htmlFor="icon">Icon</Label>
                   <div className="h-8 w-full col-span-2 grid grid-cols-4">
-                    <EmojiPicker className="h-8 w-full flex justify-center" />
+                    <EmojiPicker className="h-8 w-full flex justify-center px-0" />
                     <ColorRadioGroup
                       id="color"
                       required
