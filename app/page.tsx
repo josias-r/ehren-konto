@@ -38,9 +38,8 @@ import Image from "next/image";
 // - [ ] upcoming events
 // - [ ] history
 // --- group
-// - [ ] edit group
-// - [ ] group member popover
 // - [ ] group activity actions in popover + sheet
+// - [ ] group member popover
 // - [ ] group activity participants sorting + scrollable
 // friends
 // - [ ] qr code screen

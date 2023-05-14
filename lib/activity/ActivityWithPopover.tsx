@@ -7,6 +7,7 @@ import GroupEvent, { ActivityShape } from "./Activity";
 import eventRelativeDate from "@/lib/utilities/eventRelativeDate";
 import { Separator } from "../../components/ui/separator";
 import { CheckCircle, Clock2, Users } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface GroupEventWithPopoverProps extends ActivityShape {
   members: {
@@ -56,7 +57,6 @@ function GroupEventWithPopover({
               <p className="text-sm text-muted-foreground">
                 {eventRelativeDate(from).formatted}
               </p>
-
               {!!participants.length && (
                 <>
                   <Separator />
@@ -87,6 +87,13 @@ function GroupEventWithPopover({
                   </div>
                 </>
               )}
+              <Separator />
+              <Button size="xs" className="block w-full">
+                Participate
+              </Button>
+              <Button size="xs" variant="outline" className="block w-full">
+                Edit
+              </Button>
             </div>
           </div>
         </PopoverContent>
