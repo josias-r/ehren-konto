@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Sheet,
   SheetContent,
@@ -7,7 +9,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { GroupFriend, GroupFriendGroup } from "./GroupCard";
 import { Button } from "@/components/ui/button";
 import CreateGroupForm from "./CreateGroupForm";
@@ -25,8 +27,10 @@ function CreateGroupSheet({
 }: CreateGroupSheetProps) {
   const formId = "create-group";
 
+  const [open, setOpen] = useState(false);
+
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>{children}</SheetTrigger>
       <SheetContent
         headerChildren={
@@ -49,6 +53,9 @@ function CreateGroupSheet({
           formId={formId}
           friends={friends}
           friendGroups={friendGroups}
+          onDone={() => {
+            setOpen(false);
+          }}
         />
       </SheetContent>
     </Sheet>

@@ -19,6 +19,7 @@ interface FormShape {
 }
 
 interface CreateGroupFormProps {
+  onDone: () => void;
   formId: string;
 
   friends: GroupFriend[];
@@ -26,7 +27,9 @@ interface CreateGroupFormProps {
 }
 
 function CreateGroupForm({
+  onDone,
   formId,
+
   friends,
   friendGroups,
 }: CreateGroupFormProps) {
@@ -41,9 +44,10 @@ function CreateGroupForm({
 
   const controlledRender = useControlledForm(control);
 
-  const onSubmit: SubmitHandler<FormShape> = async (data) => {
+  const onSubmit: SubmitHandler<FormShape> = (data) => {
     startTransition(async () => {
       await createGroup({ ...data });
+      onDone();
     });
   };
 
