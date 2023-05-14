@@ -10,6 +10,7 @@ import useControlledForm from "../hooks/useControlledForm";
 import { Users } from "lucide-react";
 import { GroupFriend, GroupFriendGroup } from "./GroupCard";
 import SelectFriendsSheet from "../friend/SelectFriendsSheet";
+import { createGroup } from "./actions";
 
 interface FormShape {
   name: string;
@@ -41,10 +42,8 @@ function CreateGroupForm({
   const controlledRender = useControlledForm(control);
 
   const onSubmit: SubmitHandler<FormShape> = async (data) => {
-    startTransition(() => {
-      console.log(data);
-
-      alert("WIP");
+    startTransition(async () => {
+      await createGroup({ ...data, members: [...data.members, 1] });
     });
   };
 
