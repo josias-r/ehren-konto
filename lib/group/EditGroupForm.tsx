@@ -16,9 +16,15 @@ interface EditGroupFormProps {
   formId: string;
   groupId: number;
   defaultValues: GroupEditFormShape;
+  onDone: () => void;
 }
 
-function EditGroupForm({ formId, groupId, defaultValues }: EditGroupFormProps) {
+function EditGroupForm({
+  formId,
+  groupId,
+  defaultValues,
+  onDone,
+}: EditGroupFormProps) {
   const [isPending, startTransition] = useTransition();
 
   const {
@@ -30,6 +36,7 @@ function EditGroupForm({ formId, groupId, defaultValues }: EditGroupFormProps) {
   const onSubmit: SubmitHandler<GroupEditFormShape> = async (data) => {
     startTransition(async () => {
       await updateGroup({ ...data, groupId });
+      onDone();
     });
   };
 

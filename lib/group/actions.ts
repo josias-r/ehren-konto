@@ -36,23 +36,15 @@ interface UpdateGroupArgs {
   groupId: number;
   name?: string;
   description?: string;
-  members?: number[];
 }
 
 export const updateGroup = createAuthProtectedAction(
-  async (
-    loggedInUserId,
-    { groupId, name, description, members }: UpdateGroupArgs
-  ) => {
+  async (loggedInUserId, { groupId, name, description }: UpdateGroupArgs) => {
     const updatedGroup = await prisma.group.update({
       where: { groupId },
       data: {
         name,
         description,
-        GroupMembers: members && {
-          deleteMany: { groupId },
-          create: members.map((userId) => ({ userId })),
-        },
       },
     });
     revalidatePath("/groups");
@@ -67,6 +59,25 @@ interface DeleteGroupArgs {
 export const deleteGroup = createAuthProtectedAction(
   async (loggedInUserId, { groupId }: DeleteGroupArgs) => {
     await prisma.group.delete({ where: { groupId } });
+    revalidatePath("/groups");
+  }
+);
+
+interface AddGroupMembersArgs {
+  groupId: number;
+  members: number[];
+}
+
+export const addGroupMembers = createAuthProtectedAction(
+  async (loggedInUserId, { groupId, members }: AddGroupMembersArgs) => {
+    await prisma.group.update({
+      where: { groupId },
+      data: {
+        GroupMembers: {
+          create: members.map((userId) => ({ userId })),
+        },
+      },
+    });
     revalidatePath("/groups");
   }
 );

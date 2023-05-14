@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Sheet,
   SheetContent,
@@ -7,7 +9,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { Button } from "@/components/ui/button";
 import EditGroupForm, { GroupEditFormShape } from "./EditGroupForm";
 
@@ -24,8 +26,10 @@ function EditGroupSheet({
 }: EditGroupSheetProps) {
   const formId = "edit-group";
 
+  const [open, setOpen] = useState(false);
+
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>{children}</SheetTrigger>
       <SheetContent
         headerChildren={
@@ -46,6 +50,9 @@ function EditGroupSheet({
           formId={formId}
           groupId={groupId}
           defaultValues={defaultValues}
+          onDone={() => {
+            setOpen(false);
+          }}
         />
       </SheetContent>
     </Sheet>

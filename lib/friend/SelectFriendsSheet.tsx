@@ -13,6 +13,7 @@ import {
 import { ReactNode } from "react";
 import { CheckCircle, CheckCircle2, Circle } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
+import FriendsBulkListItem from "./FriendsBulkListItem";
 
 interface SelectFriendsSheetProps {
   chosenFriends: number[];
@@ -52,38 +53,14 @@ function SelectFriendsSheet({
         }
       >
         <div className="grid gap-6">
-          {friends.map((friends) => (
-            <div
-              key={friends.userId}
-              className="flex gap-8 items-center cursor-pointer"
-              onClick={() => {
-                if (chosenFriends.includes(friends.userId)) {
-                  onChosenFriendsChange(
-                    chosenFriends.filter((id) => id !== friends.userId)
-                  );
-                } else {
-                  onChosenFriendsChange([...chosenFriends, friends.userId]);
-                }
-              }}
-            >
-              <div className="flex-grow flex-shrink-1 w-full">
-                <FriendListItem
-                  userId={friends.userId}
-                  nick={friends.nick}
-                  name={friends.name}
-                  avatar={friends.avatar}
-                  groups={friends.groups}
-                  friendGroups={friendGroups}
-                />
-              </div>
-              <div className="flex-grow flex-shrink-0">
-                {chosenFriends.includes(friends.userId) ? (
-                  <CheckCircle2 className="2-4 h-4" />
-                ) : (
-                  <Circle className="2-4 h-4 text-muted-foreground" />
-                )}
-              </div>
-            </div>
+          {friends.map((friend) => (
+            <FriendsBulkListItem
+              key={friend.userId}
+              friend={friend}
+              onChosenFriendsChange={onChosenFriendsChange}
+              chosenFriends={chosenFriends}
+              friendGroups={friendGroups}
+            />
           ))}
         </div>
       </SheetContent>

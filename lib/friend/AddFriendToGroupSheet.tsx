@@ -5,14 +5,17 @@ import {
   Sheet,
   SheetContent,
   SheetDescription,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "../../components/ui/sheet";
+import FriendsBulkListItem from "./FriendsBulkListItem";
+import { useState, useTransition } from "react";
+import { addGroupMembers } from "../group/actions";
 
 interface AddFriendToGroupSheetProps {
-  /** null indicates the modal is used for a create group modal */
-  groupId: number | null;
+  groupId: number;
   friends: GroupFriend[];
   friendGroups: GroupFriendGroup[];
 }
@@ -22,8 +25,13 @@ function AddFriendToGroupSheet({
   groupId,
   friendGroups,
 }: AddFriendToGroupSheetProps) {
+  const [isPending, startTransition] = useTransition();
+
   const friendsInGroup: typeof friends = [];
   const friendsNotInGroup: typeof friends = [];
+
+  const [chosenFriends, setChosenFriends] = useState<number[]>([]);
+  const [open, setOpen] = useState(false);
 
   if (groupId !== null) {
     friends.forEach((friend) => {
@@ -36,7 +44,7 @@ function AddFriendToGroupSheet({
   }
 
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <div className="relative text-muted-foreground">
         <SheetTrigger asChild className="block w-full">
           <Button variant="outline">Add member to group</Button>
@@ -56,16 +64,34 @@ function AddFriendToGroupSheet({
             </SheetDescription>
           </SheetHeader>
         }
+        footerChildren={
+          <SheetFooter>
+            <Button
+              type="button"
+              onClick={() => {
+                startTransition(async () => {
+                  await addGroupMembers({
+                    groupId: groupId,
+                    members: chosenFriends,
+                  });
+                  setOpen(false);
+                });
+              }}
+            >
+              Add
+            </Button>
+          </SheetFooter>
+        }
       >
         <div className="grid gap-6">
-          {friendsNotInGroup.map((friends) => (
-            <FriendListItem
-              key={friends.userId}
-              userId={friends.userId}
-              nick={friends.nick}
-              name={friends.name}
-              avatar={friends.avatar}
-              groups={friends.groups}
+          {friendsNotInGroup.map((friend) => (
+            <FriendsBulkListItem
+              key={friend.userId}
+              friend={friend}
+              onChosenFriendsChange={(newChosenFriends) => {
+                setChosenFriends(newChosenFriends);
+              }}
+              chosenFriends={chosenFriends}
               friendGroups={friendGroups}
             />
           ))}
