@@ -36,6 +36,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import CreateGroupSheet from "./CreateGroupSheet";
+import EditGroupSheet from "./EditGroupSheet";
 
 interface GroupSheetProps {
   leftoverAmount: number;
@@ -78,11 +79,11 @@ function GroupSheet({
               </SheetDescription>
             </SheetHeader>
             <div>
-              <CreateGroupSheet friends={friends} friendGroups={friendGroups}>
+              <EditGroupSheet>
                 <Button variant="ghost">
                   <Edit2 className="h-5 w-5" />
                 </Button>
-              </CreateGroupSheet>
+              </EditGroupSheet>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost">
