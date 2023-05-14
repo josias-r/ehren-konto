@@ -14,34 +14,34 @@ import Image from "next/image";
 // - [ ] resend verification email
 // - [ ] verify email
 // - [ ] delete account
-// --- group actions
-// - [ ] create group
-// - [ ] delete group
-// - [ ] leave group
-// - [ ] edit/update group
-// - [ ] add friend to group
-// - [ ] remove group member
-// - [ ] create group activity
-// - [ ] edit group activity
-// - [ ] delete group activity
 // --- friend actions
 // - [ ] add friendship from code/link
 // - [ ] add friendship from group members
 // - [ ] remove friendship friend
+// --- group actions
+// - [ ] restrict to admin role
 //
 // UI
-// --- general
-// - [ ] bulk list
-// - [ ] react-hook-form
-// - [ ] sheet footer/content components
 // --- user
 // - [ ] profile page
 // - [ ] group overview
 // - [ ] upcoming events
 // - [ ] history
+// - [ ] account settings (email, password, delete)
 // --- group
 // - [ ] group member popover
-// - [ ] group activity participants sorting + scrollable
+// - [ ] group member role management
+// - [ ] group member admin action hidden/greyed out
+// - [ ] group activity participants: sorting + scrollable
+// --- notifications
+// - [ ] activity participation notification
+// - [ ] activity reward notification
+// - [ ] friend request notification
+// --- activity
+// - [ ] repeating activity (daily, weekly, monthly, yearly)
+// - [ ] one time activity (i.e. won a tournament)
+// - [ ] to date
+// - [ ] add to calendar
 // friends
 // - [ ] qr code screen
 // - [ ] scan qr code screen (use camera app?)
