@@ -37,7 +37,7 @@ function ActivityWithPopover({
   return (
     <>
       <Popover>
-        <PopoverTrigger>
+        <PopoverTrigger className="w-full block">
           <Activity
             activityId={activityId}
             emoji={emoji}

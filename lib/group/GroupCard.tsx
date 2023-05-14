@@ -75,6 +75,7 @@ function GroupCard({
               pastEvents={pastEvents}
               groupName={name}
               groupId={groupId}
+              members={members}
             >
               <Button
                 variant="ghost"
@@ -101,6 +102,7 @@ function GroupCard({
             futureEvents={futureEvents}
             pastEvents={pastEvents}
             groupName={name}
+            members={members}
           >
             <ActivitySheetTrigger
               leftoverAmount={futureEvents.length - activitySliceSize}

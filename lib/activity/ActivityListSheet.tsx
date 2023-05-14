@@ -13,6 +13,7 @@ import ActivityListItem from "./ActivityListItem";
 import { Separator } from "../../components/ui/separator";
 import CreateActivitySheet from "./CreateActivitySheet";
 import { ReactNode } from "react";
+import { MemberShape } from "../group/GroupMemberListItem";
 
 interface ActivityListSheetProps {
   groupId: number;
@@ -20,6 +21,7 @@ interface ActivityListSheetProps {
   futureEvents: ActivityShape[];
   pastEvents: ActivityShape[];
   children: ReactNode;
+  members: MemberShape[];
 }
 
 function ActivityListSheet({
@@ -28,6 +30,7 @@ function ActivityListSheet({
   futureEvents,
   pastEvents,
   children,
+  members,
 }: ActivityListSheetProps) {
   return (
     <Sheet>
@@ -65,6 +68,7 @@ function ActivityListSheet({
               color={activity.color}
               from={activity.from}
               participants={activity.participants}
+              members={members}
             />
           ))}
           {!!pastEvents.length && !!futureEvents.length && <Separator />}
@@ -77,6 +81,7 @@ function ActivityListSheet({
               color={activity.color}
               from={activity.from}
               participants={activity.participants}
+              members={members}
             />
           ))}
         </div>
