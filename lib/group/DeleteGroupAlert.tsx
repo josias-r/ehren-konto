@@ -9,38 +9,53 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
 import { useTransition } from "react";
+import { deleteGroup } from "./actions";
 
-interface LeaveGroupProps {
+interface DeleteGroupAlertProps {
   groupId: number;
+  onDone: () => void;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
 }
 
-function LeaveGroup({ groupId }: LeaveGroupProps) {
+function DeleteGroupAlert({
+  groupId,
+  onDone,
+  open,
+  onOpenChange,
+}: DeleteGroupAlertProps) {
   const [isPending, startTransition] = useTransition();
 
   return (
-    <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <Button variant="destructive">Leave group</Button>
-      </AlertDialogTrigger>
+    <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Are you sure absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. You will not have access to the group
-            anymore.
+            This action cannot be undone. This group will be deleted for all
+            members.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction>Continue</AlertDialogAction>
+          <AlertDialogAction
+            onClick={() => {
+              startTransition(async () => {
+                await deleteGroup({ groupId });
+
+                onDone();
+                onOpenChange(false);
+              });
+            }}
+          >
+            Continue
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
   );
 }
 
-export default LeaveGroup;
+export default DeleteGroupAlert;

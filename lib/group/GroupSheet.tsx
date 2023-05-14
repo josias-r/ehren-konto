@@ -1,16 +1,18 @@
 "use client";
 
 import {
-  CheckCircle2,
   ChevronRight,
   CircleEllipsis,
+  Delete,
+  DoorOpen,
   Edit2,
+  UserMinus2,
+  UserPlus2,
 } from "lucide-react";
 import {
   Sheet,
   SheetContent,
   SheetDescription,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -23,12 +25,13 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from "../../components/ui/dropdown-menu";
 import { Button } from "../../components/ui/button";
 
 import EditGroupSheet from "./EditGroupSheet";
-import DeleteGroup from "./DeleteGroup";
-import LeaveGroup from "./LeaveGroup";
+import DeleteGroupAlert from "./DeleteGroupAlert";
+import LeaveGroupAlert from "./LeaveGroupAlert";
 import { useState } from "react";
 
 interface GroupSheetProps {
@@ -52,85 +55,124 @@ function GroupSheet({
   groupId,
 }: GroupSheetProps) {
   const [open, setOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [leaveOpen, setLeaveOpen] = useState(false);
+  const [addFriendOpen, setAddFriendOpen] = useState(false);
+
   return (
-    <Sheet open={open} onOpenChange={setOpen}>
-      <div className="relative -mx-2 -mb-2 text-muted-foreground">
-        <SheetTrigger className="hover:bg-slate-800 rounded-sm w-full flex justify-between items-center text-sm p-2 mt-2">
-          <div>
-            {leftoverAmount > 1 && <>Show {leftoverAmount} more</>}
-            {leftoverAmount <= 1 && <>Manage group</>}
-          </div>
-          <div>
-            <ChevronRight className="h-4 w-4" />
-          </div>
-        </SheetTrigger>
-      </div>
-      <SheetContent
-        headerChildren={
-          <div className="flex justify-between">
-            <SheetHeader>
-              <SheetTitle className="flex justify-between">
-                <span>Group members</span>
-              </SheetTitle>
-              <SheetDescription>
-                There are {members.length} members in this group
-              </SheetDescription>
-            </SheetHeader>
+    <>
+      <EditGroupSheet
+        open={editOpen}
+        onOpenChange={setEditOpen}
+        groupId={groupId}
+        defaultValues={{
+          name,
+          description,
+        }}
+      />
+      <DeleteGroupAlert
+        open={deleteOpen}
+        onOpenChange={setDeleteOpen}
+        groupId={groupId}
+        onDone={() => setOpen(false)}
+      />
+      <LeaveGroupAlert
+        open={leaveOpen}
+        onOpenChange={setLeaveOpen}
+        groupId={groupId}
+        onDone={() => setOpen(false)}
+      />
+      <AddFriendToGroupSheet
+        open={addFriendOpen}
+        onOpenChange={setAddFriendOpen}
+        friends={friends}
+        groupId={groupId}
+        friendGroups={friendGroups}
+      />
+      <Sheet open={open} onOpenChange={setOpen}>
+        <div className="relative -mx-2 -mb-2 text-muted-foreground">
+          <SheetTrigger className="hover:bg-slate-800 rounded-sm w-full flex justify-between items-center text-sm p-2 mt-2">
             <div>
-              <EditGroupSheet
-                groupId={groupId}
-                defaultValues={{
-                  name,
-                  description,
-                }}
-              >
-                <Button variant="ghost">
-                  <Edit2 className="h-5 w-5" />
-                </Button>
-              </EditGroupSheet>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost">
-                    <CircleEllipsis className="h-5 w-5" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuItem>
-                    <CheckCircle2 className="w-4 h-4 mr-2" />
-                    <span>Select</span>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              {leftoverAmount > 1 && <>Show {leftoverAmount} more</>}
+              {leftoverAmount <= 1 && <>Manage group</>}
             </div>
-          </div>
-        }
-        footerChildren={
-          <SheetFooter className="grid justify-normal">
-            <AddFriendToGroupSheet
-              friends={friends}
-              groupId={groupId}
-              friendGroups={friendGroups}
-            />
-            <DeleteGroup groupId={groupId} onDone={() => setOpen(false)} />
-            <LeaveGroup groupId={groupId} />
-          </SheetFooter>
-        }
-      >
-        <div className="grid gap-6">
-          {members.map((member) => (
-            <GroupMemberListItem
-              key={member.userId}
-              userId={member.userId}
-              nick={member.nick}
-              name={member.name}
-              role={member.role}
-              ehre={member.ehre}
-              avatar={member.avatar}
-            />
-          ))}
+            <div>
+              <ChevronRight className="h-4 w-4" />
+            </div>
+          </SheetTrigger>
         </div>
-      </SheetContent>
-    </Sheet>
+        <SheetContent
+          headerChildren={
+            <div className="flex justify-between">
+              <SheetHeader>
+                <SheetTitle className="flex justify-between">
+                  <span>Group members</span>
+                </SheetTitle>
+                <SheetDescription>
+                  There are {members.length} members in this group
+                </SheetDescription>
+              </SheetHeader>
+              <div>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost">
+                      <CircleEllipsis className="h-5 w-5" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuItem
+                      onClick={() => {
+                        setEditOpen(true);
+                      }}
+                    >
+                      <Edit2 className="w-4 h-4 mr-2" />
+                      <span>Edit</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => {
+                        setAddFriendOpen(true);
+                      }}
+                    >
+                      <UserPlus2 className="w-4 h-4 mr-2" />
+                      <span>Add members</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <UserMinus2 className="w-4 h-4 mr-2" />
+                      <span>Remove members</span>
+                    </DropdownMenuItem>
+
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={() => setLeaveOpen(true)}>
+                      <DoorOpen className="w-4 h-4 mr-2" />
+                      <span>Leave group</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setDeleteOpen(true)}>
+                      <Delete className="w-4 h-4 mr-2" />
+                      <span>Delete group</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+            </div>
+          }
+        >
+          <div className="grid gap-6">
+            {members.map((member) => (
+              <GroupMemberListItem
+                key={member.userId}
+                userId={member.userId}
+                nick={member.nick}
+                name={member.name}
+                role={member.role}
+                ehre={member.ehre}
+                avatar={member.avatar}
+              />
+            ))}
+          </div>
+        </SheetContent>
+      </Sheet>
+    </>
   );
 }
 

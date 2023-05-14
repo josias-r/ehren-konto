@@ -1,4 +1,3 @@
-import FriendListItem from "./FriendListItem";
 import { GroupFriend, GroupFriendGroup } from "../group/GroupCard";
 import { Button } from "../../components/ui/button";
 import {
@@ -8,30 +7,38 @@ import {
   SheetFooter,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from "../../components/ui/sheet";
 import FriendsBulkListItem from "./FriendsBulkListItem";
 import { useState, useTransition } from "react";
 import { addGroupMembers } from "../group/actions";
+import { EmptyState } from "@/components/ui/empty-state";
+import { useRouter } from "next/navigation";
 
 interface AddFriendToGroupSheetProps {
   groupId: number;
   friends: GroupFriend[];
   friendGroups: GroupFriendGroup[];
+
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
 }
 
 function AddFriendToGroupSheet({
   friends,
   groupId,
   friendGroups,
+
+  open,
+  onOpenChange,
 }: AddFriendToGroupSheetProps) {
   const [isPending, startTransition] = useTransition();
+
+  const router = useRouter();
 
   const friendsInGroup: typeof friends = [];
   const friendsNotInGroup: typeof friends = [];
 
   const [chosenFriends, setChosenFriends] = useState<number[]>([]);
-  const [open, setOpen] = useState(false);
 
   if (groupId !== null) {
     friends.forEach((friend) => {
@@ -44,12 +51,7 @@ function AddFriendToGroupSheet({
   }
 
   return (
-    <Sheet open={open} onOpenChange={setOpen}>
-      <div className="relative text-muted-foreground">
-        <SheetTrigger asChild className="block w-full">
-          <Button variant="outline">Add member to group</Button>
-        </SheetTrigger>
-      </div>
+    <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent
         headerChildren={
           <SheetHeader>
@@ -65,22 +67,24 @@ function AddFriendToGroupSheet({
           </SheetHeader>
         }
         footerChildren={
-          <SheetFooter>
-            <Button
-              type="button"
-              onClick={() => {
-                startTransition(async () => {
-                  await addGroupMembers({
-                    groupId: groupId,
-                    members: chosenFriends,
+          !!friendsNotInGroup.length && (
+            <SheetFooter>
+              <Button
+                type="button"
+                onClick={() => {
+                  startTransition(async () => {
+                    await addGroupMembers({
+                      groupId: groupId,
+                      members: chosenFriends,
+                    });
+                    onOpenChange(false);
                   });
-                  setOpen(false);
-                });
-              }}
-            >
-              Add
-            </Button>
-          </SheetFooter>
+                }}
+              >
+                Add
+              </Button>
+            </SheetFooter>
+          )
         }
       >
         <div className="grid gap-6">
@@ -96,6 +100,27 @@ function AddFriendToGroupSheet({
             />
           ))}
         </div>
+        {!friendsNotInGroup.length && (
+          <EmptyState
+            title="No additonal friends"
+            message={
+              <>
+                You can add more friends on the{" "}
+                <Button
+                  className="inline p-0"
+                  variant="link"
+                  onClick={() => {
+                    router.push("/friends");
+                  }}
+                >
+                  friends
+                </Button>{" "}
+                page
+              </>
+            }
+            className="pt-12"
+          />
+        )}
       </SheetContent>
     </Sheet>
   );
