@@ -5,31 +5,31 @@ import { Input } from "@/components/ui/input";
 import { useTransition } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { cn } from "../utils";
+import { updateGroup } from "./actions";
 
-interface FormShape {
+export interface GroupEditFormShape {
   name: string;
   description: string;
-  members: number[];
 }
 
 interface EditGroupFormProps {
   formId: string;
+  groupId: number;
+  defaultValues: GroupEditFormShape;
 }
 
-function EditGroupForm({ formId }: EditGroupFormProps) {
+function EditGroupForm({ formId, groupId, defaultValues }: EditGroupFormProps) {
   const [isPending, startTransition] = useTransition();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormShape>();
+  } = useForm<GroupEditFormShape>();
 
-  const onSubmit: SubmitHandler<FormShape> = async (data) => {
-    startTransition(() => {
-      console.log(data);
-
-      alert("WIP");
+  const onSubmit: SubmitHandler<GroupEditFormShape> = async (data) => {
+    startTransition(async () => {
+      await updateGroup({ ...data, groupId });
     });
   };
 
@@ -40,6 +40,7 @@ function EditGroupForm({ formId }: EditGroupFormProps) {
           {({ id, name, className, required }) => (
             <Input
               id={id}
+              defaultValue={defaultValues.name}
               className={cn(className, "h-8")}
               {...register(name, {
                 required,
@@ -51,6 +52,7 @@ function EditGroupForm({ formId }: EditGroupFormProps) {
           {({ id, name, className, required }) => (
             <Input
               id={id}
+              defaultValue={defaultValues.description}
               className={cn(className, "h-8")}
               {...register(name, {
                 required,

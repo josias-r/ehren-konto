@@ -103,6 +103,8 @@ function GroupCard({
         </div>
         <Separator />
         <GroupSheet
+          name={name}
+          description={description}
           leftoverAmount={members.length - memberSliceSize}
           members={members}
           groupId={groupId}

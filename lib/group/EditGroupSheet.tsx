@@ -9,13 +9,19 @@ import {
 } from "@/components/ui/sheet";
 import { ReactNode } from "react";
 import { Button } from "@/components/ui/button";
-import EditGroupForm from "./EditGroupForm";
+import EditGroupForm, { GroupEditFormShape } from "./EditGroupForm";
 
 interface EditGroupSheetProps {
   children: ReactNode;
+  groupId: number;
+  defaultValues: GroupEditFormShape;
 }
 
-function EditGroupSheet({ children }: EditGroupSheetProps) {
+function EditGroupSheet({
+  children,
+  groupId,
+  defaultValues,
+}: EditGroupSheetProps) {
   const formId = "edit-group";
 
   return (
@@ -36,7 +42,11 @@ function EditGroupSheet({ children }: EditGroupSheetProps) {
           </SheetFooter>
         }
       >
-        <EditGroupForm formId={formId} />
+        <EditGroupForm
+          formId={formId}
+          groupId={groupId}
+          defaultValues={defaultValues}
+        />
       </SheetContent>
     </Sheet>
   );

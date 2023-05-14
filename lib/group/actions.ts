@@ -23,3 +23,31 @@ export async function createGroup({
 
   return createdGroup.groupId;
 }
+
+interface UpdateGroupArgs {
+  groupId: number;
+  name?: string;
+  description?: string;
+  members?: number[];
+}
+
+export async function updateGroup({
+  groupId,
+  name,
+  description,
+  members,
+}: UpdateGroupArgs) {
+  const updatedGroup = await prisma.group.update({
+    where: { groupId },
+    data: {
+      name,
+      description,
+      GroupMembers: members && {
+        deleteMany: { groupId },
+        create: members?.map((userId) => ({ userId })),
+      },
+    },
+  });
+
+  return updatedGroup.groupId;
+}

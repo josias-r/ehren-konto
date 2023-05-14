@@ -35,11 +35,12 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import CreateGroupSheet from "./CreateGroupSheet";
 import EditGroupSheet from "./EditGroupSheet";
 
 interface GroupSheetProps {
   leftoverAmount: number;
+  name: string;
+  description: string;
   members: MemberShape[];
 
   groupId: number;
@@ -49,6 +50,8 @@ interface GroupSheetProps {
 
 function GroupSheet({
   leftoverAmount,
+  name,
+  description,
   members,
   friends,
   friendGroups,
@@ -79,7 +82,13 @@ function GroupSheet({
               </SheetDescription>
             </SheetHeader>
             <div>
-              <EditGroupSheet>
+              <EditGroupSheet
+                groupId={groupId}
+                defaultValues={{
+                  name,
+                  description,
+                }}
+              >
                 <Button variant="ghost">
                   <Edit2 className="h-5 w-5" />
                 </Button>
