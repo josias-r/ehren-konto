@@ -13,7 +13,7 @@ import EmojiPickerReact, {
 import { useState } from "react";
 import {
   Popover,
-  PopoverContent,
+  PopoverContentNoPortal,
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Button } from "./button";
@@ -67,7 +67,7 @@ function EmojiPicker({
           />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0 border-none">
+      <PopoverContentNoPortal className="w-auto p-0 border-none">
         <EmojiPickerReact
           onEmojiClick={(emojiData) => {
             setUncontrolledSelectedEmoji(emojiData.unified);
@@ -111,7 +111,7 @@ function EmojiPicker({
           //   }
           // ]}
         />
-      </PopoverContent>
+      </PopoverContentNoPortal>
     </Popover>
   );
 }
