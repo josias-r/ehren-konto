@@ -38,7 +38,9 @@ function RemoveMembersFromGroup({
         headerChildren={
           <SheetHeader>
             <SheetTitle>Remove members from group</SheetTitle>
-            <SheetDescription>Desc</SheetDescription>
+            <SheetDescription>
+              Choose the members to remove from the group.
+            </SheetDescription>
           </SheetHeader>
         }
         footerChildren={
