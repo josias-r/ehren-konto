@@ -80,3 +80,29 @@
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
+
+@layer components {
+  .EmojiPickerReact.EmojiPickerReact.epr-dark-theme {
+    @apply text-sm font-normal;
+
+    --epr-bg-color: hsl(var(--background));
+    --epr-category-label-bg-color: transparent;
+    --epr-picker-border-color: hsl(var(--border));
+    --epr-search-border-color: hsl(var(--border));
+
+    --epr-dark: hsl(var(--background));
+    --epr-search-input-bg-color: var(--epr-dark);
+    --epr-search-input-bg-color-active: var(--epr-dark);
+    --epr-emoji-variation-picker-bg-color: var(--epr-dark);
+
+    --epr-highlight-color: silver;
+    --epr-text-color: var(--epr-highlight-color);
+
+    --epr-hover-bg-color: #363636;
+    --epr-focus-bg-color: #474747;
+
+    --epr-emoji-variation-indicator-color: #444;
+    --epr-category-icon-active-color: hsl(var(--foreground));
+    --epr-skin-tone-picker-menu-color: #222222;
+  }
+}
