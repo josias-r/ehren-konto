@@ -1,4 +1,9 @@
-import { CheckCircle2, ChevronRight, CircleEllipsis } from "lucide-react";
+import {
+  CheckCircle2,
+  ChevronRight,
+  CircleEllipsis,
+  Edit2,
+} from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -29,6 +34,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import CreateGroupSheet from "./CreateGroupSheet";
 
 interface GroupSheetProps {
   leftoverAmount: number;
@@ -69,19 +75,26 @@ function GroupSheet({
               There are {members.length} members in this group
             </SheetDescription>
           </SheetHeader>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
+          <div>
+            <CreateGroupSheet friends={friends} friendGroups={friendGroups}>
               <Button variant="ghost">
-                <CircleEllipsis className="h-5 w-5" />
+                <Edit2 className="h-5 w-5" />
               </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem>
-                <CheckCircle2 className="w-4 h-4 mr-2" />
-                <span>Select</span>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+            </CreateGroupSheet>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost">
+                  <CircleEllipsis className="h-5 w-5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem>
+                  <CheckCircle2 className="w-4 h-4 mr-2" />
+                  <span>Select</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
         <div
           className="-mb-6 pb-6 overflow-y-auto"
