@@ -32,13 +32,14 @@ import Image from "next/image";
 // UI
 // --- general
 // - [ ] bulk list
+// - [ ] react-hook-form
+// - [ ] sheet footer/content components
 // --- user
 // - [ ] profile page
 // - [ ] group overview
 // - [ ] upcoming events
 // - [ ] history
 // --- group
-// - [ ] group activity actions in popover + sheet
 // - [ ] group member popover
 // - [ ] group activity participants sorting + scrollable
 // friends
