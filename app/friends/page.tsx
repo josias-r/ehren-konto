@@ -18,6 +18,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { EmptyState } from "@/components/ui/empty-state";
 
 export default async function Friends() {
   const isLoggedIn = await validateCookieToken();
@@ -72,6 +73,18 @@ export default async function Friends() {
         </DropdownMenu>
       </h1>
       <section className="mx-auto p-4 max-w-md grid gap-4">
+        {!friendLettersSorted?.length && (
+          <EmptyState
+            title="No friends"
+            message={
+              <>
+                Go and invite your friends to join via a shared link or a QR
+                code.
+              </>
+            }
+            className="h-[80vh]"
+          />
+        )}
         {friendLettersSorted.map((letter, index) => {
           return (
             <>

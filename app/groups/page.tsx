@@ -14,8 +14,6 @@ export default async function Groups() {
     redirect("/login");
   }
 
-  const before = Date.now();
-
   // get all groups from prisma where user with id "X" is in
   const groups = await getAllGroupsForUser(isLoggedIn.userId);
 
@@ -23,15 +21,8 @@ export default async function Groups() {
     isLoggedIn.userId
   );
 
-  const after = Date.now();
-
-  const time = after - before;
-
   return (
     <main className="relative">
-      <div className="fixed bottom-0 right-0 text-xs text-muted-foreground p-4 z-50">
-        {time}ms
-      </div>
       <h1 className="text-2xl font-bold mb-4 mx-auto max-w-md pt-6 px-4 flex justify-between">
         <span>Groups</span>
         <CreateGroupSheet friends={userFriends} friendGroups={userGroups}>
