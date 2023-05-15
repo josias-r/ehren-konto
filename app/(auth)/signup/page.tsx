@@ -1,6 +1,6 @@
 import SignupForm from "@/lib/auth/SignupForm";
 
-function Login() {
+function Signup() {
   return (
     <main className="p-4 h-full max-w-md mx-auto grid items-center">
       <SignupForm />
@@ -17,4 +17,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signup;

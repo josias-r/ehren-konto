@@ -5,17 +5,16 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { signup } from "@/lib/auth/signup.action";
+import { login } from "@/lib/auth/login.action";
 import { useTransition } from "react";
 import { useToast } from "@/components/ui/use-toast";
-import { redirect } from "next/navigation";
 
 interface FormShape {
   email: string;
   password: string;
 }
 
-function SignupForm() {
+function LoginForm() {
   const [isPending, startTransition] = useTransition();
 
   const { toast, toasts } = useToast();
@@ -23,31 +22,19 @@ function SignupForm() {
   const { register, handleSubmit } = useForm<FormShape>();
   const onSubmit: SubmitHandler<FormShape> = (data) => {
     startTransition(async () => {
-      const response = await signup({ ...data });
+      const response = await login({ ...data });
       if (response.error) {
         switch (response.error) {
-          case "user-exists":
+          case "email-not-confirmed":
             toast({
-              title: "User already exists",
+              title: "Email not confirmed",
+              description: "Please check your inbox",
               variant: "destructive",
             });
             break;
-          case "invalid-email":
+          case "invalid-credentials":
             toast({
-              title: "Invalid email",
-              variant: "destructive",
-            });
-            break;
-          case "insufficient-password":
-            toast({
-              title: "Insufficient password",
-              description: (
-                <>
-                  {response.pwValidationMessages.map((msg, i) => (
-                    <p key={i}>{msg}</p>
-                  ))}
-                </>
-              ),
+              title: "Invalid credentials",
               variant: "destructive",
             });
             break;
@@ -60,10 +47,8 @@ function SignupForm() {
         }
       } else if (response.success) {
         toast({
-          title: "Account created",
-          description: "Please check your email to verify your account",
+          title: "Signed in",
         });
-        redirect("/login");
       }
     });
   };
@@ -93,14 +78,14 @@ function SignupForm() {
         })}
       />
       <Button type="submit" className="block w-full" disabled={isPending}>
-        Sign up
+        Sign in
       </Button>
       <Separator />
       <Button variant="outline" className="block w-full">
-        Sign in
+        Sign up
       </Button>
     </form>
   );
 }
 
-export default SignupForm;
+export default LoginForm;
