@@ -5,6 +5,7 @@ import { Link } from "lucide-react";
 import { useTransition } from "react";
 import { updateInviteLink } from "./actions";
 import { useToast } from "@/components/ui/use-toast";
+import { copyTextToClipboard } from "../utils";
 
 function CopyInviteLinkDropdownItem() {
   const [isPending, startTransition] = useTransition();
@@ -18,7 +19,8 @@ function CopyInviteLinkDropdownItem() {
         startTransition(async () => {
           const linkId = await updateInviteLink();
           const link = `${window.location.origin}/invite/${linkId}`;
-          await navigator.clipboard.writeText(link);
+
+          await copyTextToClipboard(link);
           toast({
             title: "Copied invite link",
             description:
