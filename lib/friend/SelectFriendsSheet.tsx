@@ -10,8 +10,10 @@ import {
   SheetTrigger,
 } from "../../components/ui/sheet";
 import { ReactNode } from "react";
-import { buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import FriendsBulkListItem from "./FriendsBulkListItem";
+import { EmptyState } from "@/components/ui/empty-state";
+import { useRouter } from "next/navigation";
 
 interface SelectFriendsSheetProps {
   chosenFriends: string[];
@@ -30,6 +32,8 @@ function SelectFriendsSheet({
   friendGroups,
   children,
 }: SelectFriendsSheetProps) {
+  const router = useRouter();
+
   return (
     <Sheet>
       <SheetTrigger asChild>{children}</SheetTrigger>
@@ -61,6 +65,27 @@ function SelectFriendsSheet({
             />
           ))}
         </div>
+        {!friends.length && (
+          <EmptyState
+            title="No friends yet"
+            message={
+              <>
+                You can add more friends on the{" "}
+                <Button
+                  className="inline p-0"
+                  variant="link"
+                  onClick={() => {
+                    router.push("/friends");
+                  }}
+                >
+                  friends
+                </Button>{" "}
+                page
+              </>
+            }
+            className="pt-12"
+          />
+        )}
       </SheetContent>
     </Sheet>
   );
