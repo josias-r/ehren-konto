@@ -20,6 +20,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { EmptyState } from "@/components/ui/empty-state";
 
+export const metadata = {
+  title: "Friends",
+  description: "Add and manage your friends.",
+};
+
 export default async function Friends() {
   const isLoggedIn = await validateCookieToken();
   if (isLoggedIn === false) {

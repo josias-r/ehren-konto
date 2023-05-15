@@ -19,9 +19,9 @@ function Nav({}: NavProps) {
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <Link href="/dashboard" legacyBehavior passHref>
+            <Link href="/profile" legacyBehavior passHref>
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Home
+                Profile
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>

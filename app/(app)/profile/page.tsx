@@ -3,17 +3,12 @@ import Transaction from "@/components/Transaction";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Image from "next/image";
 
-// &:before {
-//   background-color: rgba(255,255,255,0.3);
-//   backdrop-filter: blur(10px) saturate(100%) contrast(45%) brightness(130%);
-//   -webkit-backdrop-filter: blur(10px) saturate(100%) contrast(45%) brightness(130%);
-//   content: "";
-//   height: 100%;
-//   position: absolute;
-//   width: 100%;
-// }
+export const metadata = {
+  title: "Profile",
+  description: "Manage your profile, see upcoming events and more",
+};
 
-export default function Home() {
+export default function Profile() {
   return (
     <main className="relative">
       <section className="h-[30rem] overflow-hidden relative">

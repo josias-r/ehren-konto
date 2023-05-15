@@ -8,6 +8,11 @@ import CreateGroupSheet from "@/lib/group/CreateGroupSheet";
 import getAllGroupsForUser from "@/lib/group/getAllGroupsForUser";
 import { redirect } from "next/navigation";
 
+export const metadata = {
+  title: "Groups",
+  description: "All groups you are a member of.",
+};
+
 export default async function Groups() {
   const isLoggedIn = await validateCookieToken();
   if (isLoggedIn === false) {
