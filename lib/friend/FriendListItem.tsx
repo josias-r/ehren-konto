@@ -10,6 +10,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "../../components/ui/popover";
+import getInitialsFromName from "../user/getInitialsFromName";
 
 interface FriendListItemProps {
   userId: string;
@@ -30,13 +31,7 @@ function FriendListItem({
   userId,
   friendGroups,
 }: FriendListItemProps) {
-  // get initials from name
-  const initials = name
-    .split(" ")
-    .map((n) => n[0])
-    .splice(0, 2)
-    .join("")
-    .toUpperCase();
+  const initials = getInitialsFromName(name);
 
   return (
     <div className="flex">

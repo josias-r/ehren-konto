@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
@@ -9,6 +9,7 @@ import { login } from "@/lib/auth/login.action";
 import { useTransition } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
 interface FormShape {
   email: string;
@@ -26,13 +27,13 @@ function LoginForm() {
       const response = await login({ ...data });
       if (response.error) {
         switch (response.error) {
-          case "email-not-confirmed":
-            toast({
-              title: "Email not confirmed",
-              description: "Please check your inbox",
-              variant: "destructive",
-            });
-            break;
+          // case "email-not-confirmed":
+          //   toast({
+          //     title: "Email not confirmed",
+          //     description: "Please check your inbox",
+          //     variant: "destructive",
+          //   });
+          //   break;
           case "invalid-credentials":
             toast({
               title: "Invalid credentials",
@@ -80,9 +81,9 @@ function LoginForm() {
         Sign in
       </Button>
       <Separator />
-      <Button variant="outline" className="block w-full">
+      <Link className={buttonVariants({ variant: "outline" })} href="/signup">
         Sign up
-      </Button>
+      </Link>
     </form>
   );
 }

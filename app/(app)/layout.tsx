@@ -9,7 +9,7 @@ export default async function AppRootLayout({
   const isLoggedIn = validateCookieToken();
 
   if (isLoggedIn === false) {
-    notFound();
+    return notFound();
   }
 
   return <>{children}</>;

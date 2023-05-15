@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
@@ -9,6 +9,7 @@ import { signup } from "@/lib/auth/signup.action";
 import { useTransition } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
 interface FormShape {
   email: string;
@@ -96,9 +97,9 @@ function SignupForm() {
         Sign up
       </Button>
       <Separator />
-      <Button variant="outline" className="block w-full">
+      <Link className={buttonVariants({ variant: "outline" })} href="/login">
         Sign in
-      </Button>
+      </Link>
     </form>
   );
 }

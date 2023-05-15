@@ -4,6 +4,7 @@ import {
   AvatarImage,
 } from "../../components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import getInitialsFromName from "../user/getInitialsFromName";
 
 export type MemberShape = {
   name: string;
@@ -23,13 +24,7 @@ function GroupMemberListItem({
   ehre,
   avatar,
 }: GroupMemberListItemProps) {
-  // get initials from name
-  const initials = name
-    .split(" ")
-    .map((n) => n[0])
-    .splice(0, 2)
-    .join("")
-    .toUpperCase();
+  const initials = getInitialsFromName(name);
   return (
     <div className="flex">
       <Avatar className="mr-4">
