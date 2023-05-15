@@ -3,13 +3,7 @@ import Nav from "@/components/Nav";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import getAllFriendsForUser from "@/lib/friend/getAllFriendsForUser";
-import {
-  CheckCircle2,
-  CircleEllipsis,
-  Link,
-  QrCode,
-  ScanLine,
-} from "lucide-react";
+import { CheckCircle2, CircleEllipsis, QrCode, ScanLine } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { EmptyState } from "@/components/ui/empty-state";
 import { getUserId } from "@/lib/auth/getUserId";
+import CopyInviteLinkDropdownItem from "@/lib/friend/CopyInviteLinkDropdownItem";
 
 export const metadata = {
   title: "Friends",
@@ -64,10 +59,7 @@ export default async function Friends() {
               <QrCode className="w-4 h-4 mr-2" />
               <span>Show my friend code</span>
             </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Link className="w-4 h-4 mr-2" />
-              <span>Copy invite link</span>
-            </DropdownMenuItem>
+            <CopyInviteLinkDropdownItem />
           </DropdownMenuContent>
         </DropdownMenu>
       </h1>
