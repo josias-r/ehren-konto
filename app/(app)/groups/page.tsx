@@ -2,10 +2,10 @@ import GroupCard from "@/lib/group/GroupCard";
 import Nav from "@/components/Nav";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
-import { getUserId } from "@/lib/server/auth";
 import getAllFriendsForUser from "@/lib/friend/getAllFriendsForUser";
 import CreateGroupSheet from "@/lib/group/CreateGroupSheet";
 import getAllGroupsForUser from "@/lib/group/getAllGroupsForUser";
+import { getUserId } from "@/lib/auth/getUserId";
 
 export const metadata = {
   title: "Groups",
@@ -13,7 +13,7 @@ export const metadata = {
 };
 
 export default async function Groups() {
-  const userId = await getUserId();
+  const userId = getUserId();
 
   // get all groups from prisma where user with id "X" is in
   const groups = await getAllGroupsForUser(userId);

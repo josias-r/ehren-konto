@@ -1,4 +1,4 @@
-import { validateCookieToken } from "@/lib/server/auth";
+import { validateCookieToken } from "@/lib/auth/validateCookieToken";
 import { notFound } from "next/navigation";
 
 export default async function AppRootLayout({

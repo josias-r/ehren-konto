@@ -1,6 +1,6 @@
 "use server";
 
-import { validateCookieToken } from "./auth";
+import { validateCookieToken } from "../auth/validateCookieToken";
 
 function createAuthProtectedAction<
   TArgsShape extends any[],

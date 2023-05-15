@@ -2,7 +2,6 @@ import FriendListItem from "@/lib/friend/FriendListItem";
 import Nav from "@/components/Nav";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { getUserId } from "@/lib/server/auth";
 import getAllFriendsForUser from "@/lib/friend/getAllFriendsForUser";
 import {
   CheckCircle2,
@@ -11,7 +10,6 @@ import {
   QrCode,
   ScanLine,
 } from "lucide-react";
-import { redirect } from "next/navigation";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,6 +17,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { EmptyState } from "@/components/ui/empty-state";
+import { getUserId } from "@/lib/auth/getUserId";
 
 export const metadata = {
   title: "Friends",
@@ -26,7 +25,7 @@ export const metadata = {
 };
 
 export default async function Friends() {
-  const userId = await getUserId();
+  const userId = getUserId();
 
   const { userGroups, userFriends } = await getAllFriendsForUser(userId);
 
