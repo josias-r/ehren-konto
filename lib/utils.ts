@@ -22,7 +22,7 @@ function fallbackCopyTextToClipboard(text: string) {
     var successful = document.execCommand("copy");
     var msg = successful ? "successful" : "unsuccessful";
   } catch (err) {
-    console.error("Fallback: Oops, unable to copy", err);
+    alert("Oops, unable to copy");
   }
 
   document.body.removeChild(textArea);
@@ -35,7 +35,7 @@ export async function copyTextToClipboard(text: string) {
   return navigator.clipboard.writeText(text).then(
     function () {},
     function (err) {
-      console.error("Async: Could not copy text: ", err);
+      alert("Oops, unable to copy");
     }
   );
 }
