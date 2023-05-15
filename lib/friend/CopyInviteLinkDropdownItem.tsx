@@ -6,6 +6,7 @@ import { useTransition } from "react";
 import { updateInviteLink } from "./actions";
 import { useToast } from "@/components/ui/use-toast";
 import { copyTextToClipboard } from "../utils";
+import { ToastAction } from "@/components/ui/toast";
 
 function CopyInviteLinkDropdownItem() {
   const [isPending, startTransition] = useTransition();
@@ -24,7 +25,17 @@ function CopyInviteLinkDropdownItem() {
           toast({
             title: "Copied invite link",
             description:
-              "The invite link has been copied to your clipboard. It will expire in 24 hours.",
+              "The invite link has been copied to your clipboard. It will expire in 24 hours. Click the icon to copy it again.",
+            action: (
+              <ToastAction
+                altText="Copy again"
+                onClick={async () => {
+                  await copyTextToClipboard(link);
+                }}
+              >
+                <Link className="w-4 h-4" />
+              </ToastAction>
+            ),
           });
         });
       }}
