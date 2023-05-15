@@ -34,6 +34,7 @@ function CopyInviteLinkDropdownItem() {
             ) : (
               "Failed to copy the invite link to your clipboard. Click the icon to try again."
             ),
+            variant: !success ? "destructive" : undefined,
             action: (
               <ToastAction
                 altText="Copy again"
