@@ -20,7 +20,9 @@ function CopyInviteLinkDropdownItem() {
           const link = `${window.location.origin}/invite/${linkId}`;
           await navigator.clipboard.writeText(link);
           toast({
-            description: "Copied invite link",
+            title: "Copied invite link",
+            description:
+              "The invite link has been copied to your clipboard. It will expire in 24 hours.",
           });
         });
       }}
