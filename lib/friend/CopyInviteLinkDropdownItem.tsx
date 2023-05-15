@@ -21,16 +21,29 @@ function CopyInviteLinkDropdownItem() {
           const linkId = await updateInviteLink();
           const link = `${window.location.origin}/invite/${linkId}`;
 
-          await copyTextToClipboard(link);
+          const success = await copyTextToClipboard(link);
           toast({
-            title: "Copied invite link",
-            description:
-              "The invite link has been copied to your clipboard. It will expire in 24 hours. Click the icon to copy it again.",
+            title: success
+              ? "Copied invite link"
+              : "Failed to copy invite link",
+            description: success ? (
+              <>
+                This link will expire in 24 hours. Click the icon to copy it
+                again.
+              </>
+            ) : (
+              "Failed to copy the invite link to your clipboard. Click the icon to try again."
+            ),
             action: (
               <ToastAction
                 altText="Copy again"
                 onClick={async () => {
-                  await copyTextToClipboard(link);
+                  const success = await copyTextToClipboard(link);
+                  if (!success) {
+                    alert(
+                      "Cannot copy invite link, please try again later or try with a different browser."
+                    );
+                  }
                 }}
               >
                 <Link className="w-4 h-4" />

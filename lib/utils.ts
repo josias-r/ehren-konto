@@ -6,7 +6,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 function fallbackCopyTextToClipboard(text: string) {
-  var textArea = document.createElement("textarea");
+  const textArea = document.createElement("textarea");
   textArea.value = text;
 
   // Avoid scrolling to bottom
@@ -19,23 +19,25 @@ function fallbackCopyTextToClipboard(text: string) {
   textArea.select();
 
   try {
-    var successful = document.execCommand("copy");
-    var msg = successful ? "successful" : "unsuccessful";
-  } catch (err) {
-    alert("Oops, unable to copy");
-  }
+    const successful = document.execCommand("copy");
 
-  document.body.removeChild(textArea);
+    return successful; // success / error
+  } catch (err) {
+    return false; // error
+  } finally {
+    document.body.removeChild(textArea);
+  }
 }
 export async function copyTextToClipboard(text: string) {
   if (!navigator.clipboard) {
-    fallbackCopyTextToClipboard(text);
-    return;
+    return fallbackCopyTextToClipboard(text);
   }
   return navigator.clipboard.writeText(text).then(
-    function () {},
+    function () {
+      return true; // success
+    },
     function (err) {
-      alert("Oops, unable to copy");
+      return false; // error
     }
   );
 }
