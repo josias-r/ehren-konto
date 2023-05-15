@@ -6,8 +6,9 @@ import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { signup } from "@/lib/auth/signup.action";
-import { useState, useTransition } from "react";
+import { useTransition } from "react";
 import { useToast } from "@/components/ui/use-toast";
+import { redirect } from "next/navigation";
 
 interface FormShape {
   email: string;
@@ -47,6 +48,12 @@ function SignupForm() {
             variant: "destructive",
           });
         }
+      } else if (response.success) {
+        toast({
+          title: "Account created",
+          description: "Please check your email to verify your account",
+        });
+        redirect("/login");
       }
     });
   };
