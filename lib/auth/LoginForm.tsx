@@ -8,6 +8,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { login } from "@/lib/auth/login.action";
 import { useTransition } from "react";
 import { useToast } from "@/components/ui/use-toast";
+import { redirect } from "next/navigation";
 
 interface FormShape {
   email: string;
@@ -46,9 +47,7 @@ function LoginForm() {
             });
         }
       } else if (response.success) {
-        toast({
-          title: "Signed in",
-        });
+        redirect("/profile");
       }
     });
   };

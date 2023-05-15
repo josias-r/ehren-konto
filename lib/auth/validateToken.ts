@@ -15,16 +15,14 @@ export function validateToken(token: unknown, silent = false) {
     );
 
     if (
-      typeof decoded["username"] !== "string" ||
       typeof decoded["email"] !== "string" ||
       typeof decoded["id"] !== "string"
     ) {
       throw new Error("expected-specific-jwt-payload");
     }
     return {
-      username: decoded["username"],
       email: decoded["email"],
-      id: decoded["id"],
+      userId: decoded["id"],
     };
   } catch (error) {
     if (!silent) {
