@@ -32,7 +32,7 @@ interface SignInArgs {
   password: string;
 }
 
-export async function sigup({
+export async function signup({
   email: emailArg,
   password: passwordArg,
 }: SignInArgs) {
@@ -43,7 +43,7 @@ export async function sigup({
 
   if (!isEmail) {
     return {
-      error: "invalid-email",
+      error: "invalid-email" as const,
     };
   }
 
@@ -51,7 +51,7 @@ export async function sigup({
 
   if (Array.isArray(pwValidationMessages) && pwValidationMessages.length) {
     return {
-      error: "insufficient-password",
+      error: "insufficient-password" as const,
       pwValidationMessages: pwValidationMessages.map((result) =>
         result.message.replace("The string", "The password")
       ) as string[],
@@ -69,9 +69,23 @@ export async function sigup({
 
   if (userExists) {
     return {
-      error: "user-exists",
+      error: "user-exists" as const,
     };
   }
 
   const hash = await bcrypt.hash(password.trim(), 10);
+
+  await prisma.user.create({
+    data: {
+      email,
+      passwordHash: hash,
+      name: "",
+      nick: "",
+    },
+    select: {
+      userId: true,
+    },
+  });
+
+  return { success: true };
 }
