@@ -27,8 +27,8 @@ function FormRow<TId extends string>({
   const requiredText = required === true ? "is required" : required;
   return (
     <div className="grid gap-2">
-      <div className="grid grid-cols-3 items-center gap-4 relative">
-        <Label htmlFor={id}>
+      <div className="grid relative gap-3 sm:grid-cols-3 sm:items-center sm:gap-4">
+        <Label htmlFor={id} className="whitespace-nowrap">
           {label}
           {required ? (
             <span className="text-red-500 ordinal">

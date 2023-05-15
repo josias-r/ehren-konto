@@ -55,7 +55,7 @@ const SheetOverlay = React.forwardRef<
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName;
 
 const sheetVariants = cva(
-  "fixed z-50 scale-100 gap-4 bg-background p-6 opacity-100 shadow-lg border",
+  "fixed z-50 scale-100 gap-4 bg-background p-0 opacity-100 shadow-lg border",
   {
     variants: {
       position: {
@@ -185,15 +185,15 @@ const SheetContent = React.forwardRef<
       >
         <div className="flex flex-col gap-8 items-center max-h-[calc(100vh_-_5rem)] sm:max-h-[calc(100vh_-_10rem)]">
           {headerChildren && (
-            <div className="w-full max-w-md flex-shrink-0 flex-grow-0">
+            <div className="w-full max-w-md flex-shrink-0 flex-grow-0 px-6 pt-6">
               {headerChildren}
             </div>
           )}
-          <div className="overflow-y-auto flex-shrink flex-grow-0 w-full py-4 -my-4">
+          <div className="overflow-y-auto flex-shrink flex-grow-0 w-full py-4 -my-4 px-6">
             <div className="max-w-md mx-auto">{children}</div>
           </div>
           {footerChildren && (
-            <div className="w-full max-w-md flex-shrink-0 flex-grow-0">
+            <div className="w-full max-w-md flex-shrink-0 flex-grow-0 px-6 pb-6">
               {footerChildren}
             </div>
           )}
