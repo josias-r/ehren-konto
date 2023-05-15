@@ -27,11 +27,12 @@ export async function login({ email, password }: SignInArgs) {
     };
   }
 
-  if (!user.confirmedEmail) {
-    return {
-      error: "email-not-confirmed" as const,
-    };
-  }
+  // TODO: implement email confirmation
+  // if (!user.confirmedEmail) {
+  //   return {
+  //     error: "email-not-confirmed" as const,
+  //   };
+  // }
 
   const passwordMatch = await bcrypt.compare(password, user.passwordHash);
 
