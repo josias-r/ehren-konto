@@ -1,5 +1,7 @@
 import { Button, buttonVariants } from "@/components/ui/button";
 import { validateCookieToken } from "@/lib/auth/validateCookieToken";
+import BefriendUser from "@/lib/friend/BefriendUser";
+import getFriendshipExists from "@/lib/friend/getFriendshipExists";
 import getInviteLinkUser from "@/lib/friend/getInviteLinkUser";
 import InviteUserAvatar from "@/lib/user/InviteUserAvatar";
 import Link from "next/link";
@@ -50,13 +52,59 @@ async function Invite({
     );
   }
 
+  if (inviteLinkUser.userId === isLoggedIn.userId) {
+    return (
+      <main className="p-4 h-full max-w-xs mx-auto grid items-center">
+        <div className="grid gap-4">
+          <InviteUserAvatar
+            avatar={inviteLinkUser.avatar}
+            name={inviteLinkUser.name}
+          />
+
+          <p className="text-muted-foreground text-center text-sm">
+            Nice try, but you can&apos;t invite yourself 😉
+          </p>
+
+          <Button disabled>Accept invite</Button>
+        </div>
+      </main>
+    );
+  }
+
+  const friendShipExists = await getFriendshipExists({
+    user1Id: inviteLinkUser.userId,
+    user2Id: isLoggedIn.userId,
+  });
+
+  if (friendShipExists) {
+    return (
+      <main className="p-4 h-full max-w-xs mx-auto grid items-center">
+        <div className="grid gap-4">
+          <InviteUserAvatar
+            avatar={inviteLinkUser.avatar}
+            name={inviteLinkUser.name}
+          />
+
+          <p className="text-muted-foreground text-center text-sm">
+            You&apos;re already friends with {inviteLinkUser.name}!
+          </p>
+
+          <Button disabled>Accept invite</Button>
+        </div>
+      </main>
+    );
+  }
+
   return (
-    <main className="p-4 h-full max-w-md mx-auto grid items-center">
-      YOU VE BEEN INVITES {params.link}
-      <br />
-      by {inviteLinkUser?.name} {inviteLinkUser?.userId}
-      <br />
-      {!inviteLinkUser && "Invalid invite link"}
+    <main className="p-4 h-full max-w-xs mx-auto grid items-center">
+      <div className="grid gap-8">
+        <InviteUserAvatar
+          avatar={inviteLinkUser.avatar}
+          name={inviteLinkUser.name}
+        />
+
+        <BefriendUser inviteLink={params.link} />
+      </div>
     </main>
   );
 }
