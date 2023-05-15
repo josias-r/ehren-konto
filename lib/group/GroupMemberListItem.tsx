@@ -11,7 +11,7 @@ export type MemberShape = {
   role: "ADMIN" | "MEMBER";
   ehre: number;
   avatar: string;
-  userId: number;
+  userId: string;
 };
 
 interface GroupMemberListItemProps extends MemberShape {}

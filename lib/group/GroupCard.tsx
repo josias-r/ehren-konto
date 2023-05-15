@@ -10,7 +10,7 @@ import { Button } from "../../components/ui/button";
 import ActivityWithPopover from "../activity/ActivityWithPopover";
 
 export type GroupFriend = {
-  userId: number;
+  userId: string;
   name: string;
   nick: string;
   avatar: string;

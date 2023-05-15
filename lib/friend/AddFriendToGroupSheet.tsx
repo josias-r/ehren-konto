@@ -38,7 +38,7 @@ function AddFriendToGroupSheet({
   const friendsInGroup: typeof friends = [];
   const friendsNotInGroup: typeof friends = [];
 
-  const [chosenFriends, setChosenFriends] = useState<number[]>([]);
+  const [chosenFriends, setChosenFriends] = useState<string[]>([]);
 
   if (groupId !== null) {
     friends.forEach((friend) => {

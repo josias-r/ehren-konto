@@ -14,7 +14,7 @@ export type ActivityShape = {
   color: ActivityColor;
   name: string;
   from: Date;
-  participants: { userId: number; confirmed: boolean }[];
+  participants: { userId: string; confirmed: boolean }[];
 };
 
 interface ActivityProps extends ActivityShape {}

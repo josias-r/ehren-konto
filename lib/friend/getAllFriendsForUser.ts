@@ -1,6 +1,6 @@
-import { prisma } from "../server/prisma-client";
+import { prisma } from "../prisma-client";
 
-async function getAllFriendsForUser(userId: number) {
+async function getAllFriendsForUser(userId: string) {
   const userSelectData = {
     userId: true,
     name: true,
@@ -61,7 +61,7 @@ async function getAllFriendsForUser(userId: number) {
 
   const mapFriendShip = (friendship: {
     name: string;
-    userId: number;
+    userId: string;
     GroupMember: {
       Group: {
         groupId: number;

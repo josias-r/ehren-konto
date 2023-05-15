@@ -1,4 +1,3 @@
-import FriendListItem from "./FriendListItem";
 import { GroupFriend, GroupFriendGroup } from "../group/GroupCard";
 import {
   Sheet,
@@ -11,13 +10,12 @@ import {
   SheetTrigger,
 } from "../../components/ui/sheet";
 import { ReactNode } from "react";
-import { CheckCircle, CheckCircle2, Circle } from "lucide-react";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import FriendsBulkListItem from "./FriendsBulkListItem";
 
 interface SelectFriendsSheetProps {
-  chosenFriends: number[];
-  onChosenFriendsChange: (chosenFriends: number[]) => void;
+  chosenFriends: string[];
+  onChosenFriendsChange: (chosenFriends: string[]) => void;
   /** null indicates the modal is used for a create group modal */
   friends: GroupFriend[];
   friendGroups: GroupFriendGroup[];

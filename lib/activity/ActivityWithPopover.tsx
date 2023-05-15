@@ -15,7 +15,7 @@ import { useState } from "react";
 
 interface ActivityWithPopoverProps extends ActivityShape {
   members: {
-    userId: number;
+    userId: string;
     name: string;
   }[];
 }

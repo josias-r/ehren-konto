@@ -12,7 +12,7 @@ import {
 } from "../../components/ui/popover";
 
 interface FriendListItemProps {
-  userId: number;
+  userId: string;
   nick: string;
   name: string;
   avatar: string;

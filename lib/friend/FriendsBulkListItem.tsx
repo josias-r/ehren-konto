@@ -3,8 +3,8 @@ import { GroupFriend, GroupFriendGroup } from "../group/GroupCard";
 import FriendListItem from "./FriendListItem";
 
 interface FriendsBulkListItemProps {
-  chosenFriends: number[];
-  onChosenFriendsChange: (chosenFriends: number[]) => void;
+  chosenFriends: string[];
+  onChosenFriendsChange: (chosenFriends: string[]) => void;
   friend: GroupFriend;
   friendGroups: GroupFriendGroup[];
 }

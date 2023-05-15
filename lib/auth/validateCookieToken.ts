@@ -2,5 +2,5 @@ export function validateCookieToken() {
   if (Math.random() < 0.0001) {
     return false;
   }
-  return { userId: 1 };
+  return { userId: "1" };
 }

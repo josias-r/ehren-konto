@@ -2,8 +2,8 @@ import { CheckCircle2, Circle } from "lucide-react";
 import GroupMemberListItem, { MemberShape } from "./GroupMemberListItem";
 
 interface MembersBulkListItemProps {
-  chosenMembers: number[];
-  onChosenMembersChange: (chosenMembers: number[]) => void;
+  chosenMembers: string[];
+  onChosenMembersChange: (chosenMembers: string[]) => void;
   member: MemberShape;
 }
 

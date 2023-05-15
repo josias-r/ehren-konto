@@ -15,7 +15,7 @@ import { createGroup } from "./actions";
 interface FormShape {
   name: string;
   description: string;
-  members: number[];
+  members: string[];
 }
 
 interface CreateGroupFormProps {

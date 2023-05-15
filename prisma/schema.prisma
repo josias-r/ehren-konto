@@ -10,7 +10,7 @@ datasource db {
 }
 
 model User {
-  userId    Int      @id @default(autoincrement())
+  userId    String   @id @default(uuid())
   createdAt DateTime @default(now())
   email     String   @unique @db.VarChar(100)
   name      String   @db.VarChar(50)
@@ -45,7 +45,7 @@ model GroupMember {
   Group         Group           @relation(fields: [groupId], references: [groupId], onDelete: Cascade)
   groupId       Int
   User          User            @relation(fields: [userId], references: [userId], onDelete: Cascade)
-  userId        Int
+  userId        String
 
   @@unique([userId, groupId])
 }
@@ -60,9 +60,9 @@ model Friendship {
   friendshipId   Int              @id @default(autoincrement())
   createdAt      DateTime         @default(now())
   OutgoingUser   User             @relation("userOutgoingFriendships", fields: [outgoingUserId], references: [userId])
-  outgoingUserId Int
+  outgoingUserId String
   IncomingUser   User             @relation("userIncomingFriendships", fields: [incomingUserId], references: [userId])
-  incomingUserId Int
+  incomingUserId String
   status         FriendshipStatus @default(PENDING)
 
   @@unique([outgoingUserId, incomingUserId])
@@ -93,7 +93,7 @@ model ActivityParticipant {
   Activity              Activity @relation(fields: [activityId], references: [activityId])
   activityId            Int
   User                  User     @relation(fields: [userId], references: [userId])
-  userId                Int
+  userId                String
   confirmed             Boolean  @default(false)
 
   @@unique([activityId, userId])

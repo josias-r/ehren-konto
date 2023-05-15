@@ -1,13 +1,13 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { prisma } from "../server/prisma-client";
-import createAuthProtectedAction from "../server/createAuthProtectedAction";
+import { prisma } from "../prisma-client";
+import createAuthProtectedAction from "../auth/createAuthProtectedAction";
 
 interface CreateGroupArgs {
   name: string;
   description: string;
-  members: number[];
+  members: string[];
 }
 
 export const createGroup = createAuthProtectedAction(
@@ -65,7 +65,7 @@ export const deleteGroup = createAuthProtectedAction(
 
 interface AddGroupMembersArgs {
   groupId: number;
-  members: number[];
+  members: string[];
 }
 
 export const addGroupMembers = createAuthProtectedAction(
@@ -84,7 +84,7 @@ export const addGroupMembers = createAuthProtectedAction(
 
 interface RemoveGroupMembersArgs {
   groupId: number;
-  members: number[];
+  members: string[];
 }
 
 export const removeGroupMembers = createAuthProtectedAction(

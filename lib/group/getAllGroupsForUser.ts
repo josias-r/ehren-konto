@@ -1,6 +1,6 @@
-import { prisma } from "../server/prisma-client";
+import { prisma } from "../prisma-client";
 
-async function getAllGroupsForUser(userId: number) {
+async function getAllGroupsForUser(userId: string) {
   const userWithGroups = await prisma.user.findFirst({
     select: {
       GroupMember: {

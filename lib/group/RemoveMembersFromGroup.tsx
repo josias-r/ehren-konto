@@ -30,7 +30,7 @@ function RemoveMembersFromGroup({
 }: RemoveMembersFromGroupProps) {
   const [isPending, startTransition] = useTransition();
 
-  const [chosenMembers, setChosenMembers] = useState<number[]>([]);
+  const [chosenMembers, setChosenMembers] = useState<string[]>([]);
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
