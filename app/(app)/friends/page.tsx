@@ -26,7 +26,7 @@ export default async function Friends() {
 
   // group userFriends by first letter of name
   const userFriendsByLetter = userFriends.reduce((acc, friend) => {
-    const firstLetter = friend.name[0].toUpperCase();
+    const firstLetter = friend.name[0]?.toUpperCase() || "?"; // ? fallback for empty names
     if (!acc[firstLetter]) {
       acc[firstLetter] = [];
     }

@@ -4,6 +4,7 @@ import { validateCookieToken } from "@/lib/auth/validateCookieToken";
 import { completeProfile } from "@/lib/user/actions";
 import getMainProfileData from "@/lib/user/getMainProfileData";
 import getProfileIsIncomplete from "@/lib/user/getProfileIsIncomplete";
+import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
 
 export const metadata = {
@@ -30,6 +31,7 @@ export default async function CompleteProfile() {
 
     await completeProfile({ name, nick });
 
+    revalidatePath("/profile");
     redirect("/profile");
   }
 
