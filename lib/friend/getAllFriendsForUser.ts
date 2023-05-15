@@ -68,7 +68,7 @@ async function getAllFriendsForUser(userId: string) {
       };
     }[];
     nick: string;
-    avatar: string;
+    avatar: string | null;
   }) => ({
     userId: friendship.userId,
     name: friendship.name,

@@ -15,7 +15,7 @@ interface FriendListItemProps {
   userId: string;
   nick: string;
   name: string;
-  avatar: string;
+  avatar: string | null;
   groups: {
     groupId: number;
   }[];
@@ -41,7 +41,7 @@ function FriendListItem({
   return (
     <div className="flex">
       <Avatar className="mr-4">
-        <AvatarImage src={avatar} />
+        {avatar && <AvatarImage src={avatar} />}
         <AvatarFallback>{initials}</AvatarFallback>
       </Avatar>
       <div className="flex justify-between w-full items-center">

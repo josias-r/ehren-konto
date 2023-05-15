@@ -13,7 +13,7 @@ export type GroupFriend = {
   userId: string;
   name: string;
   nick: string;
-  avatar: string;
+  avatar: string | null;
   groups: {
     groupId: number;
   }[];
