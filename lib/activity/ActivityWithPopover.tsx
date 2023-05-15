@@ -6,7 +6,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import Activity, { ActivityShape } from "./Activity";
-import eventRelativeDate from "@/lib/utilities/eventRelativeDate";
+import activityRelativeDate from "@/lib/activity/utilities/activityRelativeDate";
 import { Separator } from "../../components/ui/separator";
 import { CheckCircle, Clock2, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -65,7 +65,7 @@ function ActivityWithPopover({
                   </div>
                 </h4>
                 <p className="text-sm text-muted-foreground">
-                  {eventRelativeDate(from).formatted}
+                  {activityRelativeDate(from).formatted}
                 </p>
                 {!!participants.length && (
                   <>

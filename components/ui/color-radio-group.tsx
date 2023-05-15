@@ -1,18 +1,18 @@
 "use client";
 
 import {
-  EventColor,
-  getEventColors,
-  getEventGradient,
-} from "@/lib/utilities/event-colors";
+  ActivityColor,
+  getActivityColors,
+  getActivityGradient,
+} from "@/lib/activity/utilities/activity-colors";
 import * as RadioGroup from "@radix-ui/react-radio-group";
 import { cn } from "@/lib/utils";
 
 interface ColorRadioGroupProps {
   className?: string;
 
-  value: EventColor;
-  onChange: (newColor: EventColor) => void;
+  value: ActivityColor;
+  onChange: (newColor: ActivityColor) => void;
 }
 
 function ColorRadioGroup({ className, onChange, value }: ColorRadioGroupProps) {
@@ -21,11 +21,11 @@ function ColorRadioGroup({ className, onChange, value }: ColorRadioGroupProps) {
       className={cn("flex gap-2", className)}
       value={value}
       onValueChange={(newValue) => {
-        onChange(newValue as EventColor);
+        onChange(newValue as ActivityColor);
       }}
     >
-      {getEventColors().map((color) => {
-        const gradient = getEventGradient(color);
+      {getActivityColors().map((color) => {
+        const gradient = getActivityGradient(color);
         return (
           <RadioGroup.Item
             key={color}

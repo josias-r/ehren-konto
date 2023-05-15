@@ -10,7 +10,7 @@ type EventRelativeDateReturn = {
   range: "minutes" | "hours" | "days" | "weeks" | "months" | "years";
 };
 
-function eventRelativeDate(relativeDate: Date): EventRelativeDateReturn {
+function activityRelativeDate(relativeDate: Date): EventRelativeDateReturn {
   const diffInMilliseconds = relativeDate.getTime() - Date.now();
   const absoluteDiffInMilliseconds = Math.abs(diffInMilliseconds);
 
@@ -55,4 +55,4 @@ function eventRelativeDate(relativeDate: Date): EventRelativeDateReturn {
   };
 }
 
-export default eventRelativeDate;
+export default activityRelativeDate;

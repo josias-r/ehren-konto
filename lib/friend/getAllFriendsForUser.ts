@@ -1,4 +1,4 @@
-import { prisma } from "../utilities/prisma-client";
+import { prisma } from "../server/prisma-client";
 
 async function getAllFriendsForUser(userId: number) {
   const userSelectData = {

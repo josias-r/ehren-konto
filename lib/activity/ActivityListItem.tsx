@@ -1,6 +1,6 @@
 import { Users } from "lucide-react";
 import Activity, { ActivityShape } from "./Activity";
-import eventRelativeDate from "@/lib/utilities/eventRelativeDate";
+import activityRelativeDate from "@/lib/activity/utilities/activityRelativeDate";
 import ActivityWithPopover from "./ActivityWithPopover";
 import { MemberShape } from "../group/GroupMemberListItem";
 
@@ -34,7 +34,7 @@ function ActivityListItem({
         <div className="text-sm">
           <p>{name}</p>
           <p className="text-sm text-muted-foreground">
-            {eventRelativeDate(from).formatted}
+            {activityRelativeDate(from).formatted}
           </p>
         </div>
         <div

@@ -2,11 +2,10 @@ import GroupCard from "@/lib/group/GroupCard";
 import Nav from "@/components/Nav";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
-import { validateCookieToken } from "@/lib/auth.server";
+import { getUserId } from "@/lib/server/auth";
 import getAllFriendsForUser from "@/lib/friend/getAllFriendsForUser";
 import CreateGroupSheet from "@/lib/group/CreateGroupSheet";
 import getAllGroupsForUser from "@/lib/group/getAllGroupsForUser";
-import { redirect } from "next/navigation";
 
 export const metadata = {
   title: "Groups",
@@ -14,17 +13,12 @@ export const metadata = {
 };
 
 export default async function Groups() {
-  const isLoggedIn = await validateCookieToken();
-  if (isLoggedIn === false) {
-    redirect("/login");
-  }
+  const userId = await getUserId();
 
   // get all groups from prisma where user with id "X" is in
-  const groups = await getAllGroupsForUser(isLoggedIn.userId);
+  const groups = await getAllGroupsForUser(userId);
 
-  const { userGroups, userFriends } = await getAllFriendsForUser(
-    isLoggedIn.userId
-  );
+  const { userGroups, userFriends } = await getAllFriendsForUser(userId);
 
   return (
     <main className="relative">

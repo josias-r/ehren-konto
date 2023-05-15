@@ -9,12 +9,12 @@ import { cn } from "../utils";
 import useControlledForm from "../hooks/useControlledForm";
 import EmojiPicker from "@/components/ui/emoji-picker";
 import ColorRadioGroup from "@/components/ui/color-radio-group";
-import { EventColor } from "../utilities/event-colors";
+import { ActivityColor } from "./utilities/activity-colors";
 import { DatePicker } from "@/components/ui/date-picker";
 import { updateActivity } from "./actions";
 
 export interface ActivityEditFormShape {
-  color: EventColor;
+  color: ActivityColor;
   name: string;
   emoji: string;
   from: Date | null;

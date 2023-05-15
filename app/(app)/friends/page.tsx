@@ -2,7 +2,7 @@ import FriendListItem from "@/lib/friend/FriendListItem";
 import Nav from "@/components/Nav";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { validateCookieToken } from "@/lib/auth.server";
+import { getUserId } from "@/lib/server/auth";
 import getAllFriendsForUser from "@/lib/friend/getAllFriendsForUser";
 import {
   CheckCircle2,
@@ -26,14 +26,9 @@ export const metadata = {
 };
 
 export default async function Friends() {
-  const isLoggedIn = await validateCookieToken();
-  if (isLoggedIn === false) {
-    redirect("/login");
-  }
+  const userId = await getUserId();
 
-  const { userGroups, userFriends } = await getAllFriendsForUser(
-    isLoggedIn.userId
-  );
+  const { userGroups, userFriends } = await getAllFriendsForUser(userId);
 
   // group userFriends by first letter of name
   const userFriendsByLetter = userFriends.reduce((acc, friend) => {

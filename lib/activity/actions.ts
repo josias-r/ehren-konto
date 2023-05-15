@@ -1,16 +1,16 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { prisma } from "../utilities/prisma-client";
-import createAuthProtectedAction from "../createAuthProtectedAction";
-import { EventColor } from "../utilities/event-colors";
+import { prisma } from "../server/prisma-client";
+import createAuthProtectedAction from "../server/createAuthProtectedAction";
+import { ActivityColor } from "./utilities/activity-colors";
 
 interface CreateActivityArgs {
   groupId: number;
   name: string;
   from: Date;
   emoji: string;
-  color: EventColor;
+  color: ActivityColor;
 
   // to: Date;
   // members: number[];
@@ -50,7 +50,7 @@ interface UpdateActivityArgs {
   name: string;
   from: Date;
   emoji: string;
-  color: EventColor;
+  color: ActivityColor;
 }
 
 export const updateActivity = createAuthProtectedAction(

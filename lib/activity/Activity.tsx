@@ -1,6 +1,9 @@
 "use client";
 
-import { EventColor, getEventGradient } from "@/lib/utilities/event-colors";
+import {
+  ActivityColor,
+  getActivityGradient,
+} from "@/lib/activity/utilities/activity-colors";
 import ActivityContainer from "./ActivityContainer";
 import { Emoji, EmojiStyle } from "emoji-picker-react";
 import { useEffect, useState } from "react";
@@ -8,7 +11,7 @@ import { useEffect, useState } from "react";
 export type ActivityShape = {
   activityId: number;
   emoji: string;
-  color: EventColor;
+  color: ActivityColor;
   name: string;
   from: Date;
   participants: { userId: number; confirmed: boolean }[];
@@ -17,7 +20,7 @@ export type ActivityShape = {
 interface ActivityProps extends ActivityShape {}
 
 function Activity({ color, emoji }: ActivityProps) {
-  const gradient = getEventGradient(color);
+  const gradient = getActivityGradient(color);
 
   // otherwise getting SSR errors from next
   const [mounted, setMounted] = useState(false);
