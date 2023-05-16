@@ -32,8 +32,8 @@ const qrCode = new QRCodeStyling({
       type: "linear",
       rotation: 0,
       colorStops: [
-        { offset: 0, color: "#a1511b" },
-        { offset: 1, color: "#750624" },
+        { offset: 0, color: "#EE7C2F" },
+        { offset: 1, color: "#740D39" },
       ],
     },
   },
@@ -58,7 +58,7 @@ function QrCode({ linkId }: QrCodeProps) {
   useEffect(() => {
     const asyncWrapper = async () => {
       qrCode.update({
-        data: `${document.location.origin}/invite/${linkId}}`,
+        data: inviteUrl,
       });
       const qrData = (await qrCode.getRawData("svg")) as Blob;
       const generatedQrUrl = URL.createObjectURL(qrData);
@@ -71,7 +71,7 @@ function QrCode({ linkId }: QrCodeProps) {
       new ClipboardJS(btnRef.current, {});
     };
     asyncWrapper();
-  }, [linkId]);
+  }, [inviteUrl]);
 
   return (
     <div className="grid gap-10">
