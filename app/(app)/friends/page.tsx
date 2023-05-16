@@ -13,6 +13,7 @@ import {
 import { EmptyState } from "@/components/ui/empty-state";
 import { getUserId } from "@/lib/auth/getUserId";
 import CopyInviteLinkDropdownItem from "@/lib/friend/CopyInviteLinkDropdownItem";
+import Link from "next/link";
 
 export const metadata = {
   title: "Friends",
@@ -51,13 +52,15 @@ export default async function Friends() {
               <CheckCircle2 className="w-4 h-4 mr-2" />
               <span>Select</span>
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            {/* <DropdownMenuItem>
               <ScanLine className="w-4 h-4 mr-2" />
               <span>Scan friend code</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <QrCode className="w-4 h-4 mr-2" />
-              <span>Show my friend code</span>
+            </DropdownMenuItem> */}
+            <DropdownMenuItem asChild>
+              <Link href="/friends/qr">
+                <QrCode className="w-4 h-4 mr-2" />
+                <span>Show my friend code</span>
+              </Link>
             </DropdownMenuItem>
             <CopyInviteLinkDropdownItem />
           </DropdownMenuContent>
