@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 
 // TODOs:
 //
@@ -54,5 +55,6 @@ export const metadata = {
 };
 
 export default function Home() {
+  notFound();
   return <main>WIP</main>;
 }
