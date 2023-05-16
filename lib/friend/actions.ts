@@ -3,6 +3,7 @@
 import { nanoid } from "nanoid";
 import createAuthProtectedAction from "../auth/createAuthProtectedAction";
 import { prisma } from "../prisma-client";
+import { revalidatePath } from "next/cache";
 
 const hour = 1000 * 60 * 60; // 1 hour
 const linkExpiry = hour * 24; // 24 hours
@@ -64,5 +65,35 @@ export const befriendUser = createAuthProtectedAction(
         outgoingUserId: loggedInUserId,
       },
     });
+
+    revalidatePath("/friends");
+  }
+);
+
+interface UnfriendUsersArgs {
+  userIds: string[];
+}
+
+export const unfriendUsers = createAuthProtectedAction(
+  async (loggedInUserId, { userIds }: UnfriendUsersArgs) => {
+    await prisma.friendship.deleteMany({
+      where: {
+        OR: [
+          {
+            outgoingUserId: loggedInUserId,
+            incomingUserId: {
+              in: userIds,
+            },
+          },
+          {
+            incomingUserId: loggedInUserId,
+            outgoingUserId: {
+              in: userIds,
+            },
+          },
+        ],
+      },
+    });
+    revalidatePath("/friends");
   }
 );

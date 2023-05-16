@@ -49,7 +49,7 @@ function NotFound() {
           src="/abstract-empty-state-illustration.png"
           width={300}
           height={300}
-          alt="Empty state illustration"
+          alt="404 abstract illustration"
         />
       </div>
     </main>

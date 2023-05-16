@@ -60,7 +60,7 @@ function QrCode({ linkId }: QrCodeProps) {
       qrCode.update({
         data: `${document.location.origin}/invite/${linkId}}`,
       });
-      const qrData = (await qrCode.getRawData("jpeg")) as Blob;
+      const qrData = (await qrCode.getRawData("svg")) as Blob;
       const generatedQrUrl = URL.createObjectURL(qrData);
       setQrUrl(generatedQrUrl);
 
@@ -90,7 +90,7 @@ function QrCode({ linkId }: QrCodeProps) {
           src="/abstract-empty-state-illustration.png"
           width={size}
           height={size}
-          alt="Empty state illustration"
+          alt="Abstract illustration"
         />
       )}
       <Tooltip open={tooltipOpen}>
