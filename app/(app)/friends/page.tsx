@@ -59,10 +59,10 @@ export default async function Friends() {
             <DropdownMenuItem asChild>
               <Link href="/friends/qr">
                 <QrCode className="w-4 h-4 mr-2" />
-                <span>Show my friend code</span>
+                <span>My friend code</span>
               </Link>
             </DropdownMenuItem>
-            <CopyInviteLinkDropdownItem />
+            {/* <CopyInviteLinkDropdownItem /> */}
           </DropdownMenuContent>
         </DropdownMenu>
       </h1>

@@ -2,6 +2,11 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import ClipboardJS from "clipboard";
 import Image from "next/image";
 import QRCodeStyling from "qr-code-styling";
@@ -43,6 +48,8 @@ const qrCode = new QRCodeStyling({
 
 function QrCode({ linkId }: QrCodeProps) {
   const inviteUrl = `${document.location.origin}/invite/${linkId}`;
+
+  const [tooltipOpen, setTooltipOpen] = useState(false);
 
   const [qrUrl, setQrUrl] = useState<string>();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -86,21 +93,32 @@ function QrCode({ linkId }: QrCodeProps) {
           alt="Empty state illustration"
         />
       )}
-      <div className="flex mx-auto">
-        <Input
-          ref={inputRef}
-          id="invite-link-input"
-          className="rounded-r-none max-w-[10rem]"
-          value={inviteUrl}
-        />
-        <Button
-          ref={btnRef}
-          data-clipboard-target="#invite-link-input"
-          className="whitespace-nowrap rounded-l-none"
-        >
-          Copy
-        </Button>
-      </div>
+      <Tooltip open={tooltipOpen}>
+        <TooltipTrigger asChild>
+          <div className="flex mx-auto">
+            <Input
+              ref={inputRef}
+              id="invite-link-input"
+              className="rounded-r-none max-w-[10rem]"
+              value={inviteUrl}
+            />
+            <Button
+              ref={btnRef}
+              data-clipboard-target="#invite-link-input"
+              className="whitespace-nowrap rounded-l-none"
+              onClick={() => {
+                setTooltipOpen(true);
+                setTimeout(() => {
+                  setTooltipOpen(false);
+                }, 1000);
+              }}
+            >
+              Copy
+            </Button>
+          </div>
+        </TooltipTrigger>
+        <TooltipContent side="bottom">Copied!</TooltipContent>
+      </Tooltip>
     </div>
   );
 }
