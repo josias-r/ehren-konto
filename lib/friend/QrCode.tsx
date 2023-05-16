@@ -38,7 +38,7 @@ const qrCode = new QRCodeStyling({
     },
   },
   backgroundOptions: {
-    color: "#f0f0f0",
+    color: "#ffffff",
   },
   imageOptions: {
     crossOrigin: "anonymous",
@@ -81,7 +81,7 @@ function QrCode({ linkId }: QrCodeProps) {
           alt="Invite link QR code"
           width={size}
           height={size}
-          className="p-4 bg-[#f0f0f0] rounded block mx-auto"
+          className="p-4 bg-[#ffffff] rounded block mx-auto"
         />
       )}
       {!qrUrl && (
