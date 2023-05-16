@@ -5,8 +5,8 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Qr",
-  description: "Add and manage your friends.",
+  title: "Friend code",
+  description: "Invite your friends to join you on the app",
 };
 
 export default async function Qr() {
