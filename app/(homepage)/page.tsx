@@ -1,7 +1,3 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 
 // TODOs:
@@ -30,8 +26,8 @@ import { notFound } from "next/navigation";
 // - [ ] history
 // - [ ] account settings (email, password, delete)
 // --- group
-// - [ ] group member popover
 // - [ ] group member role management
+// - [ ] group member popover
 // - [ ] group member admin action hidden/greyed out
 // - [ ] group activity participants: sorting + scrollable
 // --- notifications
@@ -44,9 +40,7 @@ import { notFound } from "next/navigation";
 // - [ ] to date
 // - [ ] add to calendar
 // friends
-// - [ ] qr code screen
-// - [ ] scan qr code screen (use camera app?)
-// - [ ] copy link button + toast confirmation
+// - [ ] remove friend
 
 export const metadata = {
   title: "Ehre",
@@ -56,5 +50,4 @@ export const metadata = {
 
 export default function Home() {
   notFound();
-  return <main>WIP</main>;
 }
