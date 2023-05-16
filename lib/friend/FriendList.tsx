@@ -62,6 +62,7 @@ function FriendList({
                   await unfriendUsers({
                     userIds: selectedFriends,
                   });
+                  setIsMultiSelect(false);
                 });
               }}
             >
