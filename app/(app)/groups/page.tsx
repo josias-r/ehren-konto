@@ -38,7 +38,7 @@ export default async function Groups() {
                 <p>Create one now:</p>
               </>
             }
-            className="h-[80vh]"
+            className="h-[80vh] max-h-screen"
           >
             <CreateGroupSheet friends={userFriends} friendGroups={userGroups}>
               <Button>Create group</Button>
