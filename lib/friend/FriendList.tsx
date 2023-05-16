@@ -1,7 +1,8 @@
 "use client";
 
 import FriendListItem from "@/lib/friend/FriendListItem";
-import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { CheckCircle2, CircleEllipsis, QrCode } from "lucide-react";
 import {
@@ -11,11 +12,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { EmptyState } from "@/components/ui/empty-state";
-import Link from "next/link";
 import { GroupFriendGroup } from "../group/GroupCard";
 import { useState, useTransition } from "react";
 import FriendsBulkListItem from "./FriendsBulkListItem";
 import { unfriendUsers } from "./actions";
+import { cn } from "../utils";
 
 interface FriendListProps {
   friendLettersSorted: string[];
@@ -40,7 +41,7 @@ function FriendList({
   userGroups,
 }: FriendListProps) {
   const [isMultiSelect, setIsMultiSelect] = useState(false);
-  const [selectedFirends, setSelectedFriends] = useState<string[]>([]);
+  const [selectedFriends, setSelectedFriends] = useState<string[]>([]);
 
   const [isPending, startTransition] = useTransition();
 
@@ -53,13 +54,13 @@ function FriendList({
             <Button
               size="sm"
               variant="destructive"
-              disabled={isPending || !selectedFirends.length}
+              disabled={isPending || !selectedFriends.length}
               onClick={() => {
                 setSelectedFriends([]);
 
                 startTransition(async () => {
                   await unfriendUsers({
-                    userIds: selectedFirends,
+                    userIds: selectedFriends,
                   });
                 });
               }}
@@ -86,14 +87,16 @@ function FriendList({
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem
-                onClick={() => {
-                  setIsMultiSelect(true);
-                }}
-              >
-                <CheckCircle2 className="w-4 h-4 mr-2" />
-                <span>Select</span>
-              </DropdownMenuItem>
+              {!!friendLettersSorted.length && (
+                <DropdownMenuItem
+                  onClick={() => {
+                    setIsMultiSelect(true);
+                  }}
+                >
+                  <CheckCircle2 className="w-4 h-4 mr-2" />
+                  <span>Select</span>
+                </DropdownMenuItem>
+              )}
               {/* <DropdownMenuItem>
               <ScanLine className="w-4 h-4 mr-2" />
               <span>Scan friend code</span>
@@ -115,8 +118,19 @@ function FriendList({
             title="No friends"
             message={
               <>
-                Go and invite your friends to join via a shared link or a QR
-                code.
+                Go and{" "}
+                <Link
+                  className={cn(
+                    buttonVariants({
+                      variant: "link",
+                    }),
+                    "p-0 inline"
+                  )}
+                  href="/friends/qr"
+                >
+                  invite your friends
+                </Link>{" "}
+                to join.
               </>
             }
             className="h-[80vh]"
@@ -138,7 +152,7 @@ function FriendList({
                         <FriendsBulkListItem
                           key={friend.userId}
                           friend={friend}
-                          chosenFriends={selectedFirends}
+                          chosenFriends={selectedFriends}
                           onChosenFriendsChange={setSelectedFriends}
                           friendGroups={userGroups}
                         />
