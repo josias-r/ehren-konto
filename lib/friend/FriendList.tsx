@@ -134,7 +134,7 @@ function FriendList({
                 to join.
               </>
             }
-            className="h-[80vh] max-h-screen"
+            className="h-[calc(100vh-10rem)]"
           />
         )}
         {friendLettersSorted.map((letter, index) => {
