@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { useTransition } from "react";
 import { befriendUser } from "./actions";
+import { useRouter } from "next/navigation";
 
 interface BefriendUserProps {
   inviteLink: string;
@@ -10,6 +11,8 @@ interface BefriendUserProps {
 
 function BefriendUser({ inviteLink }: BefriendUserProps) {
   const [isPending, startTransition] = useTransition();
+
+  const router = useRouter();
 
   return (
     <Button
@@ -19,6 +22,7 @@ function BefriendUser({ inviteLink }: BefriendUserProps) {
           await befriendUser({
             inviteLink,
           });
+          router.push("/friends");
         });
       }}
     >

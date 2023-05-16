@@ -7,6 +7,19 @@ import InviteUserAvatar from "@/lib/user/InviteUserAvatar";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+function BackToFriends() {
+  return (
+    <Link
+      className={buttonVariants({
+        variant: "outline",
+      })}
+      href="/friends"
+    >
+      Close
+    </Link>
+  );
+}
+
 async function Invite({
   params,
 }: {
@@ -65,7 +78,10 @@ async function Invite({
             Nice try, but you can&apos;t invite yourself 😉
           </p>
 
-          <Button disabled>Accept invite</Button>
+          <div className="grid gap-2">
+            <Button disabled>Accept invite</Button>
+            <BackToFriends />
+          </div>
         </div>
       </main>
     );
@@ -89,7 +105,10 @@ async function Invite({
             You&apos;re already friends with {inviteLinkUser.name}!
           </p>
 
-          <Button disabled>Accept invite</Button>
+          <div className="grid gap-2">
+            <Button disabled>Accept invite</Button>
+            <BackToFriends />
+          </div>
         </div>
       </main>
     );
@@ -103,7 +122,10 @@ async function Invite({
           name={inviteLinkUser.name}
         />
 
-        <BefriendUser inviteLink={params.link} />
+        <div className="grid gap-2">
+          <BefriendUser inviteLink={params.link} />
+          <BackToFriends />
+        </div>
       </div>
     </main>
   );
