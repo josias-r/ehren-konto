@@ -39,7 +39,8 @@ export const createActivity = createAuthProtectedAction(
       },
     });
 
-    revalidatePath("/activities");
+    revalidatePath("/groups");
+    revalidatePath("/profile");
 
     return createdActivity.activityId;
   }
@@ -68,7 +69,8 @@ export const updateActivity = createAuthProtectedAction(
       },
     });
 
-    revalidatePath("/activities");
+    revalidatePath("/groups");
+    revalidatePath("/profile");
 
     return updatedActivity.activityId;
   }
