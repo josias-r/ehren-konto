@@ -17,8 +17,8 @@ export default async function Profile() {
   const upcomingActivities = await getUpcomingActivities(userId);
 
   const hasUpcomingActivities =
-    !!upcomingActivities.today.length &&
-    !!upcomingActivities.nextSevenDays.length &&
+    !!upcomingActivities.today.length ||
+    !!upcomingActivities.nextSevenDays.length ||
     !!upcomingActivities.nextThirtyDays.length;
 
   return (
@@ -31,39 +31,21 @@ export default async function Profile() {
       {!!upcomingActivities.today.length && (
         <UpcomingActivitiesSection
           title="Today"
-          activities={upcomingActivities.today}
+          groupedActivities={upcomingActivities.today}
         />
       )}
-      <section className="mx-auto max-w-md">
-        <Card>
-          <CardHeader>
-            History
-            <p className="text-sm text-muted-foreground">
-              History of earned honor-points
-            </p>
-          </CardHeader>
-          <CardContent>
-            <Transaction
-              name="Josias Ribi"
-              email="josias.ribi@gmail.com"
-              amount={1}
-              avatar={{
-                url: "https://avatars.githubusercontent.com/u/1024025?v=4",
-                fallback: "JR",
-              }}
-            />
-            <Transaction
-              name="Manuel Kauderer"
-              email="manuel.kauderer@gmx.ch"
-              amount={1}
-              avatar={{
-                url: "https://avatars.githubusercontent.com/u/1024035?v=4",
-                fallback: "MK",
-              }}
-            />
-          </CardContent>
-        </Card>
-      </section>
+      {!!upcomingActivities.nextSevenDays.length && (
+        <UpcomingActivitiesSection
+          title="Next 7 days"
+          groupedActivities={upcomingActivities.nextSevenDays}
+        />
+      )}
+      {!!upcomingActivities.nextThirtyDays.length && (
+        <UpcomingActivitiesSection
+          title="Next 30 days"
+          groupedActivities={upcomingActivities.nextThirtyDays}
+        />
+      )}
 
       <Nav />
     </main>
