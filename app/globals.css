@@ -113,7 +113,7 @@
 
   /* upcoming activity item */
   .upcoming-activity-item {
-    --uai-columns: 6;
+    @apply relative bg-amber-600/40;
 
     --uai-container-padding: 1.5rem;
     --uai-gap-size: 0.5rem;
@@ -121,8 +121,6 @@
     --uai-margin-correction-left: 0rem;
     --uai-margin-correction-right: 0rem;
 
-    @apply relative
-      p-[var(--uai-base-padding)] bg-amber-600/40;
     &.uai-first-in-group {
       @apply rounded-l;
     }

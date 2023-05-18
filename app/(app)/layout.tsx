@@ -1,3 +1,4 @@
+import Nav from "@/components/Nav";
 import { validateCookieToken } from "@/lib/auth/validateCookieToken";
 import getProfileIsIncomplete from "@/lib/user/getProfileIsIncomplete";
 import { notFound, redirect } from "next/navigation";
@@ -19,5 +20,9 @@ export default async function AppRootLayout({
     return redirect("/complete-profile");
   }
 
-  return <>{children}</>;
+  return (
+    <>
+      {children} <Nav />
+    </>
+  );
 }

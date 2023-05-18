@@ -15,7 +15,7 @@ function UpcomingActivitiesSection({
   groupedActivities,
 }: UpcomingActivitiesSectionProps) {
   return (
-    <section className="mx-auto p-4 max-w-md grid gap-4">
+    <section className="mx-auto max-w-md mb-4">
       <Card>
         <CardHeader>{title}</CardHeader>
         <CardContent className="grid gap-4">

@@ -32,7 +32,6 @@ export default async function Friends() {
         userFriendsByLetter={userFriendsByLetter}
         userGroups={userGroups}
       />
-      <Nav />
     </main>
   );
 }

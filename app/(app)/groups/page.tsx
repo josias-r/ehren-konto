@@ -58,8 +58,6 @@ export default async function Groups() {
           />
         ))}
       </section>
-
-      <Nav />
     </main>
   );
 }

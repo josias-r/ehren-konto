@@ -1,10 +1,7 @@
 import Nav from "@/components/Nav";
-import Transaction from "@/components/Transaction";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { getUserId } from "@/lib/auth/getUserId";
 import UpcomingActivitiesSection from "@/lib/profile/UpcomingActivitiesSection";
 import { getUpcomingActivities } from "@/lib/profile/getUpcomingActivities";
-import Image from "next/image";
 
 export const metadata = {
   title: "Profile",
@@ -46,8 +43,6 @@ export default async function Profile() {
           groupedActivities={upcomingActivities.nextThirtyDays}
         />
       )}
-
-      <Nav />
     </main>
   );
 }
