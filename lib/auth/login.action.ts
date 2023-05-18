@@ -61,6 +61,7 @@ export async function login({ email, password }: SignInArgs) {
     value: token,
     httpOnly: true,
     path: "/",
+    expiryInSeconds: expiryInSeconds,
   });
 
   return {

@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-export function validateToken(token: unknown, silent = false) {
+export function validateToken(token: unknown) {
   if (typeof token !== "string") {
     return false;
   }
@@ -25,9 +25,7 @@ export function validateToken(token: unknown, silent = false) {
       userId: decoded["id"],
     };
   } catch (error) {
-    if (!silent) {
-      console.error(error);
-    }
+    console.error("failed to verify JWT");
     return false;
   }
 }
