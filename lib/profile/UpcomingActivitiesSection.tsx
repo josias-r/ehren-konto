@@ -19,7 +19,7 @@ function UpcomingActivitiesSection({
       <Card>
         <CardHeader>{title}</CardHeader>
         <CardContent className="grid gap-4">
-          <div className="grid grid-cols-6 gap-2">
+          <div className="upcoming-activity-container">
             {groupedActivities.map(([groupId, group]) => {
               return (
                 <Fragment key={groupId}>

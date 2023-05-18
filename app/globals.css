@@ -111,15 +111,26 @@
     --epr-skin-tone-picker-menu-color: #222222;
   }
 
+  /* upcoming activity container */
+  .upcoming-activity-container {
+    @apply grid;
+
+    --uai-container-padding: 1.5rem;
+    --uai-gap-size: 0.4rem;
+    --uai-base-padding: 0.4rem;
+    --uai-margin-correction-left: 0rem;
+    --uai-margin-correction-right: 0rem;
+
+    gap: var(--uai-gap-size);
+
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    @media (min-width: 640px) {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+  }
   /* upcoming activity item */
   .upcoming-activity-item {
     @apply relative bg-amber-600/40;
-
-    --uai-container-padding: 1.5rem;
-    --uai-gap-size: 0.5rem;
-    --uai-base-padding: 0.5rem;
-    --uai-margin-correction-left: 0rem;
-    --uai-margin-correction-right: 0rem;
 
     &.uai-first-in-group {
       @apply rounded-l;
@@ -129,21 +140,44 @@
     }
 
     /* first item in row */
-    &:nth-child(6n + 1) {
-      /* except first in group */
-      &:not(.uai-first-in-group) {
-        --uai-margin-correction-left: var(--uai-container-padding);
+    @media (max-width: 640px) {
+      &:nth-child(5n + 1) {
+        /* except first in group */
+        &:not(.uai-first-in-group) {
+          --uai-margin-correction-left: var(--uai-container-padding);
+        }
+      }
+      &:not(.uai-last-in-group) {
+        --uai-margin-correction-right: var(--uai-gap-size);
       }
     }
-    &:not(.uai-last-in-group) {
-      --uai-margin-correction-right: var(--uai-gap-size);
+    @media (min-width: 640px) {
+      &:nth-child(6n + 1) {
+        /* except first in group */
+        &:not(.uai-first-in-group) {
+          --uai-margin-correction-left: var(--uai-container-padding);
+        }
+      }
+      &:not(.uai-last-in-group) {
+        --uai-margin-correction-right: var(--uai-gap-size);
+      }
     }
 
     /* last item in row */
-    &:nth-child(6n) {
-      /* except last in group */
-      &:not(.uai-last-in-group) {
-        --uai-margin-correction-right: var(--uai-container-padding);
+    @media (max-width: 640px) {
+      &:nth-child(5n) {
+        /* except last in group */
+        &:not(.uai-last-in-group) {
+          --uai-margin-correction-right: var(--uai-container-padding);
+        }
+      }
+    }
+    @media (min-width: 640px) {
+      &:nth-child(6n) {
+        /* except last in group */
+        &:not(.uai-last-in-group) {
+          --uai-margin-correction-right: var(--uai-container-padding);
+        }
       }
     }
     /* extend over gap on X axis to the right */
