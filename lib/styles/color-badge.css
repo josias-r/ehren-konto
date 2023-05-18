@@ -1,0 +1,55 @@
+@tailwind components;
+
+@layer components {
+  .dynamic-colors {
+    --lightness-threshold: 0.6;
+    --background-alpha: 0.18;
+    --border-alpha: 0.3;
+    --perceived-lightness: calc(
+      (
+          (var(--item-color-r) * 0.2126) + (var(--item-color-g) * 0.7152) +
+            (var(--item-color-b) * 0.0722)
+        ) / 255
+    );
+    --lightness-switch: max(
+      0,
+      min(
+        calc((1 / (var(--lightness-threshold) - var(--perceived-lightness)))),
+        1
+      )
+    );
+    --lighten-by: calc(
+      ((var(--lightness-threshold) - var(--perceived-lightness)) * 100) *
+        var(--lightness-switch)
+    );
+  }
+
+  /* bade colors, inspired by GitHub labels */
+  .bade-colors {
+    @apply dynamic-colors;
+    /* --item-color-r: 114;
+    --item-color-g: 49;
+    --item-color-b: 244;
+    --item-color-h: 260;
+    --item-color-s: 89;
+    --item-color-l: 57; */
+
+    color: hsl(
+      var(--item-color-h),
+      calc(var(--item-color-s) * 1%),
+      calc((var(--item-color-l) + var(--lighten-by)) * 1%)
+    );
+    background: rgba(
+      var(--item-color-r),
+      var(--item-color-g),
+      var(--item-color-b),
+      var(--background-alpha)
+    );
+    border-color: hsla(
+      var(--item-color-h),
+      calc(var(--item-color-s) * 1%),
+      calc((var(--item-color-l) + var(--lighten-by)) * 1%),
+      var(--border-alpha)
+    );
+  }
+}
