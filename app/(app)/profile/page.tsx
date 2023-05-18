@@ -75,13 +75,16 @@ export default async function Profile() {
           <CardDescription>What is happening?</CardDescription>
         </CardHeader>
         <CardContent>
-          {!!relevantHappenings.length &&
-            relevantHappenings.map((happening) => (
-              <HappeningItem
-                key={happening.happeningsId}
-                happening={happening}
-              />
-            ))}
+          {!!relevantHappenings.length && (
+            <div className="space-y-4">
+              {relevantHappenings.map((happening) => (
+                <HappeningItem
+                  key={happening.happeningsId}
+                  happening={happening}
+                />
+              ))}
+            </div>
+          )}
           {!relevantHappenings.length && (
             <div className="mt-6">
               <EmptyState

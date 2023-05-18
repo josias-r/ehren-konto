@@ -12,9 +12,10 @@ import { CheckCircle, Clock2, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import EditActivitySheet from "./EditActivitySheet";
 import { useState } from "react";
-import ActivityParticiapteButton from "./ActivityParticiapteButton";
+import ActivityParticipateButton from "./ActivityParticipateButton";
 
 interface ActivityWithPopoverProps extends ActivityShape {
+  userId: string;
   members: {
     userId: string;
     name: string;
@@ -35,6 +36,7 @@ function ActivityWithPopover({
   const hours = from.getHours().toString().padStart(2, "0");
   const minutes = from.getMinutes().toString().padStart(2, "0");
   const fromTime = `${hours}:${minutes}`;
+
   return (
     <>
       <Popover>
@@ -100,7 +102,7 @@ function ActivityWithPopover({
                 )}
                 <Separator />
 
-                <ActivityParticiapteButton activityId={activityId} />
+                <ActivityParticipateButton activityId={activityId} />
                 <Button
                   size="xs"
                   variant="outline"

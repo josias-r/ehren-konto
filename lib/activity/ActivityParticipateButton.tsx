@@ -2,13 +2,13 @@ import { Button } from "@/components/ui/button";
 import { useTransition } from "react";
 import { participateInActivity } from "./actions";
 
-interface ActivityParticiapteButtonProps {
+interface ActivityParticipateButtonProps {
   activityId: number;
 }
 
-function ActivityParticiapteButton({
+function ActivityParticipateButton({
   activityId,
-}: ActivityParticiapteButtonProps) {
+}: ActivityParticipateButtonProps) {
   const [isPending, startTransition] = useTransition();
   return (
     <Button
@@ -27,4 +27,4 @@ function ActivityParticiapteButton({
   );
 }
 
-export default ActivityParticiapteButton;
+export default ActivityParticipateButton;
