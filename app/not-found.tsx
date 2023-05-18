@@ -3,6 +3,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export const metadata = {
   title: "Not found",
@@ -11,7 +12,10 @@ export const metadata = {
 
 function NotFound() {
   // get is-logged-in cookie
-  const isLoggedIn = !!document.cookie.match(/is-logged-in/);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  useEffect(() => {
+    setIsLoggedIn(!!document.cookie.match(/is-logged-in/));
+  }, []);
 
   return (
     <main className="flex h-full p-4">
