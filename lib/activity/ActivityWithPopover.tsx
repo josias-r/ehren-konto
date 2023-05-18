@@ -15,7 +15,6 @@ import { useState } from "react";
 import ActivityParticipateButton from "./ActivityParticipateButton";
 
 interface ActivityWithPopoverProps extends ActivityShape {
-  userId: string;
   members: {
     userId: string;
     name: string;
