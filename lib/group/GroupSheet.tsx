@@ -27,13 +27,14 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from "../../components/ui/dropdown-menu";
-import { Button } from "../../components/ui/button";
+import { Button, buttonVariants } from "../../components/ui/button";
 
 import EditGroupSheet from "./EditGroupSheet";
 import DeleteGroupAlert from "./DeleteGroupAlert";
 import LeaveGroupAlert from "./LeaveGroupAlert";
 import { useState } from "react";
 import RemoveMembersFromGroup from "./RemoveMembersFromGroup";
+import { cn } from "../utils";
 
 interface GroupSheetProps {
   leftoverAmount: number;
@@ -99,8 +100,13 @@ function GroupSheet({
         groupId={groupId}
       />
       <Sheet open={open} onOpenChange={setOpen}>
-        <div className="relative -mx-2 -mb-2 text-muted-foreground">
-          <SheetTrigger className="hover:bg-slate-800 rounded-sm w-full flex justify-between items-center text-sm p-2 mt-2">
+        <div className="relative -mx-2 -mb-2">
+          <SheetTrigger
+            className={cn(
+              buttonVariants({ variant: "secondary" }),
+              "w-full flex justify-between items-center text-sm p-2 mt-2"
+            )}
+          >
             <div>
               {leftoverAmount > 1 && <>Show {leftoverAmount} more</>}
               {leftoverAmount <= 1 && <>Manage group</>}

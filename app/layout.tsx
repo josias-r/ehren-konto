@@ -35,7 +35,7 @@ export default async function RootLayout({
         <meta name="theme-color" content="#ffffff" />
         <meta content="width=device-width, initial-scale=1" name="viewport" />
       </head>
-      <body className={`${inter.className} bg-background dark h-full`}>
+      <body className={`${inter.className} bg-background h-full`}>
         <TooltipProvider>
           {children}
           <Toaster />

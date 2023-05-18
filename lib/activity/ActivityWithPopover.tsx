@@ -83,7 +83,7 @@ function ActivityWithPopover({
                             className="text-sm text-muted-foreground flex items-center"
                           >
                             <div className="w-6">
-                              {participant.confirmed ? (
+                              {!participant.confirmed ? (
                                 <Clock2 size="1rem" />
                               ) : (
                                 <CheckCircle
