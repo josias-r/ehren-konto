@@ -1,5 +1,11 @@
 import GroupMemberListItem, { MemberShape } from "./GroupMemberListItem";
-import { Card, CardContent, CardHeader } from "../../components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../../components/ui/card";
 import { Separator } from "../../components/ui/separator";
 import GroupSheet from "./GroupSheet";
 import { ActivityShape } from "../activity/Activity";
@@ -66,9 +72,11 @@ function GroupCard({
   return (
     <Card>
       <CardHeader>
-        {name}
-        <p className="text-sm text-muted-foreground mb-2">{description}</p>
-        <div className="grid gap-2 grid-cols-6">
+        <CardTitle>{name}</CardTitle>
+        <CardDescription>{description}</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <div className="grid gap-2 grid-cols-6 mb-4">
           {!slicedEvents.length && (
             <ActivityListSheet
               futureEvents={futureEvents}
@@ -109,8 +117,6 @@ function GroupCard({
             />
           </ActivityListSheet>
         </div>
-      </CardHeader>
-      <CardContent>
         <div className="grid gap-6 mb-4">
           {slicedMembers.map((member) => (
             <GroupMemberListItem

@@ -130,7 +130,15 @@
   }
   /* upcoming activity item */
   .upcoming-activity-item {
-    @apply relative bg-amber-600/40;
+    @apply relative;
+    @apply dynamic-colors;
+    --background-alpha: 0.25;
+    background: rgba(
+      var(--item-color-r),
+      var(--item-color-g),
+      var(--item-color-b),
+      var(--background-alpha)
+    );
 
     &.uai-first-in-group {
       @apply rounded-l;
@@ -201,20 +209,55 @@
     margin-right: calc(var(--uai-margin-correction-right) * -1);
   }
 
-  /* handle gap fill width adjustment for first item in row */
-  /* .upcoming-activity-item:nth-child(6n + 1):not(
-      .uai-first-in-group
-    ).upcoming-activity-item:not(.uai-last-in-group) {
-    @apply w-[calc(100%+1.5rem+0.5rem)] pl-[calc(1.5rem+0.5rem)] ml-[-1.5rem];
-  } */
-  /* handle gap fill width adjustment for last item in row */
-  /* .upcoming-activity-item:nth-child(6n):not(
-      .uai-last-in-group
-    ).upcoming-activity-item:not(.uai-first-in-group) {
-    @apply w-[calc(100%+1.5rem)] pr-[calc(1.5rem)] mr-[-1.5rem];
-  } */
-  /* handle gap fill width adjustment for last item in group */
-  /* .upcoming-activity-item.uai-last-in-group:not(.uai-first-in-group) {
-    @apply w-[calc(100%+1.5rem)] pr-[calc(1.5rem)] mr-[-1.5rem];
-  } */
+  .dynamic-colors {
+    --lightness-threshold: 0.6;
+    --background-alpha: 0.18;
+    --border-alpha: 0.3;
+    --perceived-lightness: calc(
+      (
+          (var(--item-color-r) * 0.2126) + (var(--item-color-g) * 0.7152) +
+            (var(--item-color-b) * 0.0722)
+        ) / 255
+    );
+    --lightness-switch: max(
+      0,
+      min(
+        calc((1 / (var(--lightness-threshold) - var(--perceived-lightness)))),
+        1
+      )
+    );
+    --lighten-by: calc(
+      ((var(--lightness-threshold) - var(--perceived-lightness)) * 100) *
+        var(--lightness-switch)
+    );
+  }
+
+  /* bade colors, inspired by GitHub labels */
+  .bade-colors {
+    @apply dynamic-colors;
+    /* --item-color-r: 114;
+    --item-color-g: 49;
+    --item-color-b: 244;
+    --item-color-h: 260;
+    --item-color-s: 89;
+    --item-color-l: 57; */
+
+    color: hsl(
+      var(--item-color-h),
+      calc(var(--item-color-s) * 1%),
+      calc((var(--item-color-l) + var(--lighten-by)) * 1%)
+    );
+    background: rgba(
+      var(--item-color-r),
+      var(--item-color-g),
+      var(--item-color-b),
+      var(--background-alpha)
+    );
+    border-color: hsla(
+      var(--item-color-h),
+      calc(var(--item-color-s) * 1%),
+      calc((var(--item-color-l) + var(--lighten-by)) * 1%),
+      var(--border-alpha)
+    );
+  }
 }
