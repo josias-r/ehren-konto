@@ -6,7 +6,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { getUserId } from "@/lib/auth/getUserId";
+import HappeningItem from "@/lib/profile/happenings/HappeningItem";
 import UpcomingActivitiesSection from "@/lib/profile/UpcomingActivitiesSection";
+import getRelevantHappenings from "@/lib/profile/getRelevantHappenings";
 import { getUpcomingActivities } from "@/lib/profile/getUpcomingActivities";
 
 export const metadata = {
@@ -24,8 +26,10 @@ export default async function Profile() {
     !!upcomingActivities.nextSevenDays.length ||
     !!upcomingActivities.nextThirtyDays.length;
 
+  const relevantHappenings = await getRelevantHappenings(userId);
+
   return (
-    <main className="relative p-4">
+    <main className="relative p-4 space-y-4">
       {!hasUpcomingActivities && (
         <section className="flex flex-col items-center justify-center h-full">
           no upcoming activities
@@ -63,6 +67,18 @@ export default async function Profile() {
           </Card>
         </>
       )}
+
+      <Card className="mx-auto max-w-md">
+        <CardHeader>
+          <CardTitle>Happenings</CardTitle>
+          <CardDescription>What is happening?</CardDescription>
+        </CardHeader>
+        <CardContent>
+          {relevantHappenings.map((happening) => (
+            <HappeningItem key={happening.happeningsId} happening={happening} />
+          ))}
+        </CardContent>
+      </Card>
     </main>
   );
 }

@@ -5,6 +5,7 @@ import {
 } from "../../components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import getInitialsFromName from "../user/getInitialsFromName";
+import EhrePoints from "../profile/happenings/EhrePoints";
 
 export type MemberShape = {
   name: string;
@@ -43,12 +44,8 @@ function GroupMemberListItem({
           </div>
           <div className="text-sm text-muted-foreground">{nick}</div>
         </div>
-        <div
-          className={`ml-auto font-medium ${
-            ehre <= 0 ? "text-destructive" : ""
-          }`}
-        >
-          {ehre}
+        <div>
+          <EhrePoints amount={ehre} />
         </div>
       </div>
     </div>
