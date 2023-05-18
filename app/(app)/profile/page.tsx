@@ -11,6 +11,8 @@ import UpcomingActivitiesSection from "@/lib/profile/UpcomingActivitiesSection";
 import getRelevantHappenings from "@/lib/profile/getRelevantHappenings";
 import { getUpcomingActivities } from "@/lib/profile/getUpcomingActivities";
 import { EmptyState } from "@/components/ui/empty-state";
+import geProfileData from "@/lib/user/getProfileData";
+import ProfileAvatar from "@/lib/profile/ProfileAvatar";
 
 export const metadata = {
   title: "Profile",
@@ -21,6 +23,10 @@ export default async function Profile() {
   const userId = await getUserId();
 
   const upcomingActivities = await getUpcomingActivities(userId);
+  const profileData = await geProfileData(userId);
+  if (!profileData) {
+    throw new Error("profile data not found");
+  }
 
   const hasUpcomingActivities =
     !!upcomingActivities.today.length ||
@@ -31,6 +37,9 @@ export default async function Profile() {
 
   return (
     <main className="relative p-4 space-y-4">
+      <div className="mx-auto max-w-md flex justify-end">
+        <ProfileAvatar name={profileData.name} avatar={profileData.avatar} />
+      </div>
       {!hasUpcomingActivities && (
         <section className="flex flex-col items-center justify-center h-full">
           no upcoming activities
