@@ -1,14 +1,14 @@
-import Group from "./Group";
+import GroupMembers from "./GroupMembers";
 
-interface GroupPageProps {
+interface GroupMembersPageProps {
   params: {
     groupId: string;
   };
 }
 
-function GroupPage({ params }: GroupPageProps) {
+function GroupMembersPage({ params }: GroupMembersPageProps) {
   // @ts-expect-error server component
-  return <Group groupId={parseInt(params.groupId.replace("(.)", ""))} />;
+  return <GroupMembers groupId={parseInt(params.groupId)} />;
 }
 
-export default GroupPage;
+export default GroupMembersPage;

@@ -13,6 +13,7 @@ import { notFound } from "next/navigation";
 // - [ ] restrict to admin role
 //
 // UI
+// --- homepage 🚨
 // --- user
 // - [ ] group overview
 // - [🚨] account settings (email, password, delete)
@@ -33,6 +34,11 @@ import { notFound } from "next/navigation";
 // - [ ] one time activity (i.e. won a tournament)
 // - [ ] to date
 // - [ ] add to calendar
+// --- misc
+// - [🚨] loading state optimizations
+// - [🚨] revalidate path flimmsy
+// - [ ] push notifications
+// - [ ] error handling
 
 export const metadata = {
   title: "Ehre",

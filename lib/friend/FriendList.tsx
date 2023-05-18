@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { EmptyState } from "@/components/ui/empty-state";
-import { GroupFriendGroup } from "../group/GroupCard";
+import { GroupFriendGroup } from "../../app/groups/GroupCard";
 import { useState, useTransition } from "react";
 import FriendsBulkListItem from "./FriendsBulkListItem";
 import { unfriendUsers } from "./actions";

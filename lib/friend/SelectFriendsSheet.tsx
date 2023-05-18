@@ -1,4 +1,4 @@
-import { GroupFriend, GroupFriendGroup } from "../group/GroupCard";
+import { GroupFriend, GroupFriendGroup } from "../../app/groups/GroupCard";
 import {
   Sheet,
   SheetClose,
