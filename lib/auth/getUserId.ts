@@ -1,8 +1,9 @@
+import "server-only";
+
 import { validateCookieToken } from "./validateCookieToken";
 
-export async function getUserId() {
-  "use server";
-  const token = await validateCookieToken();
+export function getUserId() {
+  const token = validateCookieToken();
   if (!token) {
     throw new Error("Not authenticated");
   }

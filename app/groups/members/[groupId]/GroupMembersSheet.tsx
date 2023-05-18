@@ -1,121 +1,59 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import {
-  ChevronRight,
-  CircleEllipsis,
-  Delete,
-  DoorOpen,
-  Edit2,
-  UserMinus2,
-  UserPlus2,
-} from "lucide-react";
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
   Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
-} from "../../components/ui/sheet";
-import GroupMemberListItem, { MemberShape } from "./GroupMemberListItem";
-import { GroupFriend, GroupFriendGroup } from "./GroupCard";
-import AddFriendToGroupSheet from "../friend/AddFriendToGroupSheet";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-  DropdownMenuSeparator,
-} from "../../components/ui/dropdown-menu";
-import { Button, buttonVariants } from "../../components/ui/button";
-
-import EditGroupSheet from "./EditGroupSheet";
-import DeleteGroupAlert from "./DeleteGroupAlert";
-import LeaveGroupAlert from "./LeaveGroupAlert";
+} from "@/components/ui/sheet";
+import { CircleEllipsis, Delete, DoorOpen } from "lucide-react";
+import { GroupMembers } from "./getGroupWithMembers";
+import { useRouter } from "next/navigation";
+import GroupMemberListItem from "@/lib/group/GroupMemberListItem";
+import DeleteGroupAlert from "@/app/groups/members/[groupId]/DeleteGroupAlert";
+import LeaveGroupAlert from "@/app/groups/members/[groupId]/LeaveGroupAlert";
 import { useState } from "react";
-import RemoveMembersFromGroup from "./RemoveMembersFromGroup";
-import { cn } from "../utils";
 
-interface GroupSheetProps {
-  leftoverAmount: number;
-  name: string;
-  description: string;
-  members: MemberShape[];
-
+interface GroupMembersSheetProps {
   groupId: number;
-  friends: GroupFriend[];
-  friendGroups: GroupFriendGroup[];
+  members: NonNullable<GroupMembers>["GroupMembers"];
 }
 
-function GroupSheet({
-  leftoverAmount,
-  name,
-  description,
-  members,
-  friends,
-  friendGroups,
-  groupId,
-}: GroupSheetProps) {
-  const [open, setOpen] = useState(false);
-  const [editOpen, setEditOpen] = useState(false);
+function GroupMembersSheet({ groupId, members }: GroupMembersSheetProps) {
+  const router = useRouter();
+
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [leaveOpen, setLeaveOpen] = useState(false);
-  const [addFriendOpen, setAddFriendOpen] = useState(false);
-  const [removeMembersOpen, setRemoveMembersOpen] = useState(false);
 
   return (
     <>
-      <EditGroupSheet
-        open={editOpen}
-        onOpenChange={setEditOpen}
-        groupId={groupId}
-        defaultValues={{
-          name,
-          description,
-        }}
-      />
       <DeleteGroupAlert
         open={deleteOpen}
         onOpenChange={setDeleteOpen}
         groupId={groupId}
-        onDone={() => setOpen(false)}
+        onDone={() => router.back()}
       />
       <LeaveGroupAlert
         open={leaveOpen}
         onOpenChange={setLeaveOpen}
         groupId={groupId}
-        onDone={() => setOpen(false)}
+        onDone={() => router.back()}
       />
-      <AddFriendToGroupSheet
-        open={addFriendOpen}
-        onOpenChange={setAddFriendOpen}
-        friends={friends}
-        groupId={groupId}
-        friendGroups={friendGroups}
-      />
-      <RemoveMembersFromGroup
-        open={removeMembersOpen}
-        onOpenChange={setRemoveMembersOpen}
-        members={members}
-        groupId={groupId}
-      />
-      <Sheet open={open} onOpenChange={setOpen}>
-        <div className="relative -mx-2 -mb-2">
-          <SheetTrigger
-            className={cn(
-              buttonVariants({ variant: "secondary" }),
-              "w-full flex justify-between items-center text-sm p-2 mt-2"
-            )}
-          >
-            <div>
-              {leftoverAmount > 1 && <>Show {leftoverAmount} more</>}
-              {leftoverAmount <= 1 && <>Manage group</>}
-            </div>
-            <div>
-              <ChevronRight className="h-4 w-4" />
-            </div>
-          </SheetTrigger>
-        </div>
+      <Sheet
+        open
+        onOpenChange={() => {
+          router.back();
+        }}
+      >
         <SheetContent
           headerChildren={
             <div className="flex justify-between">
@@ -135,7 +73,7 @@ function GroupSheet({
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
-                    <DropdownMenuItem
+                    {/* <DropdownMenuItem
                       onClick={() => {
                         setEditOpen(true);
                       }}
@@ -156,7 +94,7 @@ function GroupSheet({
                     >
                       <UserMinus2 className="w-4 h-4 mr-2" />
                       <span>Remove members</span>
-                    </DropdownMenuItem>
+                    </DropdownMenuItem> */}
 
                     <DropdownMenuSeparator />
                     <DropdownMenuItem onClick={() => setLeaveOpen(true)}>
@@ -176,13 +114,13 @@ function GroupSheet({
           <div className="grid gap-6">
             {members.map((member) => (
               <GroupMemberListItem
-                key={member.userId}
-                userId={member.userId}
-                nick={member.nick}
-                name={member.name}
+                key={member.User.userId}
+                userId={member.User.userId}
+                nick={member.User.nick}
+                name={member.User.name}
                 role={member.role}
                 ehre={member.ehre}
-                avatar={member.avatar}
+                avatar={member.User.avatar}
               />
             ))}
           </div>
@@ -192,4 +130,4 @@ function GroupSheet({
   );
 }
 
-export default GroupSheet;
+export default GroupMembersSheet;

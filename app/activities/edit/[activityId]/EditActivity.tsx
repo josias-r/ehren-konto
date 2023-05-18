@@ -1,13 +1,14 @@
 import { getUserId } from "@/lib/auth/getUserId";
 import getUserActivity from "./getUserActivity";
 import EditActivitySheet from "@/app/activities/edit/[activityId]/EditActivitySheet";
+import { notFound } from "next/navigation";
 
 async function EditActivity({ activityId }: { activityId: number }) {
   const userId = getUserId();
   const activity = await getUserActivity(userId, activityId);
 
   if (!activity) {
-    throw new Error("Activity not found");
+    return notFound();
   }
 
   const hours = activity.from.getHours().toString().padStart(2, "0");

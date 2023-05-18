@@ -1,4 +1,6 @@
-import { prisma } from "../prisma-client";
+import "server-only";
+
+import { prisma } from "@/lib/prisma-client";
 
 async function getAllGroupsForUser(userId: string) {
   const userWithGroups = await prisma.user.findFirst({
@@ -12,6 +14,12 @@ async function getAllGroupsForUser(userId: string) {
         select: {
           Group: {
             select: {
+              _count: {
+                select: {
+                  GroupMembers: true,
+                  Activities: true,
+                },
+              },
               groupId: true,
               name: true,
               description: true,
@@ -38,6 +46,7 @@ async function getAllGroupsForUser(userId: string) {
                     },
                   },
                 },
+                take: 5,
               },
               Activities: {
                 orderBy: {
@@ -59,11 +68,13 @@ async function getAllGroupsForUser(userId: string) {
                       User: {
                         select: {
                           userId: true,
+                          name: true,
                         },
                       },
                     },
                   },
                 },
+                take: 6,
               },
             },
           },
@@ -79,6 +90,7 @@ async function getAllGroupsForUser(userId: string) {
     groupId: userGroupMembership.Group.groupId,
     name: userGroupMembership.Group.name,
     description: userGroupMembership.Group.description,
+    totalMembers: userGroupMembership.Group._count.GroupMembers,
     members: userGroupMembership.Group.GroupMembers.map((groupMember) => ({
       userId: groupMember.User.userId,
       avatar: groupMember.User.avatar,
@@ -87,6 +99,7 @@ async function getAllGroupsForUser(userId: string) {
       name: groupMember.User.name,
       nick: groupMember.User.nick,
     })),
+    totalActivities: userGroupMembership.Group._count.Activities,
     activities: userGroupMembership.Group.Activities.map((activity) => ({
       activityId: activity.activityId,
       name: activity.name,
@@ -97,6 +110,7 @@ async function getAllGroupsForUser(userId: string) {
       participants: activity.ActivityParticipants.map((participant) => ({
         userId: participant.User.userId,
         confirmed: participant.confirmed,
+        name: participant.User.name,
       })),
     })),
   }));
