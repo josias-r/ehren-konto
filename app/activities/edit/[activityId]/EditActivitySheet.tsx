@@ -7,26 +7,31 @@ import {
   SheetFooter,
   SheetHeader,
   SheetTitle,
-} from "../../components/ui/sheet";
-import { Button } from "../../components/ui/button";
+} from "../../../../components/ui/sheet";
+import { Button } from "../../../../components/ui/button";
 import EditActivityForm, { ActivityEditFormShape } from "./EditActivityForm";
+import { useRouter } from "next/navigation";
 
 interface EditActivitySheetProps {
   defaultValues: ActivityEditFormShape;
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
   activityId: number;
 }
 
 function EditActivitySheet({
-  open,
-  onOpenChange,
   defaultValues,
   activityId,
 }: EditActivitySheetProps) {
   const formId = "create-activity";
+
+  const router = useRouter();
+
   return (
-    <Sheet open={open} onOpenChange={onOpenChange}>
+    <Sheet
+      open
+      onOpenChange={() => {
+        router.back();
+      }}
+    >
       <SheetContent
         headerChildren={
           <SheetHeader>
@@ -48,7 +53,7 @@ function EditActivitySheet({
           formId={formId}
           defaultValues={defaultValues}
           onDone={() => {
-            onOpenChange(false);
+            router.back();
           }}
           activityId={activityId}
         />

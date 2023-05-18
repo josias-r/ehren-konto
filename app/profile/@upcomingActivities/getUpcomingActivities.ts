@@ -1,5 +1,6 @@
-import { ActivityColor } from "../activity/utilities/activity-colors";
-import { prisma } from "../prisma-client";
+import "server-only";
+import { ActivityColor } from "@/lib/activity/utilities/activity-colors";
+import { prisma } from "@/lib/prisma-client";
 
 async function getActivitiesInTimeRange(
   minTime: Date,

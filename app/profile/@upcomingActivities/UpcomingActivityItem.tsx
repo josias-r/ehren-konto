@@ -1,4 +1,4 @@
-import ActivityWithPopover from "../activity/ActivityWithPopover";
+import ActivityWithPopover from "@/lib/activity/ActivityWithPopover";
 import { NormalizedUpcomingActivities } from "./getUpcomingActivities";
 
 interface UpcomingActivityItemProps {

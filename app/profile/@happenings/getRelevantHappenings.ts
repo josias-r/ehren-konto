@@ -1,4 +1,6 @@
-import { prisma } from "../prisma-client";
+import "server-only";
+
+import { prisma } from "@/lib/prisma-client";
 
 async function getRelevantHappenings(userId: string) {
   const relevantHappenings = await prisma.happening.findMany({

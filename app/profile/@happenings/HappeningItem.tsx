@@ -1,4 +1,4 @@
-import { RelevantHappenings } from "../getRelevantHappenings";
+import { RelevantHappenings } from "./getRelevantHappenings";
 import ParticipatedHappening, {
   isParticipatedHappening,
 } from "./ParticipatedHappening";
