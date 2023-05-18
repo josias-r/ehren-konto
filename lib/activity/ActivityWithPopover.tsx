@@ -12,6 +12,7 @@ import { CheckCircle, Clock2, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import EditActivitySheet from "./EditActivitySheet";
 import { useState } from "react";
+import ActivityParticiapteButton from "./ActivityParticiapteButton";
 
 interface ActivityWithPopoverProps extends ActivityShape {
   members: {
@@ -99,9 +100,7 @@ function ActivityWithPopover({
                 )}
                 <Separator />
 
-                <Button size="xs" className="block w-full" type="button">
-                  Participate
-                </Button>
+                <ActivityParticiapteButton activityId={activityId} />
                 <Button
                   size="xs"
                   variant="outline"

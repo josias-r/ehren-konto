@@ -10,6 +10,7 @@ import HappeningItem from "@/lib/profile/happenings/HappeningItem";
 import UpcomingActivitiesSection from "@/lib/profile/UpcomingActivitiesSection";
 import getRelevantHappenings from "@/lib/profile/getRelevantHappenings";
 import { getUpcomingActivities } from "@/lib/profile/getUpcomingActivities";
+import { EmptyState } from "@/components/ui/empty-state";
 
 export const metadata = {
   title: "Profile",
@@ -74,9 +75,21 @@ export default async function Profile() {
           <CardDescription>What is happening?</CardDescription>
         </CardHeader>
         <CardContent>
-          {relevantHappenings.map((happening) => (
-            <HappeningItem key={happening.happeningsId} happening={happening} />
-          ))}
+          {!!relevantHappenings.length &&
+            relevantHappenings.map((happening) => (
+              <HappeningItem
+                key={happening.happeningsId}
+                happening={happening}
+              />
+            ))}
+          {!relevantHappenings.length && (
+            <div className="mt-6">
+              <EmptyState
+                title="Empty"
+                message="Nothing is happening right now"
+              />
+            </div>
+          )}
         </CardContent>
       </Card>
     </main>

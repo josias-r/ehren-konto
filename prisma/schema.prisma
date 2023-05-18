@@ -125,12 +125,12 @@ model Happening {
 
   happeningData Json
 
-  RelatedGroup Group? @relation(fields: [groupGroupId], references: [groupId])
-  groupGroupId Int?
+  RelatedGroup   Group? @relation(fields: [relatedGroupId], references: [groupId])
+  relatedGroupId Int?
 
-  RelatedActivity    Activity? @relation(fields: [activityActivityId], references: [activityId])
-  activityActivityId Int?
+  RelatedActivity   Activity? @relation(fields: [relatedActivityId], references: [activityId])
+  relatedActivityId Int?
 
-  RelatedUser User?   @relation(fields: [userUserId], references: [userId])
-  userUserId  String?
+  RelatedUser   User?   @relation(fields: [relatedUserId], references: [userId])
+  relatedUserId String?
 }

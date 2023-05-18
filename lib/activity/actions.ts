@@ -75,3 +75,57 @@ export const updateActivity = createAuthProtectedAction(
     return updatedActivity.activityId;
   }
 );
+
+interface ParticipateInActivityArgs {
+  activityId: number;
+}
+
+export const participateInActivity = createAuthProtectedAction(
+  async (loggedInUserId, { activityId }: ParticipateInActivityArgs) => {
+    const createdParticipant = await prisma.activityParticipant.create({
+      data: {
+        activityId,
+        userId: loggedInUserId,
+      },
+      select: {
+        Activity: {
+          select: {
+            groupId: true,
+          },
+        },
+      },
+    });
+
+    const earnedPoints = 1;
+    // update user points in group
+    await prisma.groupMember.update({
+      data: {
+        ehre: {
+          increment: earnedPoints,
+        },
+      },
+      where: {
+        userId_groupId: {
+          userId: loggedInUserId,
+          groupId: createdParticipant.Activity.groupId,
+        },
+      },
+    });
+    // create happening entry
+    await prisma.happening.create({
+      data: {
+        relatedActivityId: activityId,
+        relatedUserId: loggedInUserId,
+        happeningData: {
+          pointsDiff: earnedPoints,
+        },
+        type: "ACTIVITY_PARTICIPATION",
+      },
+    });
+
+    revalidatePath("/groups");
+    revalidatePath("/profile");
+
+    return activityId;
+  }
+);
