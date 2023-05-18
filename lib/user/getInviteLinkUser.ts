@@ -1,4 +1,5 @@
 import { prisma } from "../prisma-client";
+import isUserInviteLinkNotExpired from "./isUserInviteLinkNotExpired";
 
 async function getInviteLinkUser(inviteLink: string) {
   const user = await prisma.user.findUnique({
@@ -7,10 +8,13 @@ async function getInviteLinkUser(inviteLink: string) {
       userId: true,
       name: true,
       avatar: true,
+      inviteLinkCreateDate: true,
     },
   });
 
-  return user;
+  if (isUserInviteLinkNotExpired(user?.inviteLinkCreateDate)) {
+    return user;
+  }
 }
 
 export default getInviteLinkUser;

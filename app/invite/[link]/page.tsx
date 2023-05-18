@@ -2,7 +2,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { validateCookieToken } from "@/lib/auth/validateCookieToken";
 import BefriendUser from "@/lib/friend/BefriendUser";
 import getFriendshipExists from "@/lib/friend/getFriendshipExists";
-import getInviteLinkUser from "@/lib/friend/getInviteLinkUser";
+import getInviteLinkUser from "@/lib/user/getInviteLinkUser";
 import InviteUserAvatar from "@/lib/user/InviteUserAvatar";
 import Link from "next/link";
 import { notFound } from "next/navigation";

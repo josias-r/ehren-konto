@@ -1,6 +1,6 @@
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import QrCode from "@/lib/friend/QrCode";
-import { updateInviteLink } from "@/lib/friend/actions";
+import { updateInviteLink } from "@/lib/user/actions";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
