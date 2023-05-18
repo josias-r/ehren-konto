@@ -1,5 +1,5 @@
+"use client";
 import { buttonVariants } from "@/components/ui/button";
-import { validateCookieToken } from "@/lib/auth/validateCookieToken";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,8 +9,9 @@ export const metadata = {
   description: "Page not found",
 };
 
-async function NotFound() {
-  const isLoggedIn = await validateCookieToken();
+function NotFound() {
+  // get is-logged-in cookie
+  const isLoggedIn = !!document.cookie.match(/is-logged-in/);
 
   return (
     <main className="flex h-full p-4">
