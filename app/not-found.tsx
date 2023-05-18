@@ -10,7 +10,7 @@ export const metadata = {
 };
 
 async function NotFound() {
-  const isLoggedIn = validateCookieToken();
+  const isLoggedIn = await validateCookieToken();
 
   return (
     <main className="flex h-full p-4">

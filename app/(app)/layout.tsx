@@ -7,7 +7,7 @@ export default async function AppRootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const isLoggedIn = validateCookieToken();
+  const isLoggedIn = await validateCookieToken();
 
   if (isLoggedIn === false) {
     return notFound();

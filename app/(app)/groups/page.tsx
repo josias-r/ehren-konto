@@ -13,7 +13,7 @@ export const metadata = {
 };
 
 export default async function Groups() {
-  const userId = getUserId();
+  const userId = await getUserId();
 
   // get all groups from prisma where user with id "X" is in
   const groups = await getAllGroupsForUser(userId);

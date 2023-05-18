@@ -12,7 +12,7 @@ export const metadata = {
 };
 
 export default async function CompleteProfile() {
-  const isLoggedIn = validateCookieToken();
+  const isLoggedIn = await validateCookieToken();
 
   if (isLoggedIn === false) {
     return notFound();

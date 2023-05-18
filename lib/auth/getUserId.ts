@@ -1,7 +1,8 @@
 import { validateCookieToken } from "./validateCookieToken";
 
-export function getUserId() {
-  const token = validateCookieToken();
+export async function getUserId() {
+  "use server";
+  const token = await validateCookieToken();
   if (!token) {
     throw new Error("Not authenticated");
   }

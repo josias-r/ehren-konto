@@ -3,6 +3,7 @@ import ActivityWithPopover from "../activity/ActivityWithPopover";
 import { NormalizedUpcomingActivities } from "./getUpcomingActivities";
 import UpcomingActivityItem from "./UpcomingActivityItem";
 import { Fragment } from "react";
+import { Badge } from "@/components/ui/badge";
 
 interface UpcomingActivitiesSectionProps {
   title: string;
@@ -17,7 +18,7 @@ function UpcomingActivitiesSection({
     <section className="mx-auto p-4 max-w-md grid gap-4">
       <Card>
         <CardHeader>{title}</CardHeader>
-        <CardContent className="">
+        <CardContent className="grid gap-4">
           <div className="grid grid-cols-6 gap-2">
             {groupedActivities.map(([groupId, group]) => {
               return (
@@ -33,6 +34,13 @@ function UpcomingActivitiesSection({
                 </Fragment>
               );
             })}
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {groupedActivities.map(([groupId, group]) => (
+              <div key={groupId} className="flex">
+                <Badge variant="secondary">{group.name}</Badge>
+              </div>
+            ))}
           </div>
         </CardContent>
       </Card>

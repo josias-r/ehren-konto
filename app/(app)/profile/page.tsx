@@ -12,7 +12,7 @@ export const metadata = {
 };
 
 export default async function Profile() {
-  const userId = getUserId();
+  const userId = await getUserId();
 
   const upcomingActivities = await getUpcomingActivities(userId);
 

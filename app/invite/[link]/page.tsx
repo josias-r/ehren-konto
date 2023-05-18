@@ -27,7 +27,7 @@ async function Invite({
     link: string;
   };
 }) {
-  const isLoggedIn = validateCookieToken();
+  const isLoggedIn = await validateCookieToken();
   const inviteLinkUser = await getInviteLinkUser(params.link);
 
   if (!inviteLinkUser) {

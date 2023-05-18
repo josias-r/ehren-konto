@@ -9,7 +9,7 @@ export const metadata = {
 };
 
 export default async function Friends() {
-  const userId = getUserId();
+  const userId = await getUserId();
 
   const { userGroups, userFriends } = await getAllFriendsForUser(userId);
 

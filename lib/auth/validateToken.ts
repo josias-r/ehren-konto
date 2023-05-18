@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 
-export function validateToken(token: unknown) {
+export async function validateToken(token: unknown) {
+  "use server";
   if (typeof token !== "string") {
     return false;
   }
