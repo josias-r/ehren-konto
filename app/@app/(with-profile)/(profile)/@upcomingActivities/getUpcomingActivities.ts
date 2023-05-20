@@ -1,55 +1,78 @@
 import "server-only";
 import { ActivityColor } from "@/lib/activity/utilities/activity-colors";
-import { prisma } from "@/lib/prisma-client";
+import { db } from "@/lib/kysely-client";
 
 async function getActivitiesInTimeRange(
   minTime: Date,
   maxTime: Date,
   userId: string
 ) {
-  return prisma.activity.findMany({
-    where: {
-      from: {
-        gte: minTime,
-        lte: maxTime,
-      },
+  const activities = await db
+    .selectFrom("Activity")
+    .where(({ exists, selectFrom }) =>
+      exists(
+        selectFrom("GroupMember")
+          .whereRef("GroupMember.groupId", "=", "Activity.groupId")
+          .where("GroupMember.userId", "=", userId)
+      )
+    )
+    .where("Activity.from", ">=", minTime)
+    .where("Activity.from", "<=", maxTime)
+    // .leftJoin(
+    //   db
+    //     .selectFrom("ActivityParticipant")
+    //     .where("ActivityParticipant.userId", "=", userId)
+    //     .selectAll()
+    //     .as("ActivityParticipant"),
+    //   "ActivityParticipant.activityId",
+    //   "Activity.activityId"
+    // )
+    .innerJoin(
+      "Group as ActivityGroup",
+      "ActivityGroup.groupId",
+      "Activity.groupId"
+    )
+    .select([
+      "Activity.activityId",
+      "Activity.from",
+      "Activity.name",
+      "Activity.emoji",
+      "Activity.color",
+      "Activity.to",
+      "ActivityGroup.groupId",
+      "ActivityGroup.name as ActivityGroupName",
+    ])
+    .orderBy("Activity.from", "asc")
+    .execute();
+
+  const activitiesWithParticipants = activities.map(async (activity) => {
+    const participants = await db
+      .selectFrom("ActivityParticipant")
+      .where("ActivityParticipant.activityId", "=", activity.activityId)
+      .innerJoin("User", "User.userId", "ActivityParticipant.userId")
+      .select([
+        "ActivityParticipant.userId",
+        "ActivityParticipant.confirmed",
+        "User.name",
+      ])
+      .execute();
+
+    return {
+      activityId: activity.activityId,
+      from: activity.from,
+      name: activity.name,
+      emoji: activity.emoji,
+      color: activity.color,
+      to: activity.to,
       Group: {
-        GroupMembers: {
-          some: {
-            userId,
-          },
-        },
+        groupId: activity.groupId,
+        name: activity.ActivityGroupName,
       },
-    },
-    select: {
-      activityId: true,
-      from: true,
-      name: true,
-      emoji: true,
-      color: true,
-      Group: {
-        select: {
-          groupId: true,
-          name: true,
-        },
-      },
-      ActivityParticipants: {
-        select: {
-          userId: true,
-          confirmed: true,
-          User: {
-            select: {
-              name: true,
-            },
-          },
-        },
-      },
-      // to: true,
-    },
-    orderBy: {
-      from: "asc",
-    },
+      ActivityParticipants: participants,
+    };
   });
+
+  return Promise.all(activitiesWithParticipants);
 }
 
 // ReturnType of getActivitiesInTimeRange without promise
@@ -85,7 +108,7 @@ function groupActivitiesByGroup(activities: ActivityList) {
       name: activity.name,
       participants: activity.ActivityParticipants.map((participant) => ({
         userId: participant.userId,
-        name: participant.User.name,
+        name: participant.name,
         confirmed: participant.confirmed,
       })),
     };

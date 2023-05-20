@@ -6,7 +6,7 @@ import EhrePoints from "@/app/@app/(with-profile)/(profile)/@happenings/EhrePoin
 
 type ParticipatedHappening = Omit<
   RelevantHappenings[number],
-  "happeningData" | "RelatedUser" | "RelatedActivity"
+  "happeningData"
 > & {
   happeningData: {
     pointsDiff: number;
@@ -78,9 +78,9 @@ function ParticipatedHappening({ happening }: ParticipatedHappeningProps) {
           from={happening.RelatedActivity.from}
           participants={happening.RelatedActivity.ActivityParticipants.map(
             (participant) => ({
-              userId: participant.userId,
+              userId: participant.UserId,
               confirmed: participant.confirmed,
-              name: participant.User.name,
+              name: participant.UserName,
             })
           )}
         />

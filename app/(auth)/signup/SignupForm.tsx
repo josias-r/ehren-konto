@@ -19,7 +19,7 @@ interface FormShape {
 function SignupForm() {
   const [isPending, startTransition] = useTransition();
 
-  const { toast, toasts } = useToast();
+  const { toast } = useToast();
 
   const { register, handleSubmit } = useForm<FormShape>();
   const onSubmit: SubmitHandler<FormShape> = (data) => {

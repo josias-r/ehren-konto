@@ -7,7 +7,7 @@ export const metadata = {
 };
 
 async function Friends() {
-  const { userGroups, userFriends } = await getAllFriendsForUser();
+  const userFriends = await getAllFriendsForUser();
 
   // group userFriends by first letter of name
   const userFriendsByLetter = userFriends.reduce((acc, friend) => {
@@ -26,7 +26,6 @@ async function Friends() {
       <FriendList
         friendLettersSorted={friendLettersSorted}
         userFriendsByLetter={userFriendsByLetter}
-        userGroups={userGroups}
       />
     </main>
   );

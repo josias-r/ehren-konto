@@ -1,21 +1,27 @@
 "use client";
 
 import { CheckCircle2, Circle } from "lucide-react";
-import { GroupFriend, GroupFriendGroup } from "../groups/GroupCard";
 import FriendListItem from "./FriendListItem";
 
 interface FriendsBulkListItemProps {
   chosenFriends: string[];
   onChosenFriendsChange: (chosenFriends: string[]) => void;
-  friend: GroupFriend;
-  friendGroups: GroupFriendGroup[];
+  friend: {
+    userId: string;
+    name: string;
+    nick: string;
+    avatar: string | null;
+    groups: {
+      groupId: number;
+      name: string;
+    }[];
+  };
 }
 
 function FriendsBulkListItem({
   chosenFriends,
   onChosenFriendsChange,
   friend,
-  friendGroups,
 }: FriendsBulkListItemProps) {
   return (
     <div
@@ -37,7 +43,6 @@ function FriendsBulkListItem({
           name={friend.name}
           avatar={friend.avatar}
           groups={friend.groups}
-          friendGroups={friendGroups}
         />
       </div>
       <div className="flex-grow flex-shrink-0">

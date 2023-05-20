@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma-client";
+import { db } from "@/lib/kysely-client";
 
 interface GetFriendshipExistsArgs {
   user1Id: string;
@@ -9,15 +9,22 @@ async function getFriendshipExists({
   user1Id,
   user2Id,
 }: GetFriendshipExistsArgs) {
-  const friendshipExists = await prisma.friendship.findFirst({
-    where: {
-      OR: [
-        { incomingUserId: user1Id, outgoingUserId: user2Id },
-        { incomingUserId: user2Id, outgoingUserId: user1Id },
-      ],
-    },
-    select: { friendshipId: true },
-  });
+  const friendshipExists = await db
+    .selectFrom("Friendship")
+    .where(({ or, and, cmpr }) =>
+      or([
+        and([
+          cmpr("incomingUserId", "=", user1Id),
+          cmpr("outgoingUserId", "=", user2Id),
+        ]),
+        and([
+          cmpr("incomingUserId", "=", user2Id),
+          cmpr("outgoingUserId", "=", user1Id),
+        ]),
+      ])
+    )
+    .select(["friendshipId"])
+    .executeTakeFirst();
 
   return !!friendshipExists;
 }

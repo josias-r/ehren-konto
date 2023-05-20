@@ -1,16 +1,12 @@
-import { prisma } from "@/lib/prisma-client";
 import isUserInviteLinkNotExpired from "./isUserInviteLinkNotExpired";
+import { db } from "@/lib/kysely-client";
 
 async function getInviteLinkUser(inviteLink: string) {
-  const user = await prisma.user.findUnique({
-    where: { inviteLink },
-    select: {
-      userId: true,
-      name: true,
-      avatar: true,
-      inviteLinkCreateDate: true,
-    },
-  });
+  const user = await db
+    .selectFrom("User")
+    .where("inviteLink", "=", inviteLink)
+    .select(["userId", "name", "avatar", "inviteLinkCreateDate"])
+    .executeTakeFirst();
 
   if (isUserInviteLinkNotExpired(user?.inviteLinkCreateDate)) {
     return user;

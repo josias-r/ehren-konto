@@ -1,25 +1,22 @@
-import "server-only";
-
 import { getUserId } from "@/app/(auth)/getUserId";
 import { db } from "@/lib/kysely-client";
 
-async function getGroupForUser(groupId: number) {
+async function getGroupName(groupId: number) {
   const userId = getUserId();
-
   const group = await db
     .selectFrom("Group")
     .where("groupId", "=", groupId)
     .where(({ exists, selectFrom }) =>
       exists(
         selectFrom("GroupMember")
-          .where("userId", "=", userId)
-          .where("groupId", "=", groupId)
+          .where("GroupMember.groupId", "=", groupId)
+          .where("GroupMember.userId", "=", userId)
       )
     )
-    .select(["groupId", "name", "description"])
-    .executeTakeFirst();
+    .select(["Group.name"])
+    .executeTakeFirstOrThrow();
 
   return group;
 }
 
-export default getGroupForUser;
+export default getGroupName;

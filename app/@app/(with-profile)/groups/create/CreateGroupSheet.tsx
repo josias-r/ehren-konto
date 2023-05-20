@@ -11,14 +11,13 @@ import {
 import { Button } from "@/components/ui/button";
 import CreateGroupForm from "./CreateGroupForm";
 import { useRouter } from "next/navigation";
-import { UserFriends, UserGroups } from "../../friends/getAllFriendsForUser";
+import { UserFriends } from "../../friends/getAllFriendsForUser";
 
 interface CreateGroupSheetProps {
   userFriends: UserFriends;
-  userGroups: UserGroups;
 }
 
-function CreateGroupSheet({ userFriends, userGroups }: CreateGroupSheetProps) {
+function CreateGroupSheet({ userFriends }: CreateGroupSheetProps) {
   const formId = "create-group";
 
   const router = useRouter();
@@ -45,7 +44,6 @@ function CreateGroupSheet({ userFriends, userGroups }: CreateGroupSheetProps) {
         <CreateGroupForm
           formId={formId}
           userFriends={userFriends}
-          userGroups={userGroups}
           onDone={() => {
             router.back();
           }}

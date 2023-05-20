@@ -33,7 +33,7 @@ import { UserMinus2 } from "lucide-react";
 
 interface GroupMembersSheetProps {
   groupId: number;
-  members: NonNullable<GroupMembers>["GroupMembers"];
+  members: NonNullable<GroupMembers>;
 }
 
 function GroupMembersSheet({ groupId, members }: GroupMembersSheetProps) {
@@ -118,13 +118,13 @@ function GroupMembersSheet({ groupId, members }: GroupMembersSheetProps) {
           <div className="grid gap-6">
             {members.map((member) => (
               <GroupMemberListItem
-                key={member.User.userId}
-                userId={member.User.userId}
-                nick={member.User.nick}
-                name={member.User.name}
+                key={member.userId}
+                userId={member.userId}
+                nick={member.nick}
+                name={member.name}
                 role={member.role}
                 ehre={member.ehre}
-                avatar={member.User.avatar}
+                avatar={member.avatar}
               />
             ))}
           </div>

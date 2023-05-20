@@ -15,21 +15,6 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { ChevronRight } from "lucide-react";
 
-export type GroupFriend = {
-  userId: string;
-  name: string;
-  nick: string;
-  avatar: string | null;
-  groups: {
-    groupId: number;
-  }[];
-};
-export type GroupFriendGroup = {
-  groupId: number;
-  name: string;
-  description: string;
-};
-
 interface GroupCardProps {
   groupId: number;
   name: string;
@@ -81,12 +66,12 @@ function GroupCard({
         <div className="grid gap-2 grid-cols-6 mb-4">
           {!slicedEvents.length && (
             <Link
-              href={`/groups/${groupId}/activities`}
+              href={`/groups/activities/${groupId}`}
               className={cn(
                 buttonVariants({
                   variant: "ghost",
                 }),
-                "hover:scale-105 block transition-transform scale-100 p-0"
+                "hover:scale-105 transition-transform scale-100 p-0 relative block h-auto"
               )}
             >
               <EmptyActivity />

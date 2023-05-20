@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  UserFriends,
-  UserGroups,
-} from "@/app/@app/(with-profile)/friends/getAllFriendsForUser";
+import { UserFriends } from "@/app/@app/(with-profile)/friends/getAllFriendsForUser";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
 import {
@@ -21,14 +18,13 @@ import { useState, useTransition } from "react";
 
 interface AddMembersSheetProps {
   userFriends: UserFriends;
-  userGroups: UserGroups;
 
   groupId: number;
 }
 
 function AddMembersSheet({
   userFriends,
-  userGroups,
+
   groupId,
 }: AddMembersSheetProps) {
   const router = useRouter();
@@ -94,7 +90,6 @@ function AddMembersSheet({
                 setChosenFriends(newChosenFriends);
               }}
               chosenFriends={chosenFriends}
-              friendGroups={userGroups}
             />
           ))}
         </div>

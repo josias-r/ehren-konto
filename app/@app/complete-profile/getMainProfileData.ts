@@ -1,17 +1,18 @@
 import { getUserId } from "@/app/(auth)/getUserId";
-import { prisma } from "@/lib/prisma-client";
+import { db } from "@/lib/kysely-client";
 
 async function getMainProfileData() {
   const userId = getUserId();
 
-  const user = await prisma.user.findUnique({
-    where: { userId },
-    select: {
-      name: true,
-      nick: true,
-      // confirmedEmail: true,
-    },
-  });
+  const user = await db
+    .selectFrom("User")
+    .where("User.userId", "=", userId)
+    .select([
+      "User.name",
+      "User.nick",
+      // "User.confirmedEmail",
+    ])
+    .executeTakeFirst();
 
   return user;
 }

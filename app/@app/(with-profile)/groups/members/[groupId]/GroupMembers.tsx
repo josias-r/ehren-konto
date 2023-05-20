@@ -13,12 +13,7 @@ async function GroupMembers({ groupId }: GroupMembersProps) {
     return notFound();
   }
 
-  return (
-    <GroupMembersSheet
-      members={groupWithMembers.GroupMembers}
-      groupId={groupWithMembers.groupId}
-    />
-  );
+  return <GroupMembersSheet members={groupWithMembers} groupId={groupId} />;
 }
 
 export default GroupMembers;

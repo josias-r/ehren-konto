@@ -13,14 +13,13 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import FriendsBulkListItem from "../../friends/FriendsBulkListItem";
 import { EmptyState } from "@/components/ui/empty-state";
 import { useRouter } from "next/navigation";
-import { UserFriends, UserGroups } from "../../friends/getAllFriendsForUser";
+import { UserFriends } from "../../friends/getAllFriendsForUser";
 
 interface SelectFriendsSheetProps {
   chosenFriends: string[];
   onChosenFriendsChange: (chosenFriends: string[]) => void;
 
   userFriends: UserFriends;
-  userGroups: UserGroups;
   children: ReactNode;
 }
 
@@ -28,7 +27,6 @@ function SelectFriendsSheet({
   chosenFriends,
   onChosenFriendsChange,
   userFriends,
-  userGroups,
   children,
 }: SelectFriendsSheetProps) {
   const router = useRouter();
@@ -60,7 +58,6 @@ function SelectFriendsSheet({
               friend={friend}
               onChosenFriendsChange={onChosenFriendsChange}
               chosenFriends={chosenFriends}
-              friendGroups={userGroups}
             />
           ))}
         </div>

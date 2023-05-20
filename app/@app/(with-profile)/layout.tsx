@@ -14,10 +14,12 @@ async function WithProfileLayout({ children }: WithProfileLayoutProps) {
   }
 
   return (
-    <>
-      {children}
+    <div className="relative h-full flex flex-col">
+      <div className="flex-grow flex-shrink h-full overflow-auto">
+        {children}
+      </div>
       <Nav />
-    </>
+    </div>
   );
 }
 

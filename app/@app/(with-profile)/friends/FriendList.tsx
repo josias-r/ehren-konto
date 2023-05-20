@@ -12,7 +12,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { EmptyState } from "@/components/ui/empty-state";
-import { GroupFriendGroup } from "../groups/GroupCard";
 import { Fragment, useState, useTransition } from "react";
 import FriendsBulkListItem from "./FriendsBulkListItem";
 import { unfriendUsers } from "./actions";
@@ -29,16 +28,15 @@ interface FriendListProps {
       avatar: string | null;
       groups: {
         groupId: number;
+        name: string;
       }[];
     }[]
   >;
-  userGroups: GroupFriendGroup[];
 }
 
 function FriendList({
   friendLettersSorted,
   userFriendsByLetter,
-  userGroups,
 }: FriendListProps) {
   const [isMultiSelect, setIsMultiSelect] = useState(false);
   const [selectedFriends, setSelectedFriends] = useState<string[]>([]);
@@ -154,7 +152,6 @@ function FriendList({
                           friend={friend}
                           chosenFriends={selectedFriends}
                           onChosenFriendsChange={setSelectedFriends}
-                          friendGroups={userGroups}
                         />
                       );
                     }
@@ -166,7 +163,6 @@ function FriendList({
                         nick={friend.nick}
                         userId={friend.userId}
                         groups={friend.groups}
-                        friendGroups={userGroups}
                       />
                     );
                   })}

@@ -17,7 +17,7 @@ import { useState, useTransition } from "react";
 
 interface RemoveMembersSheetProps {
   groupId: number;
-  groupMembers: NonNullable<GroupMembers>["GroupMembers"];
+  groupMembers: NonNullable<GroupMembers>;
 }
 
 function RemoveMembersSheet({
@@ -65,7 +65,7 @@ function RemoveMembersSheet({
           <div className="grid gap-6">
             {groupMembers.map((member) => (
               <MembersBulkListItem
-                key={member.User.userId}
+                key={member.userId}
                 member={member}
                 onChosenMembersChange={(newChosenMembers) => {
                   setChosenMembers(newChosenMembers);

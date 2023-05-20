@@ -8,11 +8,10 @@ async function AddMembers({
     groupId: string;
   };
 }) {
-  const { userGroups, userFriends } = await getAllFriendsForUser();
+  const userFriends = await getAllFriendsForUser();
   return (
     <AddMembersSheet
       userFriends={userFriends}
-      userGroups={userGroups}
       groupId={parseInt(params.groupId)}
     />
   );
