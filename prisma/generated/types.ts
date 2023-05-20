@@ -80,7 +80,7 @@ export type Happening = {
     relatedUserId: string | null;
 };
 export type User = {
-    userId: string;
+    userId: Generated<string>;
     createdAt: Generated<Timestamp>;
     email: string;
     name: string;
