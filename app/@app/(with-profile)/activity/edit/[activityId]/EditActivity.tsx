@@ -1,6 +1,6 @@
 import { getUserId } from "@/app/(auth)/getUserId";
 import getUserActivity from "./getUserActivity";
-import EditActivitySheet from "@/app/@app/(with-profile)/activities/edit/[activityId]/EditActivitySheet";
+import EditActivitySheet from "@/app/@app/(with-profile)/activity/edit/[activityId]/EditActivitySheet";
 import { notFound } from "next/navigation";
 
 async function EditActivity({ activityId }: { activityId: number }) {

@@ -4,13 +4,13 @@ export const metadata = {
 };
 
 function ProfileLayout({
-  children,
+  // children,
   modal,
   upcomingActivities,
   avatar,
   happenings,
 }: {
-  children: React.ReactNode;
+  // children: React.ReactNode;
   modal: React.ReactNode;
   upcomingActivities: React.ReactNode;
   avatar: React.ReactNode;
@@ -20,9 +20,9 @@ function ProfileLayout({
     <main className="relative p-4 space-y-4">
       {avatar}
       {upcomingActivities}
-      {children}
-      {modal}
       {happenings}
+      {modal}
+      {/* {children} */}
     </main>
   );
 }
