@@ -1,8 +1,8 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { RelevantHappenings } from "./getRelevantHappenings";
-import getInitialsFromName from "@/lib/user/getInitialsFromName";
+import getInitialsFromName from "@/app/@app/(profile)/getInitialsFromName";
 import ActivityWithPopover from "@/lib/activity/ActivityWithPopover";
-import EhrePoints from "@/lib/profile/happenings/EhrePoints";
+import EhrePoints from "@/app/@app/(profile)/@happenings/EhrePoints";
 
 type ParticipatedHappening = Omit<
   RelevantHappenings[number],

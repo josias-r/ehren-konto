@@ -10,7 +10,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "../../../components/ui/popover";
-import getInitialsFromName from "../../../lib/user/getInitialsFromName";
+import getInitialsFromName from "../(profile)/getInitialsFromName";
 
 interface FriendListItemProps {
   userId: string;

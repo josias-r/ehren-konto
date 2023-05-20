@@ -1,4 +1,4 @@
-import { updateInviteLink } from "@/lib/user/actions";
+import { updateInviteLink } from "@/app/@app/(profile)/actions";
 import QrSheet from "./QrSheet";
 
 async function Qr() {

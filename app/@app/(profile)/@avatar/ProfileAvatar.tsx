@@ -7,11 +7,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import getInitialsFromName from "../../../../lib/user/getInitialsFromName";
+import getInitialsFromName from "../getInitialsFromName";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { LogOut } from "lucide-react";
 import { useTransition } from "react";
-import { logoutUser } from "../../../../lib/user/actions";
+import { logoutUser } from "../actions";
 import { useRouter } from "next/navigation";
 
 interface ProfileAvatarProps {

@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { useTransition } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { cn } from "../../../../../lib/utils";
-import { updateGroup } from "../../../../../lib/group/actions";
+import { updateGroup } from "../../actions";
 
 export interface GroupEditFormShape {
   name: string;

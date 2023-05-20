@@ -4,8 +4,8 @@ import {
   AvatarImage,
 } from "../../../components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import getInitialsFromName from "../../../lib/user/getInitialsFromName";
-import EhrePoints from "../../../lib/profile/happenings/EhrePoints";
+import getInitialsFromName from "../(profile)/getInitialsFromName";
+import EhrePoints from "../(profile)/@happenings/EhrePoints";
 
 export type MemberShape = {
   name: string;

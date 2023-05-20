@@ -1,5 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import getInitialsFromName from "./getInitialsFromName";
+import getInitialsFromName from "../../@app/(profile)/getInitialsFromName";
 
 interface InviteUserAvatarProps {
   name: string;

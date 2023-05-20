@@ -1,4 +1,4 @@
-import { prisma } from "../prisma-client";
+import { prisma } from "../../../lib/prisma-client";
 import isUserInviteLinkNotExpired from "./isUserInviteLinkNotExpired";
 
 async function getInviteLinkUser(inviteLink: string) {

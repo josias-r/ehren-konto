@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { validateCookieToken } from "@/app/(auth)/validateCookieToken";
-import { completeProfile } from "@/lib/user/actions";
-import getMainProfileData from "@/lib/user/getMainProfileData";
-import getProfileIsIncomplete from "@/lib/user/getProfileIsIncomplete";
+import { completeProfile } from "@/app/@app/(profile)/actions";
+import getMainProfileData from "@/app/@app/complete-profile/getMainProfileData";
+import getProfileIsIncomplete from "@/app/@app/complete-profile/getProfileIsIncomplete";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
 

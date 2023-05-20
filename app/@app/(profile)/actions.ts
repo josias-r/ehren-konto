@@ -1,9 +1,9 @@
 "use server";
 
-import createAuthProtectedAction from "../../app/(auth)/createAuthProtectedAction";
-import { prisma } from "../prisma-client";
+import createAuthProtectedAction from "../../(auth)/createAuthProtectedAction";
+import { prisma } from "../../../lib/prisma-client";
 import { nanoid } from "nanoid";
-import isUserInviteLinkNotExpired from "./isUserInviteLinkNotExpired";
+import isUserInviteLinkNotExpired from "../../invite/[link]/isUserInviteLinkNotExpired";
 import { cookies } from "next/headers";
 interface CompleteProfileArgs {
   name: string;

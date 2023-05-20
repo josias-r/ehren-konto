@@ -11,7 +11,7 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import MembersBulkListItem from "@/app/@app/groups/@modal/(.)members/[groupId]/remove/MembersBulkListItem";
-import { removeGroupMembers } from "@/lib/group/actions";
+import { removeGroupMembers } from "@/app/@app/groups/actions";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 

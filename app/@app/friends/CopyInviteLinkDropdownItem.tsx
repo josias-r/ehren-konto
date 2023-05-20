@@ -6,7 +6,7 @@ import { useTransition } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { copyTextToClipboard } from "../../../lib/utils";
 import { ToastAction } from "@/components/ui/toast";
-import { updateInviteLink } from "../../../lib/user/actions";
+import { updateInviteLink } from "../(profile)/actions";
 
 function CopyInviteLinkDropdownItem() {
   const [isPending, startTransition] = useTransition();

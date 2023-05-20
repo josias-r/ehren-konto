@@ -11,7 +11,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { useTransition } from "react";
-import { deleteGroup } from "../../../../../lib/group/actions";
+import { deleteGroup } from "../../actions";
 
 interface DeleteGroupAlertProps {
   groupId: number;

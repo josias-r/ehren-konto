@@ -9,7 +9,7 @@ import { cn } from "../../../../lib/utils";
 import useControlledForm from "../../../../lib/hooks/useControlledForm";
 import { Users } from "lucide-react";
 import SelectFriendsSheet from "./SelectFriendsSheet";
-import { createGroup } from "../../../../lib/group/actions";
+import { createGroup } from "../actions";
 import { UserFriends, UserGroups } from "../../friends/getAllFriendsForUser";
 
 interface FormShape {

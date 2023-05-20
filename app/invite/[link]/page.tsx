@@ -2,8 +2,8 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { validateCookieToken } from "@/app/(auth)/validateCookieToken";
 import BefriendUser from "@/app/invite/[link]/BefriendUser";
 import getFriendshipExists from "@/app/invite/[link]/getFriendshipExists";
-import getInviteLinkUser from "@/lib/user/getInviteLinkUser";
-import InviteUserAvatar from "@/lib/user/InviteUserAvatar";
+import getInviteLinkUser from "@/app/invite/[link]/getInviteLinkUser";
+import InviteUserAvatar from "@/app/invite/[link]/InviteUserAvatar";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
