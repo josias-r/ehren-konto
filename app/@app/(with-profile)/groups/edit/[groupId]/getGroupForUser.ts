@@ -1,25 +1,23 @@
 import "server-only";
 
 import { getUserId } from "@/app/(auth)/getUserId";
-import { prisma } from "@/lib/prisma-client";
+import { db } from "@/lib/kysely-client";
 
 async function getGroupForUser(groupId: number) {
   const userId = getUserId();
-  const group = await prisma.group.findFirst({
-    where: {
-      groupId: groupId,
-      GroupMembers: {
-        some: {
-          userId: userId,
-        },
-      },
-    },
-    select: {
-      groupId: true,
-      name: true,
-      description: true,
-    },
-  });
+
+  const group = await db
+    .selectFrom("Group")
+    .where("groupId", "=", groupId)
+    .where(({ exists, selectFrom }) =>
+      exists(
+        selectFrom("GroupMember")
+          .where("userId", "=", userId)
+          .where("groupId", "=", groupId)
+      )
+    )
+    .select(["groupId", "name", "description"])
+    .execute();
 
   return group;
 }
