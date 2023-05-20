@@ -1,6 +1,5 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma-client";
 import createAuthProtectedAction from "../../(auth)/createAuthProtectedAction";
 
@@ -26,8 +25,6 @@ export const createGroup = createAuthProtectedAction(
       },
     });
 
-    revalidatePath("/groups");
-
     return createdGroup.groupId;
   }
 );
@@ -47,7 +44,7 @@ export const updateGroup = createAuthProtectedAction(
         description,
       },
     });
-    revalidatePath("/groups");
+
     return updatedGroup.groupId;
   }
 );
@@ -59,7 +56,6 @@ interface DeleteGroupArgs {
 export const deleteGroup = createAuthProtectedAction(
   async (loggedInUserId, { groupId }: DeleteGroupArgs) => {
     await prisma.group.delete({ where: { groupId } });
-    revalidatePath("/groups");
   }
 );
 
@@ -78,7 +74,6 @@ export const addGroupMembers = createAuthProtectedAction(
         },
       },
     });
-    revalidatePath("/groups");
   }
 );
 
@@ -97,7 +92,6 @@ export const removeGroupMembers = createAuthProtectedAction(
         },
       },
     });
-    revalidatePath("/groups");
   }
 );
 
@@ -110,6 +104,5 @@ export const leaveGroup = createAuthProtectedAction(
     await prisma.groupMember.delete({
       where: { userId_groupId: { groupId, userId: loggedInUserId } },
     });
-    revalidatePath("/groups");
   }
 );

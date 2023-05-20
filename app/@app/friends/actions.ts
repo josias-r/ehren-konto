@@ -2,7 +2,6 @@
 
 import createAuthProtectedAction from "../../(auth)/createAuthProtectedAction";
 import { prisma } from "@/lib/prisma-client";
-import { revalidatePath } from "next/cache";
 
 interface BefriendUserArgs {
   inviteLink: string;
@@ -29,8 +28,6 @@ export const befriendUser = createAuthProtectedAction(
         outgoingUserId: loggedInUserId,
       },
     });
-
-    revalidatePath("/friends");
   }
 );
 
@@ -58,6 +55,5 @@ export const unfriendUsers = createAuthProtectedAction(
         ],
       },
     });
-    revalidatePath("/friends");
   }
 );
