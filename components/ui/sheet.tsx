@@ -189,8 +189,8 @@ const SheetContent = React.forwardRef<
               {headerChildren}
             </div>
           )}
-          <div className="overflow-y-auto flex-shrink flex-grow-0 w-full py-4 -my-4 px-6">
-            <div className="max-w-md mx-auto">{children}</div>
+          <div className="overflow-y-auto flex-shrink flex-grow-0 w-full py-4 -my-4 last:pb-8 last:mb-0">
+            <div className="max-w-md mx-auto px-6">{children}</div>
           </div>
           {footerChildren && (
             <div className="w-full max-w-md flex-shrink-0 flex-grow-0 px-6 pb-6">

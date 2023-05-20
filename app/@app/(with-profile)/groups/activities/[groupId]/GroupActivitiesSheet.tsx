@@ -11,7 +11,10 @@ import {
 import { GroupActivities } from "./getGroupActivities";
 import ActivityListItem from "@/lib/activity/ActivityListItem";
 import { Separator } from "@/components/ui/separator";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
 
 interface GroupActivitiesSheetProps {
   activities: NonNullable<GroupActivities>;
@@ -31,6 +34,8 @@ function GroupActivitiesSheet({ activities }: GroupActivitiesSheetProps) {
 
   const router = useRouter();
 
+  const params = useParams();
+
   return (
     <Sheet open onOpenChange={() => router.back()}>
       <SheetContent
@@ -45,7 +50,12 @@ function GroupActivitiesSheet({ activities }: GroupActivitiesSheetProps) {
         }
         footerChildren={
           <SheetFooter>
-            {/* <CreateActivitySheet groupName={groupName} groupId={groupId} /> */}
+            <Link
+              className={cn(buttonVariants())}
+              href={`/groups/activities/${params.groupId}/create`}
+            >
+              Create activity
+            </Link>
           </SheetFooter>
         }
       >

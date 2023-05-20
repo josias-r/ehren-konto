@@ -8,10 +8,10 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "../../components/ui/sheet";
-import { Button } from "../../components/ui/button";
+} from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
 import CreateActivityForm from "./CreateActivityForm";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface CreateActivitySheetProps {
   groupName: string;
@@ -21,13 +21,10 @@ interface CreateActivitySheetProps {
 function CreateActivitySheet({ groupName, groupId }: CreateActivitySheetProps) {
   const formId = "create-activity";
 
-  const [open, setOpen] = useState(false);
+  const router = useRouter();
 
   return (
-    <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger asChild>
-        <Button>Create new group activity</Button>
-      </SheetTrigger>
+    <Sheet open onOpenChange={() => router.back()}>
       <SheetContent
         headerChildren={
           <SheetHeader>
@@ -46,7 +43,7 @@ function CreateActivitySheet({ groupName, groupId }: CreateActivitySheetProps) {
         <CreateActivityForm
           formId={formId}
           onDone={() => {
-            setOpen(false);
+            router.back();
           }}
           groupId={groupId}
         />

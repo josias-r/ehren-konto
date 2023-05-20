@@ -5,13 +5,13 @@ import { Input } from "@/components/ui/input";
 
 import { useTransition } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { cn } from "../utils";
-import useControlledForm from "../hooks/useControlledForm";
+import { cn } from "@/lib/utils";
+import useControlledForm from "@/lib/hooks/useControlledForm";
 import EmojiPicker from "@/components/ui/emoji-picker";
 import ColorRadioGroup from "@/components/ui/color-radio-group";
-import { ActivityColor } from "./utilities/activity-colors";
+import { ActivityColor } from "@/lib/activity/utilities/activity-colors";
 import { DatePicker } from "@/components/ui/date-picker";
-import { createActivity } from "./actions";
+import { createActivity } from "@/lib/activity/actions";
 
 interface FormShape {
   color: ActivityColor;
