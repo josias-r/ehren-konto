@@ -14,7 +14,7 @@ interface NavProps {}
 
 function Nav({}: NavProps) {
   return (
-    <div className="fixed bottom-0 left-0 right-0 pb-4 bg-background ">
+    <div className="flex-shrink-0 flex-grow-0 pb-4">
       <Separator className="mb-2" />
       <NavigationMenu>
         <NavigationMenuList>
