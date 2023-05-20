@@ -1,6 +1,5 @@
 import getAllFriendsForUser from "@/app/@app/friends/getAllFriendsForUser";
 import AddMembersSheet from "./AddMembersSheet";
-import { getUserId } from "@/app/(auth)/getUserId";
 
 async function AddMembers({
   params,
@@ -9,8 +8,7 @@ async function AddMembers({
     groupId: string;
   };
 }) {
-  const userId = getUserId();
-  const { userGroups, userFriends } = await getAllFriendsForUser(userId);
+  const { userGroups, userFriends } = await getAllFriendsForUser();
   return (
     <AddMembersSheet
       userFriends={userFriends}

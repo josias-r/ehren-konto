@@ -5,12 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useTransition } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { cn } from "../utils";
-import useControlledForm from "../hooks/useControlledForm";
+import { cn } from "../../../../lib/utils";
+import useControlledForm from "../../../../lib/hooks/useControlledForm";
 import { Users } from "lucide-react";
-import { GroupFriend, GroupFriendGroup } from "../../app/@app/groups/GroupCard";
-import SelectFriendsSheet from "../friend/SelectFriendsSheet";
-import { createGroup } from "./actions";
+import SelectFriendsSheet from "./SelectFriendsSheet";
+import { createGroup } from "../../../../lib/group/actions";
+import { UserFriends, UserGroups } from "../../friends/getAllFriendsForUser";
 
 interface FormShape {
   name: string;
@@ -22,16 +22,16 @@ interface CreateGroupFormProps {
   onDone: () => void;
   formId: string;
 
-  friends: GroupFriend[];
-  friendGroups: GroupFriendGroup[];
+  userFriends: UserFriends;
+  userGroups: UserGroups;
 }
 
 function CreateGroupForm({
   onDone,
   formId,
 
-  friends,
-  friendGroups,
+  userFriends,
+  userGroups,
 }: CreateGroupFormProps) {
   const [isPending, startTransition] = useTransition();
 
@@ -92,8 +92,8 @@ function CreateGroupForm({
                 ({ field: { onChange, onBlur, value } }) => (
                   <SelectFriendsSheet
                     chosenFriends={value}
-                    friends={friends}
-                    friendGroups={friendGroups}
+                    userFriends={userFriends}
+                    userGroups={userGroups}
                     onChosenFriendsChange={onChange}
                   >
                     <Button

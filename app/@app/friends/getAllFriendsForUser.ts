@@ -1,8 +1,11 @@
 "use server";
 
+import { getUserId } from "@/app/(auth)/getUserId";
 import { prisma } from "@/lib/prisma-client";
 
-async function getAllFriendsForUser(userId: string) {
+async function getAllFriendsForUser() {
+  const userId = getUserId();
+
   const userSelectData = {
     userId: true,
     name: true,

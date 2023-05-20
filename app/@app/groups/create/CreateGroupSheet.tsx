@@ -7,31 +7,24 @@ import {
   SheetFooter,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from "@/components/ui/sheet";
-import { ReactNode, useState } from "react";
-import { GroupFriend, GroupFriendGroup } from "../../app/@app/groups/GroupCard";
 import { Button } from "@/components/ui/button";
 import CreateGroupForm from "./CreateGroupForm";
+import { useRouter } from "next/navigation";
+import { UserFriends, UserGroups } from "../../friends/getAllFriendsForUser";
 
 interface CreateGroupSheetProps {
-  children: ReactNode;
-  friends: GroupFriend[];
-  friendGroups: GroupFriendGroup[];
+  userFriends: UserFriends;
+  userGroups: UserGroups;
 }
 
-function CreateGroupSheet({
-  friends,
-  friendGroups,
-  children,
-}: CreateGroupSheetProps) {
+function CreateGroupSheet({ userFriends, userGroups }: CreateGroupSheetProps) {
   const formId = "create-group";
 
-  const [open, setOpen] = useState(false);
+  const router = useRouter();
 
   return (
-    <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger asChild>{children}</SheetTrigger>
+    <Sheet open onOpenChange={() => router.back()}>
       <SheetContent
         headerChildren={
           <SheetHeader>
@@ -51,10 +44,10 @@ function CreateGroupSheet({
       >
         <CreateGroupForm
           formId={formId}
-          friends={friends}
-          friendGroups={friendGroups}
+          userFriends={userFriends}
+          userGroups={userGroups}
           onDone={() => {
-            setOpen(false);
+            router.back();
           }}
         />
       </SheetContent>

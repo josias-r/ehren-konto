@@ -1,4 +1,3 @@
-import { GroupFriend, GroupFriendGroup } from "../../app/@app/groups/GroupCard";
 import {
   Sheet,
   SheetClose,
@@ -8,28 +7,28 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "../../components/ui/sheet";
+} from "../../../../components/ui/sheet";
 import { ReactNode } from "react";
 import { Button, buttonVariants } from "@/components/ui/button";
-import FriendsBulkListItem from "../../app/@app/friends/FriendsBulkListItem";
+import FriendsBulkListItem from "../../friends/FriendsBulkListItem";
 import { EmptyState } from "@/components/ui/empty-state";
 import { useRouter } from "next/navigation";
+import { UserFriends, UserGroups } from "../../friends/getAllFriendsForUser";
 
 interface SelectFriendsSheetProps {
   chosenFriends: string[];
   onChosenFriendsChange: (chosenFriends: string[]) => void;
-  /** null indicates the modal is used for a create group modal */
-  friends: GroupFriend[];
-  friendGroups: GroupFriendGroup[];
 
+  userFriends: UserFriends;
+  userGroups: UserGroups;
   children: ReactNode;
 }
 
 function SelectFriendsSheet({
   chosenFriends,
   onChosenFriendsChange,
-  friends,
-  friendGroups,
+  userFriends,
+  userGroups,
   children,
 }: SelectFriendsSheetProps) {
   const router = useRouter();
@@ -55,17 +54,17 @@ function SelectFriendsSheet({
         }
       >
         <div className="grid gap-6">
-          {friends.map((friend) => (
+          {userFriends.map((friend) => (
             <FriendsBulkListItem
               key={friend.userId}
               friend={friend}
               onChosenFriendsChange={onChosenFriendsChange}
               chosenFriends={chosenFriends}
-              friendGroups={friendGroups}
+              friendGroups={userGroups}
             />
           ))}
         </div>
-        {!friends.length && (
+        {!userFriends.length && (
           <EmptyState
             title="No friends yet"
             message={

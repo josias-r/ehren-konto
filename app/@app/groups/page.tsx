@@ -2,6 +2,9 @@ import { EmptyState } from "@/components/ui/empty-state";
 import GroupCard from "@/app/@app/groups/GroupCard";
 import getAllGroupsForUser from "@/app/@app/groups/getAllGroupsForUser";
 import { getUserId } from "@/app/(auth)/getUserId";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
+import Link from "next/link";
 
 async function Groups() {
   const userId = getUserId();
@@ -20,9 +23,9 @@ async function Groups() {
             }
             className="h-[calc(100vh-10rem)]"
           >
-            {/* <CreateGroupSheet friends={userFriends} friendGroups={userGroups}>
-              <Button>Create group</Button>
-            </CreateGroupSheet> */}
+            <Link href="/groups/create" className={cn(buttonVariants())}>
+              Create group
+            </Link>
           </EmptyState>
         )}
         {groups?.map((group) => (

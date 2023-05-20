@@ -1,4 +1,3 @@
-import { getUserId } from "@/app/(auth)/getUserId";
 import getAllFriendsForUser from "./getAllFriendsForUser";
 import FriendList from "./FriendList";
 
@@ -8,9 +7,7 @@ export const metadata = {
 };
 
 async function Friends() {
-  const userId = getUserId();
-
-  const { userGroups, userFriends } = await getAllFriendsForUser(userId);
+  const { userGroups, userFriends } = await getAllFriendsForUser();
 
   // group userFriends by first letter of name
   const userFriendsByLetter = userFriends.reduce((acc, friend) => {
