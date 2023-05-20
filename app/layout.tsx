@@ -39,7 +39,6 @@ export default async function RootLayout({
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000" />
         <meta name="msapplication-TileColor" content="#ffffff" />
         <meta name="theme-color" content="#ffffff" />
-        <meta content="width=device-width, initial-scale=1" name="viewport" />
       </head>
       <body className={`${inter.className} bg-background h-full`}>
         {isLoggedIn && (

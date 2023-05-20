@@ -1,6 +1,5 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
 import { prisma } from "../prisma-client";
 import createAuthProtectedAction from "../../app/(auth)/createAuthProtectedAction";
 import { ActivityColor } from "./utilities/activity-colors";
@@ -39,9 +38,6 @@ export const createActivity = createAuthProtectedAction(
       },
     });
 
-    revalidatePath("/groups");
-    revalidatePath("/");
-
     return createdActivity.activityId;
   }
 );
@@ -68,9 +64,6 @@ export const updateActivity = createAuthProtectedAction(
         color,
       },
     });
-
-    revalidatePath("/groups");
-    revalidatePath("/");
 
     return updatedActivity.activityId;
   }
@@ -122,9 +115,6 @@ export const participateInActivity = createAuthProtectedAction(
         type: "ACTIVITY_PARTICIPATION",
       },
     });
-
-    revalidatePath("/groups");
-    revalidatePath("/");
 
     return activityId;
   }

@@ -3,6 +3,12 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
+export const metadata = {
+  title: "Ehre",
+  description:
+    "Experience more with your friends by easily creating and participating in activities together!",
+};
+
 function Home() {
   return (
     <EmptyState

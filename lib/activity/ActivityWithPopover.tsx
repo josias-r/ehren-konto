@@ -85,7 +85,7 @@ function ActivityWithPopover({
                   }),
                   "flex"
                 )}
-                href={`/activities/edit/${activityId}`}
+                href={`/activity/edit/${activityId}`}
               >
                 Edit
               </Link>
