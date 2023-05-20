@@ -15,7 +15,13 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { CircleEllipsis, Delete, DoorOpen, UserPlus2 } from "lucide-react";
+import {
+  CircleEllipsis,
+  Delete,
+  DoorOpen,
+  Edit2,
+  UserPlus2,
+} from "lucide-react";
 import { GroupMembers } from "./getGroupWithMembers";
 import { useRouter } from "next/navigation";
 import GroupMemberListItem from "@/lib/group/GroupMemberListItem";
@@ -74,14 +80,12 @@ function GroupMembersSheet({ groupId, members }: GroupMembersSheetProps) {
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
-                    {/* <DropdownMenuItem
-                      onClick={() => {
-                        setEditOpen(true);
-                      }}
-                    >
-                      <Edit2 className="w-4 h-4 mr-2" />
-                      <span>Edit</span>
-                    </DropdownMenuItem> */}
+                    <DropdownMenuItem asChild>
+                      <Link href={`/groups/edit/${groupId}`}>
+                        <Edit2 className="w-4 h-4 mr-2" />
+                        <span>Edit</span>
+                      </Link>
+                    </DropdownMenuItem>
                     <DropdownMenuItem asChild>
                       <Link href={`/groups/members/${groupId}/add`}>
                         <UserPlus2 className="w-4 h-4 mr-2" />

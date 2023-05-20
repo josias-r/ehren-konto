@@ -4,8 +4,8 @@ import FormRow from "@/components/ui/FormRow";
 import { Input } from "@/components/ui/input";
 import { useTransition } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { cn } from "../utils";
-import { updateGroup } from "./actions";
+import { cn } from "../../../../lib/utils";
+import { updateGroup } from "../../../../lib/group/actions";
 
 export interface GroupEditFormShape {
   name: string;

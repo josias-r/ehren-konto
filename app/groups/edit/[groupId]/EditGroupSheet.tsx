@@ -10,24 +10,20 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import EditGroupForm, { GroupEditFormShape } from "./EditGroupForm";
+import { useRouter } from "next/navigation";
 
 interface EditGroupSheetProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
   groupId: number;
   defaultValues: GroupEditFormShape;
 }
 
-function EditGroupSheet({
-  groupId,
-  defaultValues,
-  open,
-  onOpenChange,
-}: EditGroupSheetProps) {
+function EditGroupSheet({ groupId, defaultValues }: EditGroupSheetProps) {
   const formId = "edit-group";
 
+  const router = useRouter();
+
   return (
-    <Sheet open={open} onOpenChange={onOpenChange}>
+    <Sheet open onOpenChange={() => router.back()}>
       <SheetContent
         headerChildren={
           <SheetHeader>
@@ -47,9 +43,7 @@ function EditGroupSheet({
           formId={formId}
           groupId={groupId}
           defaultValues={defaultValues}
-          onDone={() => {
-            onOpenChange(false);
-          }}
+          onDone={() => router.back()}
         />
       </SheetContent>
     </Sheet>

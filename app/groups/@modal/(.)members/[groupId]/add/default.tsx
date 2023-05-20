@@ -1,5 +1,5 @@
 function Default() {
-  return <div>RETURN</div>;
+  return null;
 }
 
 export default Default;
