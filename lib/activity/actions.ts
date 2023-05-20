@@ -28,13 +28,6 @@ export const createActivity = createAuthProtectedAction(
         emoji,
         color,
         // to,
-        // ActivityMembers: {
-        //   create: [
-        //     ...members.map((userId) => ({ userId })),
-        //     // Add the creator to the activity
-        //     { userId: loggedInUserId },
-        //   ],
-        // },
       },
     });
 

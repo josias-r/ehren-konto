@@ -65,9 +65,9 @@ async function getRelevantHappenings(userId: string) {
     )
     .where(({ or, cmpr }) =>
       or([
-        cmpr("relatedActivityId", "is not", null),
-        cmpr("relatedGroupId", "is not", null),
-        cmpr("relatedUserId", "is not", null),
+        cmpr("RelatedActivity.activityId", "is not", null),
+        cmpr("RelatedGroup.groupId", "is not", null),
+        cmpr("RelatedUser.userId", "is not", null),
       ])
     )
     .select([
