@@ -5,12 +5,12 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../../../components/ui/card";
-import { Separator } from "../../../components/ui/separator";
-import { ActivityShape } from "../../../lib/activity/Activity";
-import EmptyActivity from "../../../lib/activity/EmptyActivity";
-import { buttonVariants } from "../../../components/ui/button";
-import ActivityWithPopover from "../../../lib/activity/ActivityWithPopover";
+} from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { ActivityShape } from "@/lib/activity/Activity";
+import EmptyActivity from "@/lib/activity/EmptyActivity";
+import { buttonVariants } from "@/components/ui/button";
+import ActivityWithPopover from "@/lib/activity/ActivityWithPopover";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { ChevronRight } from "lucide-react";

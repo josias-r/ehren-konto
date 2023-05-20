@@ -7,8 +7,8 @@ import {
   SheetFooter,
   SheetHeader,
   SheetTitle,
-} from "../../../../../components/ui/sheet";
-import { Button } from "../../../../../components/ui/button";
+} from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
 import EditActivityForm, { ActivityEditFormShape } from "./EditActivityForm";
 import { useRouter } from "next/navigation";
 

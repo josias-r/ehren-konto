@@ -3,7 +3,7 @@
 import bcrypt from "bcrypt";
 import validator from "validator";
 import passwordValidator from "password-validator";
-import { prisma } from "../../../lib/prisma-client";
+import { prisma } from "@/lib/prisma-client";
 
 // Create a schema
 const schema = new passwordValidator();

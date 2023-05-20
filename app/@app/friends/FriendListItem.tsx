@@ -1,15 +1,11 @@
 import { GroupFriendGroup } from "../groups/GroupCard";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "../../../components/ui/avatar";
-import { Badge } from "../../../components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "../../../components/ui/popover";
+} from "@/components/ui/popover";
 import getInitialsFromName from "../(profile)/getInitialsFromName";
 
 interface FriendListItemProps {

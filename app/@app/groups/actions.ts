@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { prisma } from "../../../lib/prisma-client";
+import { prisma } from "@/lib/prisma-client";
 import createAuthProtectedAction from "../../(auth)/createAuthProtectedAction";
 
 interface CreateGroupArgs {

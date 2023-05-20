@@ -1,7 +1,7 @@
 "use server";
 
 import createAuthProtectedAction from "../../(auth)/createAuthProtectedAction";
-import { prisma } from "../../../lib/prisma-client";
+import { prisma } from "@/lib/prisma-client";
 import { revalidatePath } from "next/cache";
 
 interface BefriendUserArgs {

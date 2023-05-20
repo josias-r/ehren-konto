@@ -16,7 +16,7 @@ import { GroupFriendGroup } from "../groups/GroupCard";
 import { Fragment, useState, useTransition } from "react";
 import FriendsBulkListItem from "./FriendsBulkListItem";
 import { unfriendUsers } from "./actions";
-import { cn } from "../../../lib/utils";
+import { cn } from "@/lib/utils";
 
 interface FriendListProps {
   friendLettersSorted: string[];

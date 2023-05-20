@@ -1,4 +1,4 @@
-import { prisma } from "../../../lib/prisma-client";
+import { prisma } from "@/lib/prisma-client";
 
 async function getMainProfileData(userId: string) {
   const user = await prisma.user.findUnique({

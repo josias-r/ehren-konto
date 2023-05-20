@@ -1,7 +1,7 @@
 "use server";
 
 import createAuthProtectedAction from "../../(auth)/createAuthProtectedAction";
-import { prisma } from "../../../lib/prisma-client";
+import { prisma } from "@/lib/prisma-client";
 import { nanoid } from "nanoid";
 import isUserInviteLinkNotExpired from "../../invite/[link]/isUserInviteLinkNotExpired";
 import { cookies } from "next/headers";

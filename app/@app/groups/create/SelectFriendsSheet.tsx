@@ -7,7 +7,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "../../../../components/ui/sheet";
+} from "@/components/ui/sheet";
 import { ReactNode } from "react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import FriendsBulkListItem from "../../friends/FriendsBulkListItem";
