@@ -1,5 +1,3 @@
-import "server-only";
-
 import jwt from "jsonwebtoken";
 
 export function validateToken(token: unknown) {

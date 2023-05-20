@@ -9,7 +9,7 @@ function createAuthProtectedAction<
   method: (loggedInUserId: string, ...args: TArgsShape) => Promise<TReturnShape>
 ) {
   return async (...args: TArgsShape) => {
-    const isLoggedIn = await validateCookieToken();
+    const isLoggedIn = validateCookieToken();
     if (isLoggedIn === false) {
       throw new Error("Not logged in");
     }
