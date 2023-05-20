@@ -1,10 +1,8 @@
-import { getUserId } from "@/app/(auth)/getUserId";
 import ProfileAvatar from "./ProfileAvatar";
-import geProfileData from "./getProfileData";
+import getProfileData from "./getProfileData";
 
 async function Avatar() {
-  const userId = getUserId();
-  const profileData = await geProfileData(userId);
+  const profileData = await getProfileData();
 
   if (!profileData) {
     throw new Error("Profile not found");
