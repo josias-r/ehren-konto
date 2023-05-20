@@ -1,4 +1,3 @@
-import { getUserId } from "@/lib/auth/getUserId";
 import GroupMembersSheet from "./GroupMembersSheet";
 import getGroupWithMembers from "./getGroupWithMembers";
 import { notFound } from "next/navigation";
@@ -8,8 +7,7 @@ interface GroupMembersProps {
 }
 
 async function GroupMembers({ groupId }: GroupMembersProps) {
-  const userId = getUserId();
-  const groupWithMembers = await getGroupWithMembers(userId, groupId);
+  const groupWithMembers = await getGroupWithMembers(groupId);
 
   if (!groupWithMembers) {
     return notFound();

@@ -1,6 +1,8 @@
+import { getUserId } from "@/lib/auth/getUserId";
 import { prisma } from "@/lib/prisma-client";
 
-async function getGroupWithMembers(userId: string, groupId: number) {
+async function getGroupWithMembers(groupId: number) {
+  const userId = getUserId();
   const groupMembers = await prisma.group.findFirst({
     where: {
       groupId,

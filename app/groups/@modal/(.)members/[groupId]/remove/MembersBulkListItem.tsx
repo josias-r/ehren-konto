@@ -1,10 +1,12 @@
 import { CheckCircle2, Circle } from "lucide-react";
-import GroupMemberListItem, { MemberShape } from "./GroupMemberListItem";
+
+import { GroupMembers } from "@/app/groups/members/[groupId]/getGroupWithMembers";
+import GroupMemberListItem from "@/lib/group/GroupMemberListItem";
 
 interface MembersBulkListItemProps {
   chosenMembers: string[];
   onChosenMembersChange: (chosenMembers: string[]) => void;
-  member: MemberShape;
+  member: NonNullable<GroupMembers>["GroupMembers"][number];
 }
 
 function MembersBulkListItem({
@@ -16,27 +18,27 @@ function MembersBulkListItem({
     <div
       className="flex gap-8 items-center cursor-pointer"
       onClick={() => {
-        if (chosenMembers.includes(member.userId)) {
+        if (chosenMembers.includes(member.User.userId)) {
           onChosenMembersChange(
-            chosenMembers.filter((id) => id !== member.userId)
+            chosenMembers.filter((id) => id !== member.User.userId)
           );
         } else {
-          onChosenMembersChange([...chosenMembers, member.userId]);
+          onChosenMembersChange([...chosenMembers, member.User.userId]);
         }
       }}
     >
       <div className="flex-grow flex-shrink-1 w-full">
         <GroupMemberListItem
-          userId={member.userId}
-          nick={member.nick}
-          name={member.name}
-          avatar={member.avatar}
-          role={member.role}
+          name={member.User.name}
+          nick={member.User.nick}
+          userId={member.User.userId}
+          avatar={member.User.avatar}
           ehre={member.ehre}
+          role={member.role}
         />
       </div>
       <div className="flex-grow flex-shrink-0">
-        {chosenMembers.includes(member.userId) ? (
+        {chosenMembers.includes(member.User.userId) ? (
           <CheckCircle2 className="2-4 h-4" />
         ) : (
           <Circle className="2-4 h-4 text-muted-foreground" />

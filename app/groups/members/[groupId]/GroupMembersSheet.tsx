@@ -29,6 +29,7 @@ import DeleteGroupAlert from "@/app/groups/members/[groupId]/DeleteGroupAlert";
 import LeaveGroupAlert from "@/app/groups/members/[groupId]/LeaveGroupAlert";
 import { useState } from "react";
 import Link from "next/link";
+import { UserMinus2 } from "lucide-react";
 
 interface GroupMembersSheetProps {
   groupId: number;
@@ -92,12 +93,12 @@ function GroupMembersSheet({ groupId, members }: GroupMembersSheetProps) {
                         <span>Add members</span>
                       </Link>
                     </DropdownMenuItem>
-                    {/* <DropdownMenuItem
-                      onClick={() => setRemoveMembersOpen(true)}
-                    >
-                      <UserMinus2 className="w-4 h-4 mr-2" />
-                      <span>Remove members</span>
-                    </DropdownMenuItem> */}
+                    <DropdownMenuItem asChild>
+                      <Link href={`/groups/members/${groupId}/remove`}>
+                        <UserMinus2 className="w-4 h-4 mr-2" />
+                        <span>Remove members</span>
+                      </Link>
+                    </DropdownMenuItem>
 
                     <DropdownMenuSeparator />
                     <DropdownMenuItem onClick={() => setLeaveOpen(true)}>
