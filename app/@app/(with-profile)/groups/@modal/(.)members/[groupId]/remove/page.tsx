@@ -16,7 +16,7 @@ async function RemoveMembers({
   }
   return (
     <RemoveMembersSheet
-      groupMembers={members.GroupMembers}
+      groupMembers={members}
       groupId={parseInt(params.groupId)}
     />
   );

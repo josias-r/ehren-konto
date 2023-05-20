@@ -1,38 +1,29 @@
 import { getUserId } from "@/app/(auth)/getUserId";
-import { prisma } from "@/lib/prisma-client";
+import { db } from "@/lib/kysely-client";
 
 async function getGroupWithMembers(groupId: number) {
   const userId = getUserId();
-  const groupMembers = await prisma.group.findFirst({
-    where: {
-      groupId,
-      GroupMembers: {
-        some: {
-          userId,
-        },
-      },
-    },
-    select: {
-      groupId: true,
-      GroupMembers: {
-        orderBy: {
-          ehre: "desc",
-        },
-        select: {
-          role: true,
-          ehre: true,
-          User: {
-            select: {
-              avatar: true,
-              userId: true,
-              name: true,
-              nick: true,
-            },
-          },
-        },
-      },
-    },
-  });
+
+  const groupMembers = await db
+    .selectFrom("GroupMember")
+    .where("groupId", "=", groupId)
+    .where(({ exists, selectFrom }) =>
+      exists(
+        selectFrom("GroupMember")
+          .where("userId", "=", userId)
+          .where("groupId", "=", groupId)
+      )
+    )
+    .innerJoin("User", "User.userId", "GroupMember.userId")
+    .select([
+      "User.userId",
+      "role",
+      "ehre",
+      "User.avatar",
+      "User.name",
+      "User.nick",
+    ])
+    .execute();
 
   return groupMembers;
 }
