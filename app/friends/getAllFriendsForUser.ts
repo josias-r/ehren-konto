@@ -1,4 +1,6 @@
-import { prisma } from "../prisma-client";
+"use server";
+
+import { prisma } from "../../lib/prisma-client";
 
 async function getAllFriendsForUser(userId: string) {
   const userSelectData = {
@@ -59,7 +61,7 @@ async function getAllFriendsForUser(userId: string) {
     description: groupMember.Group.description,
   }));
 
-  const mapFriendShip = (friendship: {
+  const mapFriendShape = (friendship: {
     name: string;
     userId: string;
     GroupMember: {
@@ -81,11 +83,11 @@ async function getAllFriendsForUser(userId: string) {
 
   const outgoingUserFriends =
     friendshipsWithGroup?.FriendshipOutgoing.map((friendship) =>
-      mapFriendShip(friendship.IncomingUser)
+      mapFriendShape(friendship.IncomingUser)
     ) || [];
   const incomingUserFriends =
     friendshipsWithGroup?.FriendshipIncoming.map((friendship) =>
-      mapFriendShip(friendship.OutgoingUser)
+      mapFriendShape(friendship.OutgoingUser)
     ) || [];
 
   const allFriends = [...outgoingUserFriends, ...incomingUserFriends];

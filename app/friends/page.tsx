@@ -1,14 +1,15 @@
-import Nav from "@/components/Nav";
-import getAllFriendsForUser from "@/lib/friend/getAllFriendsForUser";
 import { getUserId } from "@/lib/auth/getUserId";
-import FriendList from "@/lib/friend/FriendList";
+import getAllFriendsForUser from "./getAllFriendsForUser";
+import FriendList from "./FriendList";
+
+interface FriendsProps {}
 
 export const metadata = {
   title: "Friends",
   description: "Add and manage your friends.",
 };
 
-export default async function Friends() {
+async function Friends({}: FriendsProps) {
   const userId = await getUserId();
 
   const { userGroups, userFriends } = await getAllFriendsForUser(userId);
@@ -35,3 +36,5 @@ export default async function Friends() {
     </main>
   );
 }
+
+export default Friends;

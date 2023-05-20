@@ -12,11 +12,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { EmptyState } from "@/components/ui/empty-state";
-import { GroupFriendGroup } from "../../app/groups/GroupCard";
+import { GroupFriendGroup } from "../groups/GroupCard";
 import { useState, useTransition } from "react";
-import FriendsBulkListItem from "./FriendsBulkListItem";
-import { unfriendUsers } from "./actions";
-import { cn } from "../utils";
+import FriendsBulkListItem from "../../lib/friend/FriendsBulkListItem";
+import { unfriendUsers } from "../../lib/friend/actions";
+import { cn } from "../../lib/utils";
 
 interface FriendListProps {
   friendLettersSorted: string[];
