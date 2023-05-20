@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useTransition } from "react";
 import { leaveGroup } from "../../actions";
+import { useRouter } from "next/navigation";
 
 interface LeaveGroupAlertProps {
   groupId: number;
@@ -29,6 +30,8 @@ function LeaveGroupAlert({
 }: LeaveGroupAlertProps) {
   const [isPending, startTransition] = useTransition();
 
+  const router = useRouter();
+
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
@@ -45,6 +48,7 @@ function LeaveGroupAlert({
             onClick={() => {
               startTransition(async () => {
                 await leaveGroup({ groupId });
+                router.refresh();
                 onDone();
               });
             }}

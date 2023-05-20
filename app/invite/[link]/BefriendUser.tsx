@@ -23,6 +23,7 @@ function BefriendUser({ inviteLink }: BefriendUserProps) {
             inviteLink,
           });
           router.push("/friends");
+          router.refresh();
         });
       }}
     >

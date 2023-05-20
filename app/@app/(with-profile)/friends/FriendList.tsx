@@ -16,6 +16,7 @@ import { Fragment, useState, useTransition } from "react";
 import FriendsBulkListItem from "./FriendsBulkListItem";
 import { unfriendUsers } from "./actions";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 interface FriendListProps {
   friendLettersSorted: string[];
@@ -43,6 +44,8 @@ function FriendList({
 
   const [isPending, startTransition] = useTransition();
 
+  const router = useRouter();
+
   return (
     <>
       <h1 className="text-2xl font-bold mb-4 mx-auto max-w-md pt-6 px-4 flex justify-between">
@@ -61,6 +64,7 @@ function FriendList({
                     userIds: selectedFriends,
                   });
                   setIsMultiSelect(false);
+                  router.refresh();
                 });
               }}
             >

@@ -53,6 +53,7 @@ function RemoveMembersSheet({
                     members: chosenMembers,
                   });
                   router.back();
+                  router.refresh();
                 });
               }}
             >

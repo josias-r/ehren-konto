@@ -46,6 +46,7 @@ function CreateGroupSheet({ userFriends }: CreateGroupSheetProps) {
           userFriends={userFriends}
           onDone={() => {
             router.back();
+            router.refresh();
           }}
         />
       </SheetContent>

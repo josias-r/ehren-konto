@@ -72,6 +72,7 @@ function AddMembersSheet({
                       members: chosenFriends,
                     });
                     router.back();
+                    router.refresh();
                   });
                 }}
               >

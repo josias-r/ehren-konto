@@ -41,6 +41,7 @@ function ProfileAvatar({ name, avatar }: ProfileAvatarProps) {
             startTransition(async () => {
               await logoutUser();
               router.push("/login");
+              router.refresh();
             });
           }}
         >

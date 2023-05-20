@@ -51,6 +51,7 @@ function LoginForm() {
         }
       } else if (response.success) {
         router.push("/");
+        router.refresh();
       }
     });
   };

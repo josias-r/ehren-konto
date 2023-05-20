@@ -54,6 +54,7 @@ function EditActivitySheet({
           defaultValues={defaultValues}
           onDone={() => {
             router.back();
+            router.refresh();
           }}
           activityId={activityId}
         />

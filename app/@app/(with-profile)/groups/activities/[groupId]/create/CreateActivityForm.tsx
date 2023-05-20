@@ -123,19 +123,6 @@ function CreateActivityForm({
             />
           )}
         </FormRow>
-        <FormRow label="Time" id="fromTime" required errors={errors}>
-          {({ id, name, className, required }) => (
-            <Input
-              id={id}
-              type="time"
-              defaultValue=""
-              className={cn(className, "h-8")}
-              {...register(name, {
-                required,
-              })}
-            />
-          )}
-        </FormRow>
         <FormRow label="Date" id="from" required errors={errors}>
           {({ id, name, className, required }) => (
             <>
@@ -159,6 +146,19 @@ function CreateActivityForm({
                 )
               )}
             </>
+          )}
+        </FormRow>
+        <FormRow label="Time" id="fromTime" required errors={errors}>
+          {({ id, name, className, required }) => (
+            <Input
+              id={id}
+              type="time"
+              defaultValue=""
+              className={cn(className, "h-8")}
+              {...register(name, {
+                required,
+              })}
+            />
           )}
         </FormRow>
       </div>

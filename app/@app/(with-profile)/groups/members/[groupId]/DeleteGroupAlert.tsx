@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useTransition } from "react";
 import { deleteGroup } from "../../actions";
+import { useRouter } from "next/navigation";
 
 interface DeleteGroupAlertProps {
   groupId: number;
@@ -27,6 +28,7 @@ function DeleteGroupAlert({
   onOpenChange,
 }: DeleteGroupAlertProps) {
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
 
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
@@ -44,6 +46,7 @@ function DeleteGroupAlert({
             onClick={() => {
               startTransition(async () => {
                 await deleteGroup({ groupId });
+                router.refresh();
 
                 onDone();
                 onOpenChange(false);

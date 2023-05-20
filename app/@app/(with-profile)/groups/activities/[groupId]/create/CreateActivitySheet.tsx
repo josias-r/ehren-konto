@@ -44,6 +44,7 @@ function CreateActivitySheet({ groupName, groupId }: CreateActivitySheetProps) {
           formId={formId}
           onDone={() => {
             router.back();
+            router.refresh();
           }}
           groupId={groupId}
         />
