@@ -4,7 +4,7 @@ function Home() {
   return (
     <>
       HOME
-      <Link href="/profile">go to profile</Link>
+      <Link href="/">go to profile</Link>
     </>
   );
 }

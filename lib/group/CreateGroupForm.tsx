@@ -8,7 +8,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { cn } from "../utils";
 import useControlledForm from "../hooks/useControlledForm";
 import { Users } from "lucide-react";
-import { GroupFriend, GroupFriendGroup } from "../../app/groups/GroupCard";
+import { GroupFriend, GroupFriendGroup } from "../../app/@app/groups/GroupCard";
 import SelectFriendsSheet from "../friend/SelectFriendsSheet";
 import { createGroup } from "./actions";
 

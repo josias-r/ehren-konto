@@ -10,7 +10,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { ReactNode, useState } from "react";
-import { GroupFriend, GroupFriendGroup } from "../../app/groups/GroupCard";
+import { GroupFriend, GroupFriendGroup } from "../../app/@app/groups/GroupCard";
 import { Button } from "@/components/ui/button";
 import CreateGroupForm from "./CreateGroupForm";
 

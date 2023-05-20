@@ -1,4 +1,4 @@
-import { GroupFriendGroup } from "../../app/groups/GroupCard";
+import { GroupFriendGroup } from "../../app/@app/groups/GroupCard";
 import {
   Avatar,
   AvatarFallback,

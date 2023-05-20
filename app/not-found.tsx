@@ -61,7 +61,7 @@ function NotFound() {
                     buttonVariants({ variant: "link" }),
                     "block text-left p-0 h-auto text-muted-foreground"
                   )}
-                  href="/profile"
+                  href="/"
                 >
                   🧑🏻 profile
                 </Link>

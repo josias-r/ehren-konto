@@ -6,10 +6,10 @@ export default async function AppRootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const isLoggedIn = await validateCookieToken();
+  const isLoggedIn = validateCookieToken();
 
   if (isLoggedIn !== false) {
-    return redirect("/profile");
+    return redirect("/");
   }
 
   return <>{children}</>;

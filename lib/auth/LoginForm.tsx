@@ -48,7 +48,7 @@ function LoginForm() {
             });
         }
       } else if (response.success) {
-        redirect("/profile");
+        redirect("/");
       }
     });
   };
