@@ -1,6 +1,6 @@
 "use client";
 
-import FriendListItem from "@/lib/friend/FriendListItem";
+import FriendListItem from "@/app/@app/friends/FriendListItem";
 import Link from "next/link";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -14,8 +14,8 @@ import {
 import { EmptyState } from "@/components/ui/empty-state";
 import { GroupFriendGroup } from "../groups/GroupCard";
 import { Fragment, useState, useTransition } from "react";
-import FriendsBulkListItem from "../../../lib/friend/FriendsBulkListItem";
-import { unfriendUsers } from "../../../lib/friend/actions";
+import FriendsBulkListItem from "./FriendsBulkListItem";
+import { unfriendUsers } from "./actions";
 import { cn } from "../../../lib/utils";
 
 interface FriendListProps {

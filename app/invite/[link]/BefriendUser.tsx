@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { useTransition } from "react";
-import { befriendUser } from "./actions";
+import { befriendUser } from "../../@app/friends/actions";
 import { useRouter } from "next/navigation";
 
 interface BefriendUserProps {

@@ -1,7 +1,7 @@
 "use client";
 
 import { CheckCircle2, Circle } from "lucide-react";
-import { GroupFriend, GroupFriendGroup } from "../../app/@app/groups/GroupCard";
+import { GroupFriend, GroupFriendGroup } from "../groups/GroupCard";
 import FriendListItem from "./FriendListItem";
 
 interface FriendsBulkListItemProps {

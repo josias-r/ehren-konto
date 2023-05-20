@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { validateCookieToken } from "@/lib/auth/validateCookieToken";
+import { validateCookieToken } from "@/app/(auth)/validateCookieToken";
 import { completeProfile } from "@/lib/user/actions";
 import getMainProfileData from "@/lib/user/getMainProfileData";
 import getProfileIsIncomplete from "@/lib/user/getProfileIsIncomplete";

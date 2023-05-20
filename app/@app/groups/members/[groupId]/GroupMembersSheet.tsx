@@ -24,7 +24,7 @@ import {
 } from "lucide-react";
 import { GroupMembers } from "./getGroupWithMembers";
 import { useRouter } from "next/navigation";
-import GroupMemberListItem from "@/lib/group/GroupMemberListItem";
+import GroupMemberListItem from "@/app/@app/groups/GroupMemberListItem";
 import DeleteGroupAlert from "@/app/@app/groups/members/[groupId]/DeleteGroupAlert";
 import LeaveGroupAlert from "@/app/@app/groups/members/[groupId]/LeaveGroupAlert";
 import { useState } from "react";

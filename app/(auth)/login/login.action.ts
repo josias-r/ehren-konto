@@ -1,9 +1,10 @@
 "use server";
 
 import bcrypt from "bcrypt";
-import { prisma } from "../prisma-client";
+import { prisma } from "../../../lib/prisma-client";
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
+import { revalidatePath } from "next/cache";
 
 interface SignInArgs {
   email: string;

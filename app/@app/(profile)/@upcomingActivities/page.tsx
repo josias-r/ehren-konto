@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/card";
 import UpcomingActivitiesSection from "./UpcomingActivitiesSection";
 import { getUpcomingActivities } from "./getUpcomingActivities";
-import { getUserId } from "@/lib/auth/getUserId";
+import { getUserId } from "@/app/(auth)/getUserId";
 
 async function UpcomingActivities() {
   const userId = getUserId();

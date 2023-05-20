@@ -6,7 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import { getUserId } from "@/lib/auth/getUserId";
+import { getUserId } from "@/app/(auth)/getUserId";
 import getRelevantHappenings from "@/app/@app/(profile)/@happenings/getRelevantHappenings";
 import HappeningItem from "./HappeningItem";
 import { EmptyState } from "@/components/ui/empty-state";

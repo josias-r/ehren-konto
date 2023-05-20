@@ -14,7 +14,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import FriendsBulkListItem from "@/lib/friend/FriendsBulkListItem";
+import FriendsBulkListItem from "@/app/@app/friends/FriendsBulkListItem";
 import { addGroupMembers } from "@/lib/group/actions";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";

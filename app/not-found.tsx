@@ -23,17 +23,17 @@ function NotFound() {
         <div>
           <h1 className="text-2xl font-bold mb-4">Wrong turn?</h1>
           <div className="grid gap-2 items-start">
-            <Link
-              className={cn(
-                buttonVariants({ variant: "link" }),
-                "block text-left p-0 h-auto text-muted-foreground"
-              )}
-              href="/"
-            >
-              🏠 home
-            </Link>
             {isLoggedIn === false && (
               <>
+                <Link
+                  className={cn(
+                    buttonVariants({ variant: "link" }),
+                    "block text-left p-0 h-auto text-muted-foreground"
+                  )}
+                  href="/"
+                >
+                  🏠 home
+                </Link>
                 <Link
                   className={cn(
                     buttonVariants({ variant: "link" }),
@@ -64,6 +64,24 @@ function NotFound() {
                   href="/"
                 >
                   🧑🏻 profile
+                </Link>
+                <Link
+                  className={cn(
+                    buttonVariants({ variant: "link" }),
+                    "block text-left p-0 h-auto text-muted-foreground"
+                  )}
+                  href="/friends"
+                >
+                  🙌🏻 groups
+                </Link>
+                <Link
+                  className={cn(
+                    buttonVariants({ variant: "link" }),
+                    "block text-left p-0 h-auto text-muted-foreground"
+                  )}
+                  href="/friends"
+                >
+                  🤍 friends
                 </Link>
               </>
             )}

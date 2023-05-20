@@ -1,6 +1,6 @@
 import getAllFriendsForUser from "@/app/@app/friends/getAllFriendsForUser";
 import AddMembersSheet from "./AddMembersSheet";
-import { getUserId } from "@/lib/auth/getUserId";
+import { getUserId } from "@/app/(auth)/getUserId";
 
 async function AddMembers({
   params,

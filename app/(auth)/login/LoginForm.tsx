@@ -5,11 +5,11 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { login } from "@/lib/auth/login.action";
+import { login } from "@/app/(auth)/login/login.action";
 import { useTransition } from "react";
 import { useToast } from "@/components/ui/use-toast";
-import { redirect } from "next/navigation";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface FormShape {
   email: string;
@@ -19,7 +19,9 @@ interface FormShape {
 function LoginForm() {
   const [isPending, startTransition] = useTransition();
 
-  const { toast, toasts } = useToast();
+  const { toast } = useToast();
+
+  const router = useRouter();
 
   const { register, handleSubmit } = useForm<FormShape>();
   const onSubmit: SubmitHandler<FormShape> = (data) => {
@@ -48,7 +50,7 @@ function LoginForm() {
             });
         }
       } else if (response.success) {
-        redirect("/");
+        router.push("/");
       }
     });
   };

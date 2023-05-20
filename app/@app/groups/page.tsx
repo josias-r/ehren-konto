@@ -1,7 +1,7 @@
 import { EmptyState } from "@/components/ui/empty-state";
 import GroupCard from "@/app/@app/groups/GroupCard";
 import getAllGroupsForUser from "@/app/@app/groups/getAllGroupsForUser";
-import { getUserId } from "@/lib/auth/getUserId";
+import { getUserId } from "@/app/(auth)/getUserId";
 
 async function Groups() {
   const userId = getUserId();

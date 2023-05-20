@@ -4,9 +4,9 @@ import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { Link } from "lucide-react";
 import { useTransition } from "react";
 import { useToast } from "@/components/ui/use-toast";
-import { copyTextToClipboard } from "../utils";
+import { copyTextToClipboard } from "../../../lib/utils";
 import { ToastAction } from "@/components/ui/toast";
-import { updateInviteLink } from "../user/actions";
+import { updateInviteLink } from "../../../lib/user/actions";
 
 function CopyInviteLinkDropdownItem() {
   const [isPending, startTransition] = useTransition();

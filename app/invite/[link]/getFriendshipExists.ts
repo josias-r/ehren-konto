@@ -1,4 +1,4 @@
-import { prisma } from "../prisma-client";
+import { prisma } from "../../../lib/prisma-client";
 
 interface GetFriendshipExistsArgs {
   user1Id: string;

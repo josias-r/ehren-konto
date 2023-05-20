@@ -11,7 +11,7 @@ import {
 } from "../../components/ui/sheet";
 import { ReactNode } from "react";
 import { Button, buttonVariants } from "@/components/ui/button";
-import FriendsBulkListItem from "./FriendsBulkListItem";
+import FriendsBulkListItem from "../../app/@app/friends/FriendsBulkListItem";
 import { EmptyState } from "@/components/ui/empty-state";
 import { useRouter } from "next/navigation";
 

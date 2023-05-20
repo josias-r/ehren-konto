@@ -1,4 +1,4 @@
-import { getUserId } from "@/lib/auth/getUserId";
+import { getUserId } from "@/app/(auth)/getUserId";
 import getAllFriendsForUser from "./getAllFriendsForUser";
 import FriendList from "./FriendList";
 

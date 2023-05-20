@@ -4,7 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 // import { validateCookieToken } from "@/lib/auth/validateCookieToken";
 import Nav from "@/components/Nav";
-import { validateCookieToken } from "@/lib/auth/validateCookieToken";
+import { validateCookieToken } from "@/app/(auth)/validateCookieToken";
 const inter = Inter({ subsets: ["latin"] });
 
 export default async function RootLayout({

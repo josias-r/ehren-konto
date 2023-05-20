@@ -1,4 +1,4 @@
-import { getUserId } from "@/lib/auth/getUserId";
+import { getUserId } from "@/app/(auth)/getUserId";
 import ProfileAvatar from "./ProfileAvatar";
 import geProfileData from "./getProfileData";
 

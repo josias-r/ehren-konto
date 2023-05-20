@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { signup } from "@/lib/auth/signup.action";
+import { signup } from "@/app/(auth)/signup/signup.action";
 import { useTransition } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { redirect } from "next/navigation";

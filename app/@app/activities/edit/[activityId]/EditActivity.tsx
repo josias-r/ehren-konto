@@ -1,4 +1,4 @@
-import { getUserId } from "@/lib/auth/getUserId";
+import { getUserId } from "@/app/(auth)/getUserId";
 import getUserActivity from "./getUserActivity";
 import EditActivitySheet from "@/app/@app/activities/edit/[activityId]/EditActivitySheet";
 import { notFound } from "next/navigation";

@@ -1,6 +1,6 @@
 import getAllFriendsForUser from "@/app/@app/friends/getAllFriendsForUser";
 import RemoveMembersSheet from "./RemoveMembersSheet";
-import { getUserId } from "@/lib/auth/getUserId";
+import { getUserId } from "@/app/(auth)/getUserId";
 import getGroupWithMembers from "@/app/@app/groups/members/[groupId]/getGroupWithMembers";
 import { notFound } from "next/navigation";
 

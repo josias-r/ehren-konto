@@ -1,6 +1,6 @@
 "use server";
 
-import createAuthProtectedAction from "../auth/createAuthProtectedAction";
+import createAuthProtectedAction from "../../app/(auth)/createAuthProtectedAction";
 import { prisma } from "../prisma-client";
 import { nanoid } from "nanoid";
 import isUserInviteLinkNotExpired from "./isUserInviteLinkNotExpired";

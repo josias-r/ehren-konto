@@ -1,16 +1,16 @@
-import { GroupFriendGroup } from "../../app/@app/groups/GroupCard";
+import { GroupFriendGroup } from "../groups/GroupCard";
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "../../components/ui/avatar";
-import { Badge } from "../../components/ui/badge";
+} from "../../../components/ui/avatar";
+import { Badge } from "../../../components/ui/badge";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "../../components/ui/popover";
-import getInitialsFromName from "../user/getInitialsFromName";
+} from "../../../components/ui/popover";
+import getInitialsFromName from "../../../lib/user/getInitialsFromName";
 
 interface FriendListItemProps {
   userId: string;

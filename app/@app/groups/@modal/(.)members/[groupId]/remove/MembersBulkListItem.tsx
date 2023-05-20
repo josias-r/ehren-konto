@@ -1,7 +1,7 @@
 import { CheckCircle2, Circle } from "lucide-react";
 
 import { GroupMembers } from "@/app/@app/groups/members/[groupId]/getGroupWithMembers";
-import GroupMemberListItem from "@/lib/group/GroupMemberListItem";
+import GroupMemberListItem from "@/app/@app/groups/GroupMemberListItem";
 
 interface MembersBulkListItemProps {
   chosenMembers: string[];

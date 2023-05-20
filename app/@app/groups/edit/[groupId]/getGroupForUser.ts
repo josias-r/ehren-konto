@@ -1,6 +1,6 @@
 import "server-only";
 
-import { getUserId } from "@/lib/auth/getUserId";
+import { getUserId } from "@/app/(auth)/getUserId";
 import { prisma } from "@/lib/prisma-client";
 
 async function getGroupForUser(groupId: number) {

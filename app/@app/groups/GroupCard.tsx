@@ -1,6 +1,4 @@
-import GroupMemberListItem, {
-  MemberShape,
-} from "../../../lib/group/GroupMemberListItem";
+import GroupMemberListItem, { MemberShape } from "./GroupMemberListItem";
 import {
   Card,
   CardContent,

@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { prisma } from "../prisma-client";
-import createAuthProtectedAction from "../auth/createAuthProtectedAction";
+import createAuthProtectedAction from "../../app/(auth)/createAuthProtectedAction";
 
 interface CreateGroupArgs {
   name: string;
