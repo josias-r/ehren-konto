@@ -49,19 +49,12 @@ export const updateInviteLink = createAuthProtectedAction(
 );
 
 export const logoutUser = createAuthProtectedAction(async (loggedInUserId) => {
-  // @ts-expect-error TODO: wait for nextJS fix
   cookies().set({
     name: "token",
     value: "deleted",
-    httpOnly: true,
-    path: "/",
-    maxAge: 0,
   });
-  // @ts-expect-error TODO: wait for nextJS fix
   cookies().set({
     name: "is-logged-in",
     value: "deleted",
-    path: "/",
-    maxAge: 0,
   });
 });
