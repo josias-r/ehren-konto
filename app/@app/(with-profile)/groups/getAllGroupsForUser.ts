@@ -60,8 +60,6 @@ async function getAllGroupsForUser(userId: string) {
       .select(db.fn.countAll<number>().as("count"))
       .execute();
 
-    console.log(groupMembersCount, activitiesCount);
-
     const activitiesWithParticipants = await Promise.all(
       activities.map(async (activity) => {
         const participants = await db

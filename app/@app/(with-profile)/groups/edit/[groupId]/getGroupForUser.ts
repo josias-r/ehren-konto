@@ -17,7 +17,7 @@ async function getGroupForUser(groupId: number) {
       )
     )
     .select(["groupId", "name", "description"])
-    .execute();
+    .executeTakeFirst();
 
   return group;
 }
