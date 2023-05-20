@@ -6,6 +6,11 @@ import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 
+export const metadata = {
+  title: "Groups",
+  description: "Manage and view your groups",
+};
+
 async function Groups() {
   const userId = getUserId();
   const groups = await getAllGroupsForUser(userId);
