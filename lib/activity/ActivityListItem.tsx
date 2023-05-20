@@ -2,11 +2,9 @@ import { Users } from "lucide-react";
 import Activity, { ActivityShape } from "./Activity";
 import activityRelativeDate from "@/lib/activity/utilities/activityRelativeDate";
 import ActivityWithPopover from "./ActivityWithPopover";
-import { MemberShape } from "../group/GroupMemberListItem";
+import { MemberShape } from "../../app/@app/groups/GroupMemberListItem";
 
-interface ActivityListItemProps extends ActivityShape {
-  members: MemberShape[];
-}
+interface ActivityListItemProps extends ActivityShape {}
 
 function ActivityListItem({
   activityId,
@@ -15,7 +13,6 @@ function ActivityListItem({
   color,
   from,
   participants,
-  members,
 }: ActivityListItemProps) {
   return (
     <div className="flex">
@@ -27,7 +24,6 @@ function ActivityListItem({
           name={name}
           from={from}
           participants={participants}
-          members={members}
         />
       </div>
       <div className="flex justify-between w-full items-center">

@@ -1,4 +1,4 @@
-import LoginForm from "@/lib/auth/LoginForm";
+import LoginForm from "@/app/(auth)/login/LoginForm";
 
 function Login() {
   return (

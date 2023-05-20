@@ -1,4 +1,4 @@
-import SignupForm from "@/lib/auth/SignupForm";
+import SignupForm from "@/app/(auth)/signup/SignupForm";
 
 function Signup() {
   return (

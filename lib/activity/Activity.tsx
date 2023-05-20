@@ -14,10 +14,10 @@ export type ActivityShape = {
   color: ActivityColor;
   name: string;
   from: Date;
-  participants: { userId: string; confirmed: boolean }[];
+  participants: { userId: string; confirmed: boolean; name: string }[];
 };
 
-interface ActivityProps extends ActivityShape {}
+interface ActivityProps extends Pick<ActivityShape, "color" | "emoji"> {}
 
 function Activity({ color, emoji }: ActivityProps) {
   const gradient = getActivityGradient(color);

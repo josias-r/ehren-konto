@@ -1,4 +1,4 @@
-import { validateCookieToken } from "@/lib/auth/validateCookieToken";
+import { validateCookieToken } from "@/app/(auth)/validateCookieToken";
 import { redirect } from "next/navigation";
 
 export default async function AppRootLayout({
@@ -6,10 +6,10 @@ export default async function AppRootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const isLoggedIn = await validateCookieToken();
+  const isLoggedIn = validateCookieToken();
 
   if (isLoggedIn !== false) {
-    return redirect("/profile");
+    return redirect("/");
   }
 
   return <>{children}</>;

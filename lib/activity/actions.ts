@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { prisma } from "../prisma-client";
-import createAuthProtectedAction from "../auth/createAuthProtectedAction";
+import createAuthProtectedAction from "../../app/(auth)/createAuthProtectedAction";
 import { ActivityColor } from "./utilities/activity-colors";
 
 interface CreateActivityArgs {
@@ -40,7 +40,7 @@ export const createActivity = createAuthProtectedAction(
     });
 
     revalidatePath("/groups");
-    revalidatePath("/profile");
+    revalidatePath("/");
 
     return createdActivity.activityId;
   }
@@ -70,7 +70,7 @@ export const updateActivity = createAuthProtectedAction(
     });
 
     revalidatePath("/groups");
-    revalidatePath("/profile");
+    revalidatePath("/");
 
     return updatedActivity.activityId;
   }
@@ -124,7 +124,7 @@ export const participateInActivity = createAuthProtectedAction(
     });
 
     revalidatePath("/groups");
-    revalidatePath("/profile");
+    revalidatePath("/");
 
     return activityId;
   }
