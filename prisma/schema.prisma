@@ -69,9 +69,9 @@ enum FriendshipStatus {
 model Friendship {
   friendshipId   Int              @id @default(autoincrement())
   createdAt      DateTime         @default(now())
-  OutgoingUser   User             @relation("userOutgoingFriendships", fields: [outgoingUserId], references: [userId])
+  OutgoingUser   User             @relation("userOutgoingFriendships", fields: [outgoingUserId], references: [userId], onDelete: Cascade)
   outgoingUserId String
-  IncomingUser   User             @relation("userIncomingFriendships", fields: [incomingUserId], references: [userId])
+  IncomingUser   User             @relation("userIncomingFriendships", fields: [incomingUserId], references: [userId], onDelete: Cascade)
   incomingUserId String
   status         FriendshipStatus @default(PENDING)
 
@@ -101,9 +101,9 @@ model Activity {
 model ActivityParticipant {
   activityParticipantId Int      @id @default(autoincrement())
   createdAt             DateTime @default(now())
-  Activity              Activity @relation(fields: [activityId], references: [activityId])
+  Activity              Activity @relation(fields: [activityId], references: [activityId], onDelete: Cascade)
   activityId            Int
-  User                  User     @relation(fields: [userId], references: [userId])
+  User                  User     @relation(fields: [userId], references: [userId], onDelete: Cascade)
   userId                String
   confirmed             Boolean  @default(false)
 
@@ -129,12 +129,12 @@ model Happening {
 
   happeningData Json
 
-  RelatedGroup   Group? @relation(fields: [relatedGroupId], references: [groupId])
+  RelatedGroup   Group? @relation(fields: [relatedGroupId], references: [groupId], onDelete: Cascade)
   relatedGroupId Int?
 
-  RelatedActivity   Activity? @relation(fields: [relatedActivityId], references: [activityId])
+  RelatedActivity   Activity? @relation(fields: [relatedActivityId], references: [activityId], onDelete: Cascade)
   relatedActivityId Int?
 
-  RelatedUser   User?   @relation(fields: [relatedUserId], references: [userId])
+  RelatedUser   User?   @relation(fields: [relatedUserId], references: [userId], onDelete: Cascade)
   relatedUserId String?
 }
