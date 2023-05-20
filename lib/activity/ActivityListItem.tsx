@@ -2,7 +2,7 @@ import { Users } from "lucide-react";
 import Activity, { ActivityShape } from "./Activity";
 import activityRelativeDate from "@/lib/activity/utilities/activityRelativeDate";
 import ActivityWithPopover from "./ActivityWithPopover";
-import { MemberShape } from "../../app/@app/groups/GroupMemberListItem";
+import { MemberShape } from "../../app/@app/(with-profile)/groups/GroupMemberListItem";
 
 interface ActivityListItemProps extends ActivityShape {}
 

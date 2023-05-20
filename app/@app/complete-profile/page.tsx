@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { validateCookieToken } from "@/app/(auth)/validateCookieToken";
-import { completeProfile } from "@/app/@app/(profile)/actions";
+import { completeProfile } from "@/app/@app/(with-profile)/(profile)/actions";
 import getMainProfileData from "@/app/@app/complete-profile/getMainProfileData";
 import getProfileIsIncomplete from "@/app/@app/complete-profile/getProfileIsIncomplete";
 import { notFound, redirect } from "next/navigation";
@@ -11,17 +11,17 @@ export const metadata = {
 };
 
 export default async function CompleteProfile() {
-  const isLoggedIn = await validateCookieToken();
+  const isLoggedIn = validateCookieToken();
 
   if (isLoggedIn === false) {
     return notFound();
   }
-  const profileIsIncomplete = await getProfileIsIncomplete(isLoggedIn.userId);
+  const profileIsIncomplete = await getProfileIsIncomplete();
   if (!profileIsIncomplete) {
     return redirect("/");
   }
 
-  const mainProfileData = await getMainProfileData(isLoggedIn.userId);
+  const mainProfileData = await getMainProfileData();
 
   async function completeProfileAction(formData: FormData) {
     "use server";
