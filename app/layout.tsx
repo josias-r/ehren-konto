@@ -45,7 +45,6 @@ export default async function RootLayout({
         {isLoggedIn && (
           <>
             <TooltipProvider>
-              {children}
               {app}
               <Nav />
             </TooltipProvider>

@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { EmptyState } from "@/components/ui/empty-state";
 import { GroupFriendGroup } from "../groups/GroupCard";
-import { useState, useTransition } from "react";
+import { Fragment, useState, useTransition } from "react";
 import FriendsBulkListItem from "../../../lib/friend/FriendsBulkListItem";
 import { unfriendUsers } from "../../../lib/friend/actions";
 import { cn } from "../../../lib/utils";
@@ -139,10 +139,9 @@ function FriendList({
         )}
         {friendLettersSorted.map((letter, index) => {
           return (
-            <>
+            <Fragment key={letter}>
               {index !== 0 && <Separator />}
               <section
-                key={letter}
                 aria-label={`Friends with names starting with ${letter}`}
               >
                 <h3 className="text-lg font-medium mb-2">{letter}</h3>
@@ -173,7 +172,7 @@ function FriendList({
                   })}
                 </div>
               </section>
-            </>
+            </Fragment>
           );
         })}
       </section>

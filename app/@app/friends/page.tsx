@@ -2,14 +2,12 @@ import { getUserId } from "@/lib/auth/getUserId";
 import getAllFriendsForUser from "./getAllFriendsForUser";
 import FriendList from "./FriendList";
 
-interface FriendsProps {}
-
 export const metadata = {
   title: "Friends",
   description: "Add and manage your friends.",
 };
 
-async function Friends({}: FriendsProps) {
+async function Friends() {
   const userId = getUserId();
 
   const { userGroups, userFriends } = await getAllFriendsForUser(userId);
