@@ -43,10 +43,7 @@ export default async function RootLayout({
       <body className={`${inter.className} bg-background h-full`}>
         {isLoggedIn && (
           <>
-            <TooltipProvider>
-              {app}
-              <Nav />
-            </TooltipProvider>
+            <TooltipProvider>{app}</TooltipProvider>
             <Toaster />
           </>
         )}
