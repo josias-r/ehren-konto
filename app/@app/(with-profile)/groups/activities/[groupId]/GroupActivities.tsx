@@ -1,7 +1,7 @@
 import { getUserId } from "@/app/(auth)/getUserId";
 import { notFound } from "next/navigation";
 import GroupActivitiesSheet from "./GroupActivitiesSheet";
-import getGroupWithActivities from "./getGroupWithActivities";
+import getGroupActivities from "./getGroupActivities";
 
 interface GroupActivitiesProps {
   groupId: number;
@@ -9,13 +9,13 @@ interface GroupActivitiesProps {
 
 async function GroupActivities({ groupId }: GroupActivitiesProps) {
   const userId = getUserId();
-  const goupWithActivities = await getGroupWithActivities(userId, groupId);
+  const goupWithActivities = await getGroupActivities(userId, groupId);
 
   if (!goupWithActivities) {
     return notFound();
   }
 
-  return <GroupActivitiesSheet activities={goupWithActivities.Activities} />;
+  return <GroupActivitiesSheet activities={goupWithActivities} />;
 }
 
 export default GroupActivities;

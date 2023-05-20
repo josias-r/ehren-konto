@@ -8,13 +8,13 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { GroupActivities } from "./getGroupWithActivities";
+import { GroupActivities } from "./getGroupActivities";
 import ActivityListItem from "@/lib/activity/ActivityListItem";
 import { Separator } from "@/components/ui/separator";
 import { useRouter } from "next/navigation";
 
 interface GroupActivitiesSheetProps {
-  activities: NonNullable<GroupActivities>["Activities"];
+  activities: NonNullable<GroupActivities>;
 }
 
 function GroupActivitiesSheet({ activities }: GroupActivitiesSheetProps) {
@@ -58,13 +58,7 @@ function GroupActivitiesSheet({ activities }: GroupActivitiesSheetProps) {
               emoji={activity.emoji}
               color={activity.color}
               from={activity.from}
-              participants={activity.ActivityParticipants.map(
-                (participant) => ({
-                  userId: participant.userId,
-                  confirmed: participant.confirmed,
-                  name: participant.User.name,
-                })
-              )}
+              participants={activity.participants}
             />
           ))}
           {!!pastEvents.length && !!futureEvents.length && <Separator />}
@@ -76,13 +70,7 @@ function GroupActivitiesSheet({ activities }: GroupActivitiesSheetProps) {
               emoji={activity.emoji}
               color={activity.color}
               from={activity.from}
-              participants={activity.ActivityParticipants.map(
-                (participant) => ({
-                  userId: participant.userId,
-                  confirmed: participant.confirmed,
-                  name: participant.User.name,
-                })
-              )}
+              participants={activity.participants}
             />
           ))}
         </div>
