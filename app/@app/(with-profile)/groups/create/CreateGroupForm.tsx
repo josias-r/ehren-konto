@@ -10,7 +10,7 @@ import useControlledForm from "@/lib/hooks/useControlledForm";
 import { Users } from "lucide-react";
 import SelectFriendsSheet from "./SelectFriendsSheet";
 import { createGroup } from "../actions";
-import { UserFriends, UserGroups } from "../../friends/getAllFriendsForUser";
+import { UserFriends } from "../../friends/getAllFriendsForUser";
 
 interface FormShape {
   name: string;
@@ -23,7 +23,6 @@ interface CreateGroupFormProps {
   formId: string;
 
   userFriends: UserFriends;
-  userGroups: UserGroups;
 }
 
 function CreateGroupForm({
@@ -31,7 +30,6 @@ function CreateGroupForm({
   formId,
 
   userFriends,
-  userGroups,
 }: CreateGroupFormProps) {
   const [isPending, startTransition] = useTransition();
 
@@ -93,7 +91,6 @@ function CreateGroupForm({
                   <SelectFriendsSheet
                     chosenFriends={value}
                     userFriends={userFriends}
-                    userGroups={userGroups}
                     onChosenFriendsChange={onChange}
                   >
                     <Button

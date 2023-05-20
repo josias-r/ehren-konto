@@ -1,4 +1,3 @@
-import { GroupFriendGroup } from "../groups/GroupCard";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -15,8 +14,8 @@ interface FriendListItemProps {
   avatar: string | null;
   groups: {
     groupId: number;
+    name: string;
   }[];
-  friendGroups: GroupFriendGroup[];
 }
 
 function FriendListItem({
@@ -25,7 +24,6 @@ function FriendListItem({
   nick,
   groups,
   userId,
-  friendGroups,
 }: FriendListItemProps) {
   const initials = getInitialsFromName(name);
 
@@ -50,12 +48,9 @@ function FriendListItem({
               </PopoverTrigger>
               <PopoverContent className="w-60 grid gap-2" align="end">
                 {groups.map((group) => {
-                  const fullGroup = friendGroups.find(
-                    (friendGroup) => friendGroup.groupId === group.groupId
-                  );
                   return (
                     <div className="text-sm" key={group.groupId}>
-                      {fullGroup?.name}
+                      {group.name}
                     </div>
                   );
                 })}

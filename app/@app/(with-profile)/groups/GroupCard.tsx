@@ -15,21 +15,6 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { ChevronRight } from "lucide-react";
 
-export type GroupFriend = {
-  userId: string;
-  name: string;
-  nick: string;
-  avatar: string | null;
-  groups: {
-    groupId: number;
-  }[];
-};
-export type GroupFriendGroup = {
-  groupId: number;
-  name: string;
-  description: string;
-};
-
 interface GroupCardProps {
   groupId: number;
   name: string;
