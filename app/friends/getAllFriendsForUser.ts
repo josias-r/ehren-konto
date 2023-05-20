@@ -1,6 +1,6 @@
 "use server";
 
-import { prisma } from "../../lib/prisma-client";
+import { prisma } from "@/lib/prisma-client";
 
 async function getAllFriendsForUser(userId: string) {
   const userSelectData = {
@@ -104,5 +104,12 @@ async function getAllFriendsForUser(userId: string) {
     userFriends: allFriends,
   };
 }
+
+type GetAllFriendsForUserReturn = ReturnType<typeof getAllFriendsForUser>;
+type GetAllFriendsForUser = GetAllFriendsForUserReturn extends Promise<infer U>
+  ? U
+  : never;
+export type UserFriends = GetAllFriendsForUser["userFriends"];
+export type UserGroups = GetAllFriendsForUser["userGroups"];
 
 export default getAllFriendsForUser;

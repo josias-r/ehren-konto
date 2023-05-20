@@ -15,13 +15,14 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { CircleEllipsis, Delete, DoorOpen } from "lucide-react";
+import { CircleEllipsis, Delete, DoorOpen, UserPlus2 } from "lucide-react";
 import { GroupMembers } from "./getGroupWithMembers";
 import { useRouter } from "next/navigation";
 import GroupMemberListItem from "@/lib/group/GroupMemberListItem";
 import DeleteGroupAlert from "@/app/groups/members/[groupId]/DeleteGroupAlert";
 import LeaveGroupAlert from "@/app/groups/members/[groupId]/LeaveGroupAlert";
 import { useState } from "react";
+import Link from "next/link";
 
 interface GroupMembersSheetProps {
   groupId: number;
@@ -80,16 +81,14 @@ function GroupMembersSheet({ groupId, members }: GroupMembersSheetProps) {
                     >
                       <Edit2 className="w-4 h-4 mr-2" />
                       <span>Edit</span>
+                    </DropdownMenuItem> */}
+                    <DropdownMenuItem asChild>
+                      <Link href={`/groups/members/${groupId}/add`}>
+                        <UserPlus2 className="w-4 h-4 mr-2" />
+                        <span>Add members</span>
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem
-                      onClick={() => {
-                        setAddFriendOpen(true);
-                      }}
-                    >
-                      <UserPlus2 className="w-4 h-4 mr-2" />
-                      <span>Add members</span>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem
+                    {/* <DropdownMenuItem
                       onClick={() => setRemoveMembersOpen(true)}
                     >
                       <UserMinus2 className="w-4 h-4 mr-2" />

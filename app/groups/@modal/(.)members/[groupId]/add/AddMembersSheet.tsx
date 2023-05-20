@@ -1,5 +1,8 @@
-import { GroupFriend, GroupFriendGroup } from "../../app/groups/GroupCard";
-import { Button } from "../../components/ui/button";
+"use client";
+
+import { UserFriends, UserGroups } from "@/app/friends/getAllFriendsForUser";
+import { Button } from "@/components/ui/button";
+import { EmptyState } from "@/components/ui/empty-state";
 import {
   Sheet,
   SheetContent,
@@ -7,51 +10,43 @@ import {
   SheetFooter,
   SheetHeader,
   SheetTitle,
-} from "../../components/ui/sheet";
-import FriendsBulkListItem from "./FriendsBulkListItem";
-import { useState, useTransition } from "react";
-import { addGroupMembers } from "../group/actions";
-import { EmptyState } from "@/components/ui/empty-state";
+} from "@/components/ui/sheet";
+import FriendsBulkListItem from "@/lib/friend/FriendsBulkListItem";
+import { addGroupMembers } from "@/lib/group/actions";
 import { useRouter } from "next/navigation";
+import { useState, useTransition } from "react";
 
-interface AddFriendToGroupSheetProps {
+interface AddMembersSheetProps {
+  userFriends: UserFriends;
+  userGroups: UserGroups;
+
   groupId: number;
-  friends: GroupFriend[];
-  friendGroups: GroupFriendGroup[];
-
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
 }
 
-function AddFriendToGroupSheet({
-  friends,
+function AddMembersSheet({
+  userFriends,
+  userGroups,
   groupId,
-  friendGroups,
-
-  open,
-  onOpenChange,
-}: AddFriendToGroupSheetProps) {
-  const [isPending, startTransition] = useTransition();
-
+}: AddMembersSheetProps) {
   const router = useRouter();
 
-  const friendsInGroup: typeof friends = [];
-  const friendsNotInGroup: typeof friends = [];
+  const [isPending, startTransition] = useTransition();
+
+  const friendsInGroup: typeof userFriends = [];
+  const friendsNotInGroup: typeof userFriends = [];
 
   const [chosenFriends, setChosenFriends] = useState<string[]>([]);
 
-  if (groupId !== null) {
-    friends.forEach((friend) => {
-      if (friend.groups.some((group) => group.groupId === groupId)) {
-        friendsInGroup.push(friend);
-      } else {
-        friendsNotInGroup.push(friend);
-      }
-    });
-  }
+  userFriends.forEach((friend) => {
+    if (friend.groups.some((group) => group.groupId === groupId)) {
+      friendsInGroup.push(friend);
+    } else {
+      friendsNotInGroup.push(friend);
+    }
+  });
 
   return (
-    <Sheet open={open} onOpenChange={onOpenChange}>
+    <Sheet open onOpenChange={() => router.back()}>
       <SheetContent
         headerChildren={
           <SheetHeader>
@@ -77,7 +72,7 @@ function AddFriendToGroupSheet({
                       groupId: groupId,
                       members: chosenFriends,
                     });
-                    onOpenChange(false);
+                    router.back();
                   });
                 }}
               >
@@ -96,7 +91,7 @@ function AddFriendToGroupSheet({
                 setChosenFriends(newChosenFriends);
               }}
               chosenFriends={chosenFriends}
-              friendGroups={friendGroups}
+              friendGroups={userGroups}
             />
           ))}
         </div>
@@ -126,4 +121,4 @@ function AddFriendToGroupSheet({
   );
 }
 
-export default AddFriendToGroupSheet;
+export default AddMembersSheet;

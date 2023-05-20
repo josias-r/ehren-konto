@@ -10,7 +10,7 @@ export const metadata = {
 };
 
 async function Friends({}: FriendsProps) {
-  const userId = await getUserId();
+  const userId = getUserId();
 
   const { userGroups, userFriends } = await getAllFriendsForUser(userId);
 
