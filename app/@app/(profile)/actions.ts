@@ -52,9 +52,16 @@ export const logoutUser = createAuthProtectedAction(async (loggedInUserId) => {
   cookies().set({
     name: "token",
     value: "deleted",
+    // @ts-expect-error TODO: wait for nextJS fix
+    httpOnly: true,
+    path: "/",
+    maxAge: 0,
   });
   cookies().set({
     name: "is-logged-in",
     value: "deleted",
+    // @ts-expect-error TODO: wait for nextJS fix
+    path: "/",
+    maxAge: 0,
   });
 });
