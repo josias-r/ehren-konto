@@ -1,7 +1,7 @@
 import Qr from "../../qr/Qr";
 
 function QrPage() {
-  // ts-expect-error server component
+  // @ts-expect-error server component
   return <Qr />;
 }
 

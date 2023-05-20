@@ -76,16 +76,10 @@ function ParticipatedHappening({ happening }: ParticipatedHappeningProps) {
           name={happening.RelatedActivity.name}
           color={happening.RelatedActivity.color}
           from={happening.RelatedActivity.from}
-          // participants and members are the same for upcoming activities, because there is no overall "members" list
           participants={happening.RelatedActivity.ActivityParticipants.map(
             (participant) => ({
               userId: participant.userId,
               confirmed: participant.confirmed,
-            })
-          )}
-          members={happening.RelatedActivity.ActivityParticipants.map(
-            (participant) => ({
-              userId: participant.userId,
               name: participant.User.name,
             })
           )}

@@ -26,9 +26,7 @@ function UpcomingActivityItem({
         name={activity.name}
         color={activity.color}
         from={activity.from}
-        // participants and members are the same for upcoming activities, because there is no overall "members" list
         participants={activity.participants}
-        members={activity.participants}
       />
     </div>
   );
