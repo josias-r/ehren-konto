@@ -1,7 +1,7 @@
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Info, Mail } from "lucide-react";
+import { Info } from "lucide-react";
 import Link from "next/link";
 
 export const metadata = {
@@ -33,6 +33,7 @@ function ProfileLayout({
             Please{" "}
             <Link
               href="https://forms.gle/TR7sFSrDxPk1rNkz7"
+              target="_blank"
               className={cn(
                 buttonVariants({
                   variant: "link",

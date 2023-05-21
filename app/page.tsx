@@ -132,6 +132,7 @@ function Home() {
         </Link>
         <Link
           href="https://forms.gle/TR7sFSrDxPk1rNkz7"
+          target="_blank"
           className={cn(
             buttonVariants({
               variant: "outline",
