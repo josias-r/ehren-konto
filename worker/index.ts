@@ -1,7 +1,7 @@
 "use strict";
+import { precacheAndRoute } from "workbox-precaching";
+precacheAndRoute(self.__WB_MANIFEST);
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default null;
 declare var self: ServiceWorkerGlobalScope;
 
 self.addEventListener("push", (event) => {
@@ -13,3 +13,6 @@ self.addEventListener("push", (event) => {
     })
   );
 });
+
+// eslint-disable-next-line import/no-anonymous-default-export
+export default null;

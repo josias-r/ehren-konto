@@ -70,10 +70,10 @@
     "@types/jsonwebtoken": "^9.0.2",
     "@types/validator": "^13.7.17",
     "dotenv-cli": "^7.2.1",
-    "next-pwa": "^5.6.0",
     "postcss": "^8.4.23",
     "postcss-import": "^15.1.0",
     "prisma": "^4.14.0",
-    "prisma-kysely": "^1.4.1"
+    "prisma-kysely": "^1.4.1",
+    "workbox-webpack-plugin": "^6.5.4"
   }
 }
