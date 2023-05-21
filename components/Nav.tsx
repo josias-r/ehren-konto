@@ -9,6 +9,8 @@ import {
 } from "@/components/ui/navigation-menu";
 import Link from "next/link";
 import { Separator } from "./ui/separator";
+import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 interface NavProps {}
 
@@ -19,16 +21,24 @@ function Nav({}: NavProps) {
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <Link href="/" legacyBehavior passHref>
+            <Link href="/groups" legacyBehavior passHref>
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Profile
+                Groups
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <Link href="/groups" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Groups
+            <Link href="/" legacyBehavior passHref>
+              <NavigationMenuLink
+                className={cn(navigationMenuTriggerStyle(), "h-auto flex px-2")}
+              >
+                <Image
+                  src="/logo.png"
+                  alt="Profile"
+                  width={50}
+                  height={50}
+                  className="block mx-0 -mt-6"
+                />
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
