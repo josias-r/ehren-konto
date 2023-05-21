@@ -1,3 +1,4 @@
+import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Card,
@@ -89,10 +90,7 @@ function Home() {
               Compete against your friends in each group
             </CardDescription>
           </CardHeader>
-          {/* <CardContent>
-            With the fun concept of "ehre" points you can compete against your
-            friends by receiving
-          </CardContent> */}
+          {/* <CardContent>XX</CardContent> */}
         </Card>
         <Card className="md:col-span-2">
           <CardHeader>
@@ -104,9 +102,26 @@ function Home() {
           </CardHeader>
           {/* <CardContent>XX</CardContent> */}
         </Card>
+        <Card className="md:col-span-2">
+          <CardHeader>
+            <CardTitle>
+              More features
+              <Badge
+                variant="outline"
+                className="inline-block ml-3 -translate-y-1"
+              >
+                coming soon
+              </Badge>
+            </CardTitle>
+            <CardDescription>
+              Repeating events, polls, and more!
+            </CardDescription>
+          </CardHeader>
+          {/* <CardContent>XX</CardContent> */}
+        </Card>
       </section>
 
-      <section className="max-w-2xl mx-auto mt-12 mb-16">
+      <section className="max-w-2xl mx-auto mt-12 mb-16 space-y-4">
         <Link
           href="/signup"
           className={cn(
@@ -117,6 +132,17 @@ function Home() {
           )}
         >
           Get started
+        </Link>
+        <Link
+          href="mailto:contact@josias.me"
+          className={cn(
+            buttonVariants({
+              variant: "outline",
+            }),
+            "w-full block text-center"
+          )}
+        >
+          Give feedback
         </Link>
       </section>
     </main>
