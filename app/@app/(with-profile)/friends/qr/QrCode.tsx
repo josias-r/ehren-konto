@@ -21,19 +21,19 @@ const size = 300;
 const qrCode = new QRCodeStyling({
   width: size,
   height: size,
-  image: "/Ehre.svg",
+  image: "/logo.png",
   dotsOptions: {
     color: "#030711",
-    type: "rounded",
+    type: "dots",
   },
   cornersSquareOptions: {
     type: "dot",
     gradient: {
       type: "linear",
-      rotation: 0,
+      rotation: 45,
       colorStops: [
-        { offset: 0, color: "#EE7C2F" },
-        { offset: 1, color: "#740D39" },
+        { offset: 0, color: "#40A7B9" },
+        { offset: 1, color: "#58070F" },
       ],
     },
   },
