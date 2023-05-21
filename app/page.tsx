@@ -14,8 +14,7 @@ import Link from "next/link";
 
 export const metadata = {
   title: "Ehre",
-  description:
-    "Experience more with your friends by easily creating and participating in activities together!",
+  description: "Experience more with your friends",
 };
 
 function Home() {
