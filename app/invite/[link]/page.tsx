@@ -3,6 +3,23 @@ import getInviteLinkUser from "@/app/invite/[link]/getInviteLinkUser";
 import InviteUserAvatar from "@/app/invite/[link]/InviteUserAvatar";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { link: string };
+}): Promise<Metadata> {
+  // read route params
+  const inviteLinkUser = await getInviteLinkUser(params.link);
+
+  return {
+    title: "Connect on ehre",
+    description: inviteLinkUser
+      ? `${inviteLinkUser.name} invited you to connect on ehre`
+      : "Connect with friends and family on ehre",
+  };
+}
 
 async function Invite({
   params,
