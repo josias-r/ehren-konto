@@ -57,13 +57,15 @@ function LoginForm() {
   };
   return (
     <form className="grid gap-2" onSubmit={handleSubmit(onSubmit)}>
-      <Image
-        src="/logo.png"
-        alt="Ehre logo"
-        width={200}
-        height={200}
-        className="block mx-auto mb-4"
-      />
+      <Link href="/">
+        <Image
+          src="/logo.png"
+          alt="Ehre logo"
+          width={200}
+          height={200}
+          className="block mx-auto mb-4"
+        />
+      </Link>
       <Input
         placeholder="Email"
         type="email"
