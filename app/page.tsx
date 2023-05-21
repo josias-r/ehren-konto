@@ -131,7 +131,7 @@ function Home() {
           Get started
         </Link>
         <Link
-          href="mailto:contact@josias.me"
+          href="https://forms.gle/TR7sFSrDxPk1rNkz7"
           className={cn(
             buttonVariants({
               variant: "outline",
