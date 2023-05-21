@@ -5,10 +5,10 @@ precacheAndRoute(self.__WB_MANIFEST);
 declare var self: ServiceWorkerGlobalScope;
 
 self.addEventListener("push", (event) => {
-  const data = JSON.parse(event?.data?.text() || "{}");
+  // const data = JSON.parse(event?.data?.text() || "{}");
   event?.waitUntil(
-    self.registration.showNotification(data.title, {
-      body: data.message,
+    self.registration.showNotification("data.title", {
+      body: "data.message",
       icon: "/icons/android-chrome-192x192.png",
     })
   );
