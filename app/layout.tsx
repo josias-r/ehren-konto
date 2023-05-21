@@ -2,10 +2,8 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-// import { validateCookieToken } from "@/lib/auth/validateCookieToken";
-import Nav from "@/components/Nav";
 import { validateCookieToken } from "@/app/(auth)/validateCookieToken";
-import SWProvider from "./SWProvider";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export default async function RootLayout({
@@ -42,15 +40,13 @@ export default async function RootLayout({
         <meta name="theme-color" content="#ffffff" />
       </head>
       <body className={`${inter.className} bg-background h-full`}>
-        <SWProvider>
-          {isLoggedIn && (
-            <>
-              <TooltipProvider>{app}</TooltipProvider>
-              <Toaster />
-            </>
-          )}
-          {!isLoggedIn && children}
-        </SWProvider>
+        {isLoggedIn && (
+          <>
+            <TooltipProvider>{app}</TooltipProvider>
+            <Toaster />
+          </>
+        )}
+        {!isLoggedIn && children}
       </body>
     </html>
   );
