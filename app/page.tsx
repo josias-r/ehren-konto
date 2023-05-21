@@ -111,7 +111,7 @@ function Home() {
               </Badge>
             </CardTitle>
             <CardDescription>
-              Repeating events, polls, and more!
+              Repeating events, polls, group invites, and more!
             </CardDescription>
           </CardHeader>
           {/* <CardContent>XX</CardContent> */}

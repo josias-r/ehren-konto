@@ -62,7 +62,9 @@ function SignupForm() {
       } else if (response.success) {
         toast({
           title: "Account created",
-          description: "Please check your email to verify your account",
+          description: "You can now log in",
+          // TODO: email verification
+          // description: "Please check your email to verify your account",
         });
         redirect("/login");
       }
