@@ -1,5 +1,5 @@
 const hour = 1000 * 60 * 60; // 1 hour
-const linkExpiry = hour * 24; // 24 hours
+const linkExpiry = hour * 24 * 5; // 5 days
 
 function isUserInviteLinkNotExpired(
   inviteLinkCreateDate: Date | null | undefined
