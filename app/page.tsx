@@ -75,7 +75,7 @@ function Home() {
           <CardHeader>
             <CardTitle>Never miss an event</CardTitle>
             <CardDescription>
-              Get notified about all you friends activities
+              Get notified about all your friends' activities.
             </CardDescription>
           </CardHeader>
           {/* <CardContent>XX</CardContent> */}
