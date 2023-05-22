@@ -35,8 +35,8 @@ model User {
 model Group {
   groupId      Int           @id @default(autoincrement())
   createdAt    DateTime      @default(now())
-  name         String
-  description  String
+  name         String        @db.VarChar(150)
+  description  String        @db.VarChar(250)
   GroupMembers GroupMember[]
   Activities   Activity[]
   Happenings   Happening[]

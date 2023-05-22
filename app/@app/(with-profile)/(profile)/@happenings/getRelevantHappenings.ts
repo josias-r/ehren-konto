@@ -4,70 +4,48 @@ import { db } from "@/lib/kysely-client";
 import { notNullOrThrow } from "@/lib/utils";
 
 async function getRelevantHappenings(userId: string) {
+  const relevantGroups = db
+    .selectFrom("Group")
+    .innerJoin("GroupMember", "Group.groupId", "GroupMember.groupId")
+    .where("GroupMember.userId", "=", userId);
+
+  const relevantActivities = relevantGroups.leftJoin(
+    "Activity",
+    "Group.groupId",
+    "Activity.groupId"
+  );
+
   const relevantHappenings = await db
     .selectFrom("Happening")
     .leftJoin(
-      db
-        .selectFrom("Activity")
-        .innerJoin(
-          "Group as RelatedActivityGroup",
-          "Activity.groupId",
-          "RelatedActivityGroup.groupId"
-        )
-        .where(({ exists, selectFrom }) =>
-          exists(
-            selectFrom("GroupMember")
-              .whereRef(
-                "GroupMember.groupId",
-                "=",
-                "RelatedActivityGroup.groupId"
-              )
-              .where("GroupMember.userId", "=", userId)
-          )
-        )
+      relevantActivities
         .select([
           "Activity.activityId",
           "Activity.name",
           "Activity.emoji",
           "Activity.color",
           "Activity.from",
-          "RelatedActivityGroup.groupId as RelatedActivityGroupId",
-          "RelatedActivityGroup.name as RelatedActivityGroupName",
+          "Activity.groupId",
+          "Group.name as RelatedActivityGroupName",
         ])
         .as("RelatedActivity"),
       "RelatedActivity.activityId",
-      "relatedActivityId"
+      "Happening.relatedActivityId"
     )
     .leftJoin(
-      db
-        .selectFrom("Group")
-        .where(({ exists, selectFrom }) =>
-          exists(
-            selectFrom("GroupMember")
-              .select("GroupMember.groupMemberId")
-              .whereRef("GroupMember.groupId", "=", "Group.groupId")
-              .where("GroupMember.userId", "=", userId)
-          )
-        )
-        .selectAll()
-        .as("RelatedGroup"),
+      relevantGroups.select(["Group.groupId", "Group.name"]).as("RelatedGroup"),
       "RelatedGroup.groupId",
-      "relatedGroupId"
+      "Happening.relatedGroupId"
     )
     .leftJoin(
-      db
-        .selectFrom("User")
-        .selectAll()
-        .where("User.userId", "=", userId)
-        .as("RelatedUser"),
+      "User as RelatedUser",
       "RelatedUser.userId",
-      "relatedUserId"
+      "Happening.relatedUserId"
     )
     .where(({ or, cmpr }) =>
       or([
         cmpr("RelatedActivity.activityId", "is not", null),
         cmpr("RelatedGroup.groupId", "is not", null),
-        cmpr("RelatedUser.userId", "is not", null),
       ])
     )
     .select([
@@ -80,7 +58,7 @@ async function getRelevantHappenings(userId: string) {
       "RelatedActivity.emoji as RelatedActivityEmoji",
       "RelatedActivity.color as RelatedActivityColor",
       "RelatedActivity.from as RelatedActivityFrom",
-      "RelatedActivity.RelatedActivityGroupId as RelatedActivityGroupId",
+      "RelatedActivity.groupId as RelatedActivityGroupId",
       "RelatedActivity.RelatedActivityGroupName as RelatedActivityGroupName",
       "RelatedGroup.groupId as RelatedGroupId",
       "RelatedGroup.name as RelatedGroupName",
@@ -89,7 +67,6 @@ async function getRelevantHappenings(userId: string) {
       "RelatedUser.avatar as RelatedUserAvatar",
       "RelatedUser.nick as RelatedUserNick",
     ])
-    .orderBy("Happening.createdAt", "desc")
     .execute();
 
   const mappedRelevantHappenings = relevantHappenings.map(
