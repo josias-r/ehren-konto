@@ -10,6 +10,7 @@ import { useTransition } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 interface FormShape {
   email: string;
@@ -76,11 +77,21 @@ function SignupForm() {
         <Image
           src="/logo.png"
           alt="Ehre logo"
-          width={200}
-          height={200}
+          width={150}
+          height={150}
           className="block mx-auto mb-4"
         />
       </Link>
+      <h1 className="text-center font-bold text-2xl">Sign up to ehre</h1>
+      <p className="text-center text-gray-500 mb-4">
+        Already have an account?{" "}
+        <Link
+          className={cn(buttonVariants({ variant: "link" }), "p-0 inline")}
+          href="/login"
+        >
+          Sign in
+        </Link>
+      </p>
       <Input
         placeholder="Email"
         type="email"
@@ -100,10 +111,31 @@ function SignupForm() {
       <Button type="submit" className="block w-full" disabled={isPending}>
         Sign up
       </Button>
-      <Separator />
-      <Link className={buttonVariants({ variant: "outline" })} href="/login">
-        Sign in
-      </Link>
+
+      <p className="text-center text-xs text-gray-500 mt-4">
+        By signing up, you agree to our <br />
+        <Link
+          className={cn(
+            buttonVariants({ variant: "link" }),
+            "p-0 inline text-muted-foreground text-xs"
+          )}
+          href="/terms"
+        >
+          Terms of Service
+        </Link>{" "}
+        and{" "}
+        <Link
+          className={cn(
+            buttonVariants({ variant: "link" }),
+            "p-0 inline text-muted-foreground text-xs"
+          )}
+          href="/privacy"
+        >
+          Privacy Policy
+        </Link>
+        <br />
+        ... once they exist :)
+      </p>
     </form>
   );
 }

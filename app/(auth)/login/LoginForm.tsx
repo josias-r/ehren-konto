@@ -10,6 +10,7 @@ import { useTransition } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 interface FormShape {
   email: string;
@@ -61,11 +62,21 @@ function LoginForm() {
         <Image
           src="/logo.png"
           alt="Ehre logo"
-          width={200}
-          height={200}
+          width={150}
+          height={150}
           className="block mx-auto mb-4"
         />
       </Link>
+      <h1 className="text-center font-bold text-2xl">Sign in to ehre</h1>
+      <p className="text-center text-gray-500 mb-4">
+        Don&apos;t have an account?{" "}
+        <Link
+          className={cn(buttonVariants({ variant: "link" }), "p-0 inline")}
+          href="/signup"
+        >
+          Sign up
+        </Link>
+      </p>
       <Input
         placeholder="Email"
         type="email"
@@ -85,10 +96,6 @@ function LoginForm() {
       <Button type="submit" className="block w-full" disabled={isPending}>
         Sign in
       </Button>
-      <Separator />
-      <Link className={buttonVariants({ variant: "outline" })} href="/signup">
-        Sign up
-      </Link>
     </form>
   );
 }
