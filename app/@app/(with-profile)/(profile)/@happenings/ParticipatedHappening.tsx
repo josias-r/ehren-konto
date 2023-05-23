@@ -4,6 +4,7 @@ import getInitialsFromName from "@/app/@app/(with-profile)/(profile)/getInitials
 import ActivityWithPopover from "@/lib/activity/ActivityWithPopover";
 import EhrePoints from "@/app/@app/(with-profile)/(profile)/@happenings/EhrePoints";
 import activityRelativeDate from "@/lib/activity/utilities/activityRelativeDate";
+import ParticipatedHappeningPopover from "./ParticipatedHappeningPopover";
 
 type ParticipatedHappening = Omit<
   RelevantHappenings[number],
@@ -45,16 +46,16 @@ function ParticipatedHappening({ happening }: ParticipatedHappeningProps) {
       break;
   }
   return (
-    <div className="flex justify-between items-center">
-      <div className="flex flex-grow flex-shrink-0">
-        <Avatar className="mr-4">
+    <div className="flex justify-between items-center gap-2">
+      <div className="flex flex-grow flex-shrink relative overflow-hidden">
+        <Avatar className="mr-4 flex-shrink-0 flex-grow-0">
           {happening.RelatedUser.avatar && (
             <AvatarImage src={happening.RelatedUser.avatar} />
           )}
           <AvatarFallback>{initials}</AvatarFallback>
         </Avatar>
-        <div>
-          <p className="text-sm">
+        <div className="flex-shrink min-w-0 flex-grow">
+          <p className="text-sm min-w-0 whitespace-nowrap text-ellipsis overflow-hidden">
             <strong>{happening.RelatedUser.name}</strong> {happeningVerb}{" "}
             <strong>
               <EhrePoints
@@ -69,21 +70,8 @@ function ParticipatedHappening({ happening }: ParticipatedHappeningProps) {
           </p>
         </div>
       </div>
-      <div className="flex-shrink-0 flex-grow-0 w-12">
-        <ActivityWithPopover
-          activityId={happening.RelatedActivity.activityId}
-          emoji={happening.RelatedActivity.emoji}
-          name={happening.RelatedActivity.name}
-          color={happening.RelatedActivity.color}
-          from={happening.RelatedActivity.from}
-          participants={happening.RelatedActivity.ActivityParticipants.map(
-            (participant) => ({
-              userId: participant.UserId,
-              confirmed: participant.confirmed,
-              name: participant.UserName,
-            })
-          )}
-        />
+      <div className="flex-shrink-0 flex-grow-0">
+        <ParticipatedHappeningPopover happening={happening} />
       </div>
     </div>
   );

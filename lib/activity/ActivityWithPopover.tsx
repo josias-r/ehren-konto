@@ -45,79 +45,79 @@ function ActivityWithPopover({
           color={color}
           isParticipating={isParticipating}
         />
-        <PopoverContent className="w-60" align="start">
-          <div className="grid gap-4">
-            <div className="space-y-2">
-              <h4 className="font-medium leading-none flex justify-between">
-                {name}
-                <div
-                  className={`${
-                    !participants.length
-                      ? "text-amber-600"
-                      : "text-muted-foreground"
-                  } flex items-center text-sm font-normal`}
-                >
-                  <span className="mr-2">
-                    {participants.length ? participants.length : <>no one</>}
-                  </span>
-                  <Users size="1rem" />
-                </div>
-              </h4>
-              <p className="text-sm text-muted-foreground">
-                {activityRelativeDate(from).formatted}
-              </p>
-              {!!participants.length && (
-                <>
-                  <Separator />
-                  <div className="grid gap-2">
-                    {participants.map((participant) => {
-                      return (
-                        <div
-                          key={participant.userId}
-                          className="text-sm text-muted-foreground flex items-center"
-                        >
-                          <div className="w-6">
-                            {!participant.confirmed ? (
-                              <Clock2 size="1rem" />
-                            ) : (
-                              <CheckCircle
-                                size="1rem"
-                                className="text-green-700"
-                              />
-                            )}
-                          </div>
-                          <p>{participant?.name}</p>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </>
-              )}
-              <Separator />
-
-              {isParticipating && (
-                <ActivityCancelParticipateButton activityId={activityId} />
-              )}
-              {!isParticipating && (
-                <ActivityParticipateButton activityId={activityId} />
-              )}
-
-              <Link
-                className={cn(
-                  buttonVariants({
-                    variant: "outline",
-                    size: "xs",
-                  }),
-                  "flex"
-                )}
-                href={`/activity/edit/${activityId}`}
-              >
-                Edit
-              </Link>
-            </div>
-          </div>
-        </PopoverContent>
       </PopoverTrigger>
+      <PopoverContent className="w-60" align="start">
+        <div className="grid gap-4">
+          <div className="space-y-2">
+            <h4 className="font-medium leading-none flex justify-between">
+              {name}
+              <div
+                className={`${
+                  !participants.length
+                    ? "text-amber-600"
+                    : "text-muted-foreground"
+                } flex items-center text-sm font-normal`}
+              >
+                <span className="mr-2">
+                  {participants.length ? participants.length : <>no one</>}
+                </span>
+                <Users size="1rem" />
+              </div>
+            </h4>
+            <p className="text-sm text-muted-foreground">
+              {activityRelativeDate(from).formatted}
+            </p>
+            {!!participants.length && (
+              <>
+                <Separator />
+                <div className="grid gap-2">
+                  {participants.map((participant) => {
+                    return (
+                      <div
+                        key={participant.userId}
+                        className="text-sm text-muted-foreground flex items-center"
+                      >
+                        <div className="w-6">
+                          {!participant.confirmed ? (
+                            <Clock2 size="1rem" />
+                          ) : (
+                            <CheckCircle
+                              size="1rem"
+                              className="text-green-700"
+                            />
+                          )}
+                        </div>
+                        <p>{participant?.name}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </>
+            )}
+            <Separator />
+
+            {isParticipating && (
+              <ActivityCancelParticipateButton activityId={activityId} />
+            )}
+            {!isParticipating && (
+              <ActivityParticipateButton activityId={activityId} />
+            )}
+
+            <Link
+              className={cn(
+                buttonVariants({
+                  variant: "outline",
+                  size: "xs",
+                }),
+                "flex"
+              )}
+              href={`/activity/edit/${activityId}`}
+            >
+              Edit
+            </Link>
+          </div>
+        </div>
+      </PopoverContent>
     </Popover>
   );
 }
