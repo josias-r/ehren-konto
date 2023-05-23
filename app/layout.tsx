@@ -47,7 +47,7 @@ export default async function RootLayout({
           name="msapplication-config"
           content="/favicon/browserconfig.xml"
         />
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#030711" />
       </head>
       <body className={`${inter.className} bg-background h-full`}>
         <ServiceWorkerProvider>
