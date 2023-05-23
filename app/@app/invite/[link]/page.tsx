@@ -4,9 +4,9 @@ import getFriendshipExists from "@/app/invite/[link]/getFriendshipExists";
 import getInviteLinkUser from "@/app/invite/[link]/getInviteLinkUser";
 import InviteUserAvatar from "@/app/invite/[link]/InviteUserAvatar";
 import Link from "next/link";
-import { notFound } from "next/navigation";
 import { getUserId } from "@/app/(auth)/getUserId";
 import { Metadata } from "next";
+import InviteLinkWrapper from "@/app/invite/[link]/InviteLinkWrapper";
 
 function BackToFriends() {
   return (
@@ -49,12 +49,23 @@ async function InvitePage({ params }: InvitePageProps) {
   const userId = getUserId();
 
   if (!inviteLinkUser) {
-    return notFound();
+    return (
+      <InviteLinkWrapper>
+        <div>
+          <div className="text-center mt-12">
+            <h1 className="text-2xl font-bold mb-2">Link not found</h1>
+            <p className="text-sm text-muted-foreground mb-4">
+              This invite link has probably expired.
+            </p>
+          </div>
+        </div>
+      </InviteLinkWrapper>
+    );
   }
 
   if (inviteLinkUser.userId === userId) {
     return (
-      <main className="p-4 h-full max-w-xs mx-auto grid items-center">
+      <InviteLinkWrapper>
         <div className="grid gap-4">
           <InviteUserAvatar
             avatar={inviteLinkUser.avatar}
@@ -70,7 +81,7 @@ async function InvitePage({ params }: InvitePageProps) {
             <BackToFriends />
           </div>
         </div>
-      </main>
+      </InviteLinkWrapper>
     );
   }
 
@@ -81,7 +92,7 @@ async function InvitePage({ params }: InvitePageProps) {
 
   if (friendShipExists) {
     return (
-      <main className="p-4 h-full max-w-xs mx-auto grid items-center">
+      <InviteLinkWrapper>
         <div className="grid gap-4">
           <InviteUserAvatar
             avatar={inviteLinkUser.avatar}
@@ -97,12 +108,12 @@ async function InvitePage({ params }: InvitePageProps) {
             <BackToFriends />
           </div>
         </div>
-      </main>
+      </InviteLinkWrapper>
     );
   }
 
   return (
-    <main className="p-4 h-full max-w-xs mx-auto grid items-center">
+    <InviteLinkWrapper>
       <div className="grid gap-8">
         <InviteUserAvatar
           avatar={inviteLinkUser.avatar}
@@ -114,7 +125,7 @@ async function InvitePage({ params }: InvitePageProps) {
           <BackToFriends />
         </div>
       </div>
-    </main>
+    </InviteLinkWrapper>
   );
 }
 
