@@ -6,22 +6,6 @@ import { db } from "@/lib/kysely-client";
 async function getAllFriendsForUser() {
   const userId = getUserId();
 
-  const userSelectData = {
-    userId: true,
-    name: true,
-    nick: true,
-    avatar: true,
-    GroupMember: {
-      select: {
-        Group: {
-          select: {
-            groupId: true,
-          },
-        },
-      },
-    },
-  };
-
   const friendships = await db
     .selectFrom("Friendship")
     .where("Friendship.outgoingUserId", "=", userId)
@@ -57,10 +41,19 @@ async function getAllFriendsForUser() {
 
   const friendshipsWithGroups = await Promise.all(
     friendships.map(async (friendship) => {
-      const friendGroups = await db
-        .selectFrom("GroupMember")
+      const relevantGroups = db
+        .selectFrom("Group")
+        // only groups where the logged in user is a member
+        .innerJoin(
+          "GroupMember as UserGroupMember",
+          "Group.groupId",
+          "UserGroupMember.groupId"
+        )
+        .where("UserGroupMember.userId", "=", userId);
+
+      const friendGroups = await relevantGroups
+        .leftJoin("GroupMember", "GroupMember.groupId", "Group.groupId")
         .where("GroupMember.userId", "=", friendship.userId)
-        .innerJoin("Group", "Group.groupId", "GroupMember.groupId")
         .select(["Group.groupId", "Group.name"])
         .execute();
       return {
