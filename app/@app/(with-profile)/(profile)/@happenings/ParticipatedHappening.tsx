@@ -48,12 +48,12 @@ function ParticipatedHappening({ happening }: ParticipatedHappeningProps) {
   return (
     <div className="flex justify-between items-center gap-2">
       <div className="flex flex-grow flex-shrink relative overflow-hidden">
-        <Avatar className="mr-4 flex-shrink-0 flex-grow-0">
+        {/* <Avatar className="mr-4 flex-shrink-0 flex-grow-0">
           {happening.RelatedUser.avatar && (
             <AvatarImage src={happening.RelatedUser.avatar} />
           )}
           <AvatarFallback>{initials}</AvatarFallback>
-        </Avatar>
+        </Avatar> */}
         <div className="flex-shrink min-w-0 flex-grow">
           <p className="text-sm min-w-0 whitespace-nowrap text-ellipsis overflow-hidden">
             <strong>{happening.RelatedUser.name}</strong> {happeningVerb}{" "}
