@@ -123,6 +123,7 @@ function SignupForm() {
             "p-0 inline text-muted-foreground text-xs"
           )}
           href="/terms"
+          target="_blank"
         >
           Terms of Service
         </Link>{" "}
@@ -133,6 +134,7 @@ function SignupForm() {
             "p-0 inline text-muted-foreground text-xs"
           )}
           href="/privacy"
+          target="_blank"
         >
           Privacy Policy
         </Link>
