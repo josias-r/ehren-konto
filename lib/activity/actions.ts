@@ -3,6 +3,7 @@
 import { prisma } from "../prisma-client";
 import createAuthProtectedAction from "../../app/(auth)/createAuthProtectedAction";
 import { ActivityColor } from "./utilities/activity-colors";
+import { db } from "../kysely-client";
 
 interface CreateActivityArgs {
   groupId: number;
@@ -68,46 +69,93 @@ interface ParticipateInActivityArgs {
 
 export const participateInActivity = createAuthProtectedAction(
   async (loggedInUserId, { activityId }: ParticipateInActivityArgs) => {
-    const createdParticipant = await prisma.activityParticipant.create({
-      data: {
+    await db
+      .insertInto("ActivityParticipant")
+      .values({
         activityId,
         userId: loggedInUserId,
-      },
-      select: {
-        Activity: {
-          select: {
-            groupId: true,
-          },
-        },
-      },
-    });
+      })
+      .executeTakeFirstOrThrow();
+
+    const activityGroupId = await db
+      .selectFrom("Activity")
+      .where("activityId", "=", activityId)
+      .select("groupId")
+      .executeTakeFirstOrThrow();
 
     const earnedPoints = 1;
     // update user points in group
-    await prisma.groupMember.update({
-      data: {
-        ehre: {
-          increment: earnedPoints,
-        },
-      },
-      where: {
-        userId_groupId: {
-          userId: loggedInUserId,
-          groupId: createdParticipant.Activity.groupId,
-        },
-      },
-    });
+    await db
+      .updateTable("GroupMember")
+      .set(({ bxp }) => ({
+        ehre: bxp("ehre", "+", earnedPoints),
+      }))
+      .where("userId", "=", loggedInUserId)
+      .where("groupId", "=", activityGroupId.groupId)
+      .execute();
+
     // create happening entry
-    await prisma.happening.create({
-      data: {
+    await db
+      .insertInto("Happening")
+      .values({
         relatedActivityId: activityId,
         relatedUserId: loggedInUserId,
         happeningData: {
           pointsDiff: earnedPoints,
         },
         type: "ACTIVITY_PARTICIPATION",
-      },
-    });
+      })
+      .executeTakeFirstOrThrow();
+
+    return activityId;
+  }
+);
+
+interface UnparticipateInActivityArgs {
+  activityId: number;
+}
+
+export const unparticipateInActivity = createAuthProtectedAction(
+  async (loggedInUserId, { activityId }: UnparticipateInActivityArgs) => {
+    const deletedParticipant = await db
+      .deleteFrom("ActivityParticipant")
+      .where("activityId", "=", activityId)
+      .where("userId", "=", loggedInUserId)
+      .executeTakeFirstOrThrow();
+
+    if (deletedParticipant.numDeletedRows !== BigInt(1)) {
+      throw new Error("No such participant");
+    }
+
+    const activityGroupId = await db
+      .selectFrom("Activity")
+      .where("activityId", "=", activityId)
+      .select("groupId")
+      .executeTakeFirstOrThrow();
+
+    const lostPoints = 1;
+    // update user points in group
+    await db
+      .updateTable("GroupMember")
+      .set(({ bxp }) => ({
+        ehre: bxp("ehre", "-", lostPoints),
+      }))
+      .where("userId", "=", loggedInUserId)
+      .where("groupId", "=", activityGroupId.groupId)
+      .execute();
+
+    // create happening entry
+    await db
+      .insertInto("Happening")
+      .values({
+        relatedActivityId: activityId,
+        relatedUserId: loggedInUserId,
+        happeningData: {
+          pointsDiff: -lostPoints,
+        },
+        type: "ACTIVITY_PARTICIPATION_REMOVED",
+      })
+      .executeTakeFirstOrThrow();
 
     return activityId;
   }

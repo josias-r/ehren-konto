@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Popover,
   PopoverContent,
@@ -11,6 +13,8 @@ import { buttonVariants } from "@/components/ui/button";
 import ActivityParticipateButton from "./ActivityParticipateButton";
 import Link from "next/link";
 import { cn } from "../utils";
+import { useUserContext } from "@/app/@app/(with-profile)/UserProvider";
+import ActivityCancelParticipateButton from "./ActivityCancelParticipateButton";
 
 interface ActivityWithPopoverProps extends ActivityShape {}
 
@@ -22,10 +26,25 @@ function ActivityWithPopover({
   from,
   participants,
 }: ActivityWithPopoverProps) {
+  const user = useUserContext();
+
+  const userAsParticipant = participants.find(
+    (participant) => participant.userId === user.userId
+  );
+  const isParticipating = userAsParticipant
+    ? userAsParticipant.confirmed
+      ? "confirmed"
+      : "unconfirmed"
+    : false;
+
   return (
     <Popover>
       <PopoverTrigger className="w-full block">
-        <Activity emoji={emoji} color={color} />
+        <Activity
+          emoji={emoji}
+          color={color}
+          isParticipating={isParticipating}
+        />
         <PopoverContent className="w-60" align="start">
           <div className="grid gap-4">
             <div className="space-y-2">
@@ -76,7 +95,13 @@ function ActivityWithPopover({
               )}
               <Separator />
 
-              <ActivityParticipateButton activityId={activityId} />
+              {isParticipating && (
+                <ActivityCancelParticipateButton activityId={activityId} />
+              )}
+              {!isParticipating && (
+                <ActivityParticipateButton activityId={activityId} />
+              )}
+
               <Link
                 className={cn(
                   buttonVariants({
