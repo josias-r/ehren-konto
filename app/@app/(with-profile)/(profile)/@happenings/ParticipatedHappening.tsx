@@ -3,6 +3,7 @@ import { RelevantHappenings } from "./getRelevantHappenings";
 import getInitialsFromName from "@/app/@app/(with-profile)/(profile)/getInitialsFromName";
 import ActivityWithPopover from "@/lib/activity/ActivityWithPopover";
 import EhrePoints from "@/app/@app/(with-profile)/(profile)/@happenings/EhrePoints";
+import activityRelativeDate from "@/lib/activity/utilities/activityRelativeDate";
 
 type ParticipatedHappening = Omit<
   RelevantHappenings[number],
@@ -31,16 +32,16 @@ interface ParticipatedHappeningProps {
 
 function ParticipatedHappening({ happening }: ParticipatedHappeningProps) {
   const initials = getInitialsFromName(happening.RelatedUser.name);
-  let happeningTitle = "";
+  let happeningVerb = "";
   switch (happening.type) {
     case "ACTIVITY_PARTICIPATION":
-      happeningTitle = "joined";
+      happeningVerb = "earned";
       break;
     case "ACTIVITY_PARTICIPATION_CONFIRMED":
-      happeningTitle = "confirmed";
+      happeningVerb = "earned";
       break;
     case "ACTIVITY_PARTICIPATION_REMOVED":
-      happeningTitle = "left";
+      happeningVerb = "lost";
       break;
   }
   return (
@@ -54,7 +55,7 @@ function ParticipatedHappening({ happening }: ParticipatedHappeningProps) {
         </Avatar>
         <div>
           <p className="text-sm">
-            <strong>{happening.RelatedUser.name}</strong> earned{" "}
+            <strong>{happening.RelatedUser.name}</strong> {happeningVerb}{" "}
             <strong>
               <EhrePoints
                 showPlus
@@ -64,8 +65,7 @@ function ParticipatedHappening({ happening }: ParticipatedHappeningProps) {
             ehre
           </p>
           <p className="text-sm text-muted-foreground">
-            Because he is participating in{" "}
-            <strong>{happening.RelatedActivity.name}</strong>
+            {activityRelativeDate(happening.createdAt).formatted}
           </p>
         </div>
       </div>

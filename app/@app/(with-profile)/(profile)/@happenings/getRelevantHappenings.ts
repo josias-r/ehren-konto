@@ -67,6 +67,8 @@ async function getRelevantHappenings(userId: string) {
       "RelatedUser.avatar as RelatedUserAvatar",
       "RelatedUser.nick as RelatedUserNick",
     ])
+    .orderBy("Happening.createdAt", "desc")
+    .limit(6)
     .execute();
 
   const mappedRelevantHappenings = relevantHappenings.map(
