@@ -11,6 +11,7 @@ import Link from "next/link";
 import { Separator } from "./ui/separator";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { Home, User } from "lucide-react";
 
 interface NavProps {}
 
@@ -29,16 +30,8 @@ function Nav({}: NavProps) {
           </NavigationMenuItem>
           <NavigationMenuItem>
             <Link href="/" legacyBehavior passHref>
-              <NavigationMenuLink
-                className={cn(navigationMenuTriggerStyle(), "h-auto flex px-2")}
-              >
-                <Image
-                  src="/logo.png"
-                  alt="Profile"
-                  width={50}
-                  height={50}
-                  className="block mx-0 -mt-6"
-                />
+              <NavigationMenuLink className={cn(navigationMenuTriggerStyle())}>
+                <User />
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
