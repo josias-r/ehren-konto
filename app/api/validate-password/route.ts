@@ -13,14 +13,14 @@ export async function GET(request: Request) {
         data: passwordValidationErrors,
       });
     }
-    NextResponse.json({
+    return NextResponse.json({
       data: {
         result: "password-valid",
       },
     });
   }
 
-  NextResponse.json({
+  return NextResponse.json({
     data: {
       result: "no-pw-provided",
     },
