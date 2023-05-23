@@ -9,9 +9,8 @@ import {
 } from "@/components/ui/navigation-menu";
 import Link from "next/link";
 import { Separator } from "./ui/separator";
-import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { Home, User } from "lucide-react";
+import { User } from "lucide-react";
 
 interface NavProps {}
 
