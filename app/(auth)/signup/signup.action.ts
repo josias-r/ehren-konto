@@ -2,30 +2,8 @@
 
 import bcrypt from "bcrypt";
 import validator from "validator";
-import passwordValidator from "password-validator";
 import { prisma } from "@/lib/prisma-client";
-
-// Create a schema
-const schema = new passwordValidator();
-
-// Add properties to it
-schema
-  .is()
-  .min(8) // Minimum length 8
-  .is()
-  .max(100) // Maximum length 100
-  .has()
-  .uppercase() // Must have uppercase letters
-  .has()
-  .lowercase() // Must have lowercase letters
-  .has()
-  .digits() // Must have digits
-  .has()
-  .not()
-  .spaces(); // Should not have spaces
-// .is()
-// .not()
-// .oneOf(['Passw0rd', 'Password123']);
+import passwordRules from "../../api/validate-password/passwordRules";
 
 interface SignInArgs {
   email: string;
@@ -47,15 +25,9 @@ export async function signup({
     };
   }
 
-  const pwValidationMessages = schema.validate(password, { details: true });
-
-  if (Array.isArray(pwValidationMessages) && pwValidationMessages.length) {
-    return {
-      error: "insufficient-password" as const,
-      pwValidationMessages: pwValidationMessages.map((result) =>
-        result.message.replace("The string", "The password")
-      ) as string[],
-    };
+  const passwordRulesError = passwordRules(password);
+  if (passwordRulesError) {
+    return passwordRulesError;
   }
 
   const userExists = await prisma.user.findFirst({

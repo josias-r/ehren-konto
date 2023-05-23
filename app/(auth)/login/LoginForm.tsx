@@ -2,7 +2,6 @@
 
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { login } from "@/app/(auth)/login/login.action";
@@ -11,6 +10,7 @@ import { useToast } from "@/components/ui/use-toast";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import PasswordInput from "../PasswordInput";
 
 interface FormShape {
   email: string;
@@ -71,7 +71,10 @@ function LoginForm() {
       <p className="text-center text-gray-500 mb-4">
         Don&apos;t have an account?{" "}
         <Link
-          className={cn(buttonVariants({ variant: "link" }), "p-0 inline")}
+          className={cn(
+            buttonVariants({ variant: "link" }),
+            "p-0 inline text-base"
+          )}
           href="/signup"
         >
           Sign up
@@ -85,8 +88,7 @@ function LoginForm() {
           required: true,
         })}
       />
-      <Input
-        type="password"
+      <PasswordInput
         placeholder="Password"
         defaultValue=""
         {...register("password", {
