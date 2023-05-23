@@ -17,7 +17,8 @@ export const FriendshipStatus = {
 export type FriendshipStatus = (typeof FriendshipStatus)[keyof typeof FriendshipStatus];
 export const ActivityColor = {
     SUNSET: "SUNSET",
-    MARS: "MARS"
+    MARS: "MARS",
+    EHRE: "EHRE"
 } as const;
 export type ActivityColor = (typeof ActivityColor)[keyof typeof ActivityColor];
 export const HappeningType = {
@@ -39,7 +40,7 @@ export type Activity = {
     to: Timestamp | null;
     name: string;
     emoji: string;
-    color: ActivityColor;
+    color: Generated<ActivityColor>;
     groupId: number;
 };
 export type ActivityParticipant = {

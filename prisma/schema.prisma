@@ -81,6 +81,7 @@ model Friendship {
 enum ActivityColor {
   SUNSET
   MARS
+  EHRE
 }
 
 model Activity {
