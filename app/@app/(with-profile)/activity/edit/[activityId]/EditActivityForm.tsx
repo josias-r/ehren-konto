@@ -3,7 +3,6 @@
 import FormRow from "@/components/ui/FormRow";
 import { Input } from "@/components/ui/input";
 
-import { useTransition } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { cn } from "@/lib/utils";
 import useControlledForm from "@/lib/hooks/useControlledForm";
@@ -11,7 +10,6 @@ import EmojiPicker from "@/components/ui/emoji-picker";
 import ColorRadioGroup from "@/components/ui/color-radio-group";
 import { ActivityColor } from "@/lib/activity/utilities/activity-colors";
 import { DatePicker } from "@/components/ui/date-picker";
-import { updateActivity } from "@/lib/activity/actions";
 
 export interface ActivityEditFormShape {
   color: ActivityColor;
@@ -26,7 +24,7 @@ interface EditActivityFormProps {
   defaultValues: ActivityEditFormShape;
 
   activityId: number;
-  onDone: () => void;
+  onSubmit: SubmitHandler<ActivityEditFormShape>;
 }
 
 function EditActivityForm({
@@ -34,10 +32,8 @@ function EditActivityForm({
   defaultValues,
 
   activityId,
-  onDone,
+  onSubmit,
 }: EditActivityFormProps) {
-  const [isPending, startTransition] = useTransition();
-
   const {
     register,
     handleSubmit,
@@ -46,29 +42,6 @@ function EditActivityForm({
   } = useForm<ActivityEditFormShape>();
 
   const controlledRender = useControlledForm(control);
-
-  const onSubmit: SubmitHandler<ActivityEditFormShape> = async (data) => {
-    startTransition(async () => {
-      if (!data.from) {
-        throw new Error("No from date");
-      }
-
-      const fullFromDate = new Date(data.from);
-      const [hours, minutes] = data.fromTime.split(":");
-      fullFromDate.setHours(parseInt(hours));
-      fullFromDate.setMinutes(parseInt(minutes));
-
-      await updateActivity({
-        activityId,
-        name: data.name,
-        emoji: data.emoji,
-        color: data.color,
-        from: fullFromDate,
-      });
-
-      onDone();
-    });
-  };
 
   return (
     <form id={formId} onSubmit={handleSubmit(onSubmit)}>

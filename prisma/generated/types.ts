@@ -40,7 +40,7 @@ export type Activity = {
     to: Timestamp | null;
     name: string;
     emoji: string;
-    color: Generated<ActivityColor>;
+    color: ActivityColor;
     groupId: number;
 };
 export type ActivityParticipant = {

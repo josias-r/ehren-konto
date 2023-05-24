@@ -11,6 +11,10 @@ import {
 import { Button } from "@/components/ui/button";
 import EditActivityForm, { ActivityEditFormShape } from "./EditActivityForm";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
+import { useTransition } from "react";
+import { updateActivity } from "@/lib/activity/actions";
+import { Loader2 } from "lucide-react";
 
 interface EditActivitySheetProps {
   defaultValues: ActivityEditFormShape;
@@ -25,9 +29,13 @@ function EditActivitySheet({
 
   const router = useRouter();
 
+  const { toast } = useToast();
+
+  const [isPending, startTransition] = useTransition();
+
   return (
     <Sheet
-      open
+      open={!isPending}
       onOpenChange={() => {
         router.back();
       }}
@@ -52,9 +60,51 @@ function EditActivitySheet({
         <EditActivityForm
           formId={formId}
           defaultValues={defaultValues}
-          onDone={() => {
-            router.back();
-            router.refresh();
+          onSubmit={(data) => {
+            const { dismiss } = toast({
+              variant: "secondary",
+              duration: 1000000,
+
+              description: (
+                <div className="flex items-center">
+                  <Loader2
+                    className="animate-spin pointer-events-none m-0 mr-2"
+                    size="1rem"
+                  />{" "}
+                  Saving
+                </div>
+              ),
+            });
+            startTransition(async () => {
+              try {
+                if (!data.from) {
+                  throw new Error("No from date");
+                }
+
+                const fullFromDate = new Date(data.from);
+                const [hours, minutes] = data.fromTime.split(":");
+                fullFromDate.setHours(parseInt(hours));
+                fullFromDate.setMinutes(parseInt(minutes));
+
+                await updateActivity({
+                  activityId,
+                  name: data.name,
+                  emoji: data.emoji,
+                  color: data.color,
+                  from: fullFromDate,
+                });
+
+                dismiss();
+                router.back();
+                router.refresh();
+              } catch (error) {
+                toast({
+                  title: "Error editing activity",
+                  description: "Sorry, we couldn't edit your activity.",
+                  variant: "destructive",
+                });
+              }
+            });
           }}
           activityId={activityId}
         />
