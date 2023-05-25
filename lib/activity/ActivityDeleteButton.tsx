@@ -15,6 +15,7 @@ import {
 import { AlertDialogTrigger } from "@radix-ui/react-alert-dialog";
 import { deleteActivity } from "./actions";
 import { useRouter } from "next/navigation";
+import { useLoadingToast } from "@/components/ui/use-loading-toast";
 
 interface ActivityDeleteButtonProps {
   activityId: number;
@@ -26,6 +27,8 @@ function ActivityDeleteButton({ activityId }: ActivityDeleteButtonProps) {
   const [open, setOpen] = useState(false);
 
   const router = useRouter();
+
+  const { errorToast } = useLoadingToast();
 
   return (
     <AlertDialog open={open}>
@@ -58,8 +61,14 @@ function ActivityDeleteButton({ activityId }: ActivityDeleteButtonProps) {
             onClick={(e) => {
               e.preventDefault();
               startTransition(async () => {
-                await deleteActivity({ activityId });
-                router.refresh();
+                try {
+                  await deleteActivity({ activityId });
+                } catch (error) {
+                  errorToast("Could not delete activity");
+                } finally {
+                  setOpen(false);
+                  router.refresh();
+                }
               });
             }}
           >
