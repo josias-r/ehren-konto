@@ -15,6 +15,7 @@ import FriendsBulkListItem from "@/app/@app/(with-profile)/friends/FriendsBulkLi
 import { addGroupMembers } from "@/app/@app/(with-profile)/groups/actions";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
+import { useLoadingToast } from "@/components/ui/use-loading-toast";
 
 interface AddMembersSheetProps {
   userFriends: UserFriends;
@@ -44,8 +45,13 @@ function AddMembersSheet({
     }
   });
 
+  const { errorToast, loadingToast } = useLoadingToast();
+
   return (
-    <Sheet open onOpenChange={() => router.back()}>
+    <Sheet
+      open={!isPending} // close immediately while pending, will close also because of router.back() once done
+      onOpenChange={() => router.back()}
+    >
       <SheetContent
         headerChildren={
           <SheetHeader>
@@ -66,13 +72,21 @@ function AddMembersSheet({
               <Button
                 type="button"
                 onClick={() => {
+                  const { dismissLoadingToast } =
+                    loadingToast("Adding members");
+
                   startTransition(async () => {
-                    await addGroupMembers({
-                      groupId: groupId,
-                      members: chosenFriends,
-                    });
-                    router.back();
-                    router.refresh();
+                    try {
+                      await addGroupMembers({
+                        groupId: groupId,
+                        members: chosenFriends,
+                      });
+                      dismissLoadingToast();
+                      router.back();
+                      router.refresh();
+                    } catch (error) {
+                      errorToast("Sorry, we couldn't add members.");
+                    }
                   });
                 }}
               >

@@ -11,10 +11,9 @@ import {
 import { Button } from "@/components/ui/button";
 import EditActivityForm, { ActivityEditFormShape } from "./EditActivityForm";
 import { useRouter } from "next/navigation";
-import { useToast } from "@/components/ui/use-toast";
 import { useTransition } from "react";
 import { updateActivity } from "@/lib/activity/actions";
-import { Loader2 } from "lucide-react";
+import { useLoadingToast } from "@/components/ui/use-loading-toast";
 
 interface EditActivitySheetProps {
   defaultValues: ActivityEditFormShape;
@@ -29,13 +28,13 @@ function EditActivitySheet({
 
   const router = useRouter();
 
-  const { toast } = useToast();
+  const { loadingToast, errorToast } = useLoadingToast();
 
   const [isPending, startTransition] = useTransition();
 
   return (
     <Sheet
-      open={!isPending}
+      open={!isPending} // close immediately while pending, will close also because of router.back() once done
       onOpenChange={() => {
         router.back();
       }}
@@ -61,20 +60,7 @@ function EditActivitySheet({
           formId={formId}
           defaultValues={defaultValues}
           onSubmit={(data) => {
-            const { dismiss } = toast({
-              variant: "secondary",
-              duration: 1000000,
-
-              description: (
-                <div className="flex items-center">
-                  <Loader2
-                    className="animate-spin pointer-events-none m-0 mr-2"
-                    size="1rem"
-                  />{" "}
-                  Saving
-                </div>
-              ),
-            });
+            const { dismissLoadingToast } = loadingToast("Saving");
             startTransition(async () => {
               try {
                 if (!data.from) {
@@ -94,15 +80,11 @@ function EditActivitySheet({
                   from: fullFromDate,
                 });
 
-                dismiss();
+                dismissLoadingToast();
                 router.back();
                 router.refresh();
               } catch (error) {
-                toast({
-                  title: "Error editing activity",
-                  description: "Sorry, we couldn't edit your activity.",
-                  variant: "destructive",
-                });
+                errorToast("Sorry, we couldn't edit your activity.");
               }
             });
           }}
