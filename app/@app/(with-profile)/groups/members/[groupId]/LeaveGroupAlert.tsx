@@ -46,9 +46,11 @@ function LeaveGroupAlert({
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction
             disabled={isPending}
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
               startTransition(async () => {
                 await leaveGroup({ groupId });
+                router.push("/groups");
                 router.refresh();
                 onDone();
               });

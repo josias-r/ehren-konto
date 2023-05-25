@@ -160,3 +160,29 @@ export const unparticipateInActivity = createAuthProtectedAction(
     return activityId;
   }
 );
+
+interface DeleteActivityArgs {
+  activityId: number;
+}
+
+export const deleteActivity = createAuthProtectedAction(
+  async (loggedInUserId, { activityId }: DeleteActivityArgs) => {
+    // make sure is Member -> or throw
+    await db
+      .selectFrom("Activity")
+      .where("activityId", "=", activityId)
+      .leftJoin("GroupMember", "Activity.groupId", "GroupMember.groupId")
+      .where("GroupMember.userId", "=", loggedInUserId)
+      .select("Activity.activityId")
+      .executeTakeFirstOrThrow();
+
+    const deletedActivity = await db
+      .deleteFrom("Activity")
+      .where("activityId", "=", activityId)
+      .executeTakeFirstOrThrow();
+
+    if (deletedActivity.numDeletedRows !== BigInt(1)) {
+      throw new Error("No such activity");
+    }
+  }
+);

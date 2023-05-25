@@ -1,5 +1,7 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import { useState, useTransition } from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -10,33 +12,42 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { useTransition } from "react";
-import { deleteGroup } from "../../actions";
+import { AlertDialogTrigger } from "@radix-ui/react-alert-dialog";
+import { deleteActivity } from "./actions";
 import { useRouter } from "next/navigation";
 
-interface DeleteGroupAlertProps {
-  groupId: number;
-  onDone: () => void;
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
+interface ActivityDeleteButtonProps {
+  activityId: number;
 }
 
-function DeleteGroupAlert({
-  groupId,
-  onDone,
-  open,
-  onOpenChange,
-}: DeleteGroupAlertProps) {
+function ActivityDeleteButton({ activityId }: ActivityDeleteButtonProps) {
   const [isPending, startTransition] = useTransition();
+
+  const [open, setOpen] = useState(false);
+
   const router = useRouter();
 
   return (
-    <AlertDialog open={open} onOpenChange={onOpenChange}>
+    <AlertDialog open={open}>
+      <AlertDialogTrigger asChild>
+        <Button
+          size="xs"
+          variant="destructive"
+          className="block w-full"
+          disabled={isPending}
+          type="button"
+          onClick={() => {
+            setOpen(true);
+          }}
+        >
+          Delete
+        </Button>
+      </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Are you sure absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This group will be deleted for all
+            This action cannot be undone. This activity will be deleted for all
             members.
           </AlertDialogDescription>
         </AlertDialogHeader>
@@ -47,12 +58,8 @@ function DeleteGroupAlert({
             onClick={(e) => {
               e.preventDefault();
               startTransition(async () => {
-                await deleteGroup({ groupId });
-                router.push("/groups");
+                await deleteActivity({ activityId });
                 router.refresh();
-
-                onDone();
-                onOpenChange(false);
               });
             }}
           >
@@ -64,4 +71,4 @@ function DeleteGroupAlert({
   );
 }
 
-export default DeleteGroupAlert;
+export default ActivityDeleteButton;

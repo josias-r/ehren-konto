@@ -15,6 +15,7 @@ import Link from "next/link";
 import { cn } from "../utils";
 import { useUserContext } from "@/app/@app/(with-profile)/UserProvider";
 import ActivityCancelParticipateButton from "./ActivityCancelParticipateButton";
+import ActivityDeleteButton from "./ActivityDeleteButton";
 
 interface ActivityWithPopoverProps extends ActivityShape {}
 
@@ -115,6 +116,7 @@ function ActivityWithPopover({
             >
               Edit
             </Link>
+            <ActivityDeleteButton activityId={activityId} />
           </div>
         </div>
       </PopoverContent>
