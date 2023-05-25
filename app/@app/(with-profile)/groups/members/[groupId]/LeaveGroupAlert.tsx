@@ -45,6 +45,7 @@ function LeaveGroupAlert({
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction
+            disabled={isPending}
             onClick={() => {
               startTransition(async () => {
                 await leaveGroup({ groupId });

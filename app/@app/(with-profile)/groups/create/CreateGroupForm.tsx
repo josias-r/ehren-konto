@@ -3,13 +3,11 @@
 import FormRow from "@/components/ui/FormRow";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useTransition } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { cn } from "@/lib/utils";
 import useControlledForm from "@/lib/hooks/useControlledForm";
 import { Users } from "lucide-react";
 import SelectFriendsSheet from "./SelectFriendsSheet";
-import { createGroup } from "../actions";
 import { UserFriends } from "../../friends/getAllFriendsForUser";
 
 interface FormShape {
@@ -19,20 +17,18 @@ interface FormShape {
 }
 
 interface CreateGroupFormProps {
-  onDone: () => void;
+  onSubmit: SubmitHandler<FormShape>;
   formId: string;
 
   userFriends: UserFriends;
 }
 
 function CreateGroupForm({
-  onDone,
+  onSubmit,
   formId,
 
   userFriends,
 }: CreateGroupFormProps) {
-  const [isPending, startTransition] = useTransition();
-
   const {
     register,
     handleSubmit,
@@ -41,13 +37,6 @@ function CreateGroupForm({
   } = useForm<FormShape>();
 
   const controlledRender = useControlledForm(control);
-
-  const onSubmit: SubmitHandler<FormShape> = (data) => {
-    startTransition(async () => {
-      await createGroup({ ...data });
-      onDone();
-    });
-  };
 
   return (
     <form id={formId} onSubmit={handleSubmit(onSubmit)}>

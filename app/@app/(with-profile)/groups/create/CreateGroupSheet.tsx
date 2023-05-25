@@ -12,6 +12,9 @@ import { Button } from "@/components/ui/button";
 import CreateGroupForm from "./CreateGroupForm";
 import { useRouter } from "next/navigation";
 import { UserFriends } from "../../friends/getAllFriendsForUser";
+import { useLoadingToast } from "@/components/ui/use-loading-toast";
+import { useTransition } from "react";
+import { createGroup } from "../actions";
 
 interface CreateGroupSheetProps {
   userFriends: UserFriends;
@@ -22,8 +25,14 @@ function CreateGroupSheet({ userFriends }: CreateGroupSheetProps) {
 
   const router = useRouter();
 
+  const [isPending, startTransition] = useTransition();
+  const { loadingToast, errorToast } = useLoadingToast();
+
   return (
-    <Sheet open onOpenChange={() => router.back()}>
+    <Sheet
+      open={!isPending} // close immediately while pending, will close also because of router.back() once done
+      onOpenChange={() => router.back()}
+    >
       <SheetContent
         headerChildren={
           <SheetHeader>
@@ -44,9 +53,19 @@ function CreateGroupSheet({ userFriends }: CreateGroupSheetProps) {
         <CreateGroupForm
           formId={formId}
           userFriends={userFriends}
-          onDone={() => {
-            router.back();
-            router.refresh();
+          onSubmit={(data) => {
+            startTransition(async () => {
+              const { dismissLoadingToast } = loadingToast("Creating group");
+              try {
+                await createGroup({ ...data });
+                dismissLoadingToast();
+                router.back();
+                router.refresh();
+              } catch (e) {
+                console.error(e);
+                errorToast("Failed to create group");
+              }
+            });
           }}
         />
       </SheetContent>

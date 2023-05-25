@@ -11,6 +11,9 @@ import {
 import { Button } from "@/components/ui/button";
 import EditGroupForm, { GroupEditFormShape } from "./EditGroupForm";
 import { useRouter } from "next/navigation";
+import { useTransition } from "react";
+import { useLoadingToast } from "@/components/ui/use-loading-toast";
+import { updateGroup } from "../../actions";
 
 interface EditGroupSheetProps {
   groupId: number;
@@ -21,6 +24,9 @@ function EditGroupSheet({ groupId, defaultValues }: EditGroupSheetProps) {
   const formId = "edit-group";
 
   const router = useRouter();
+
+  const [isPending, startTransition] = useTransition();
+  const { loadingToast, errorToast } = useLoadingToast();
 
   return (
     <Sheet open onOpenChange={() => router.back()}>
@@ -41,9 +47,21 @@ function EditGroupSheet({ groupId, defaultValues }: EditGroupSheetProps) {
       >
         <EditGroupForm
           formId={formId}
-          groupId={groupId}
           defaultValues={defaultValues}
-          onDone={() => router.back()}
+          onSubmit={(data) => {
+            startTransition(async () => {
+              const { dismissLoadingToast } = loadingToast("Saving group");
+              try {
+                await updateGroup({ ...data, groupId });
+                dismissLoadingToast();
+                router.back();
+                router.refresh();
+              } catch (error) {
+                dismissLoadingToast();
+                errorToast("Error editing group");
+              }
+            });
+          }}
         />
       </SheetContent>
     </Sheet>

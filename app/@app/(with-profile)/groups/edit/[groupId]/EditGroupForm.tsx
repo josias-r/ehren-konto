@@ -2,10 +2,8 @@
 
 import FormRow from "@/components/ui/FormRow";
 import { Input } from "@/components/ui/input";
-import { useTransition } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { cn } from "@/lib/utils";
-import { updateGroup } from "../../actions";
 
 export interface GroupEditFormShape {
   name: string;
@@ -14,31 +12,20 @@ export interface GroupEditFormShape {
 
 interface EditGroupFormProps {
   formId: string;
-  groupId: number;
   defaultValues: GroupEditFormShape;
-  onDone: () => void;
+  onSubmit: SubmitHandler<GroupEditFormShape>;
 }
 
 function EditGroupForm({
   formId,
-  groupId,
   defaultValues,
-  onDone,
+  onSubmit,
 }: EditGroupFormProps) {
-  const [isPending, startTransition] = useTransition();
-
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<GroupEditFormShape>();
-
-  const onSubmit: SubmitHandler<GroupEditFormShape> = async (data) => {
-    startTransition(async () => {
-      await updateGroup({ ...data, groupId });
-      onDone();
-    });
-  };
 
   return (
     <form id={formId} onSubmit={handleSubmit(onSubmit)}>

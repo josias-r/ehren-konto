@@ -43,6 +43,7 @@ function DeleteGroupAlert({
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction
+            disabled={isPending}
             onClick={() => {
               startTransition(async () => {
                 await deleteGroup({ groupId });

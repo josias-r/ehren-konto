@@ -7,11 +7,13 @@ import {
   SheetFooter,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import CreateActivityForm from "./CreateActivityForm";
 import { useRouter } from "next/navigation";
+import { useTransition } from "react";
+import { useLoadingToast } from "@/components/ui/use-loading-toast";
+import { createActivity } from "@/lib/activity/actions";
 
 interface CreateActivitySheetProps {
   groupName: string;
@@ -23,8 +25,14 @@ function CreateActivitySheet({ groupName, groupId }: CreateActivitySheetProps) {
 
   const router = useRouter();
 
+  const [isPending, startTransition] = useTransition();
+  const { loadingToast, errorToast } = useLoadingToast();
+
   return (
-    <Sheet open onOpenChange={() => router.back()}>
+    <Sheet
+      open={!isPending} // close immediately while pending, will close also because of router.back() once done
+      onOpenChange={() => router.back()}
+    >
       <SheetContent
         headerChildren={
           <SheetHeader>
@@ -42,11 +50,35 @@ function CreateActivitySheet({ groupName, groupId }: CreateActivitySheetProps) {
       >
         <CreateActivityForm
           formId={formId}
-          onDone={() => {
-            router.back();
-            router.refresh();
+          onSubmit={(data) => {
+            startTransition(async () => {
+              const { dismissLoadingToast } = loadingToast("Creating activity");
+              try {
+                if (!data.from) {
+                  throw new Error("No from date");
+                }
+                const fullFromDate = new Date(data.from);
+                const [hours, minutes] = data.fromTime.split(":");
+                fullFromDate.setHours(parseInt(hours));
+                fullFromDate.setMinutes(parseInt(minutes));
+
+                await createActivity({
+                  name: data.name,
+                  emoji: data.emoji,
+                  color: data.color,
+                  from: fullFromDate,
+                  groupId,
+                });
+
+                dismissLoadingToast();
+                router.back();
+                router.refresh();
+              } catch (e) {
+                dismissLoadingToast();
+                errorToast("Failed to create activity");
+              }
+            });
           }}
-          groupId={groupId}
         />
       </SheetContent>
     </Sheet>
