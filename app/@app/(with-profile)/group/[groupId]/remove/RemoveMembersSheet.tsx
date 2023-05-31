@@ -1,6 +1,6 @@
 "use client";
 
-import { GroupMembers } from "@/app/@app/(with-profile)/groups/members/[groupId]/getGroupWithMembers";
+import { GroupMembers } from "@/app/@app/(with-profile)/group/[groupId]/members/getGroupWithMembers";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -10,7 +10,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import MembersBulkListItem from "@/app/@app/(with-profile)/groups/@modal/(.)members/[groupId]/remove/MembersBulkListItem";
+import MembersBulkListItem from "@/app/@app/(with-profile)/group/[groupId]/remove/MembersBulkListItem";
 import { removeGroupMembers } from "@/app/@app/(with-profile)/groups/actions";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";

@@ -1,26 +1,26 @@
 "use client";
 
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import EditGroupForm, { GroupEditFormShape } from "./EditGroupForm";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { useLoadingToast } from "@/components/ui/use-loading-toast";
-import { updateGroup } from "../../actions";
+import { updateGroup } from "../../../groups/actions";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
-interface EditGroupSheetProps {
+interface EditGroupCardProps {
   groupId: number;
   defaultValues: GroupEditFormShape;
 }
 
-function EditGroupSheet({ groupId, defaultValues }: EditGroupSheetProps) {
+function EditGroupCard({ groupId, defaultValues }: EditGroupCardProps) {
   const formId = "edit-group";
 
   const router = useRouter();
@@ -29,22 +29,12 @@ function EditGroupSheet({ groupId, defaultValues }: EditGroupSheetProps) {
   const { loadingToast, errorToast } = useLoadingToast();
 
   return (
-    <Sheet open onOpenChange={() => router.back()}>
-      <SheetContent
-        headerChildren={
-          <SheetHeader>
-            <SheetTitle>Edit group</SheetTitle>
-            <SheetDescription>Edit group details</SheetDescription>
-          </SheetHeader>
-        }
-        footerChildren={
-          <SheetFooter>
-            <Button type="submit" form={formId}>
-              Edit group
-            </Button>
-          </SheetFooter>
-        }
-      >
+    <Card>
+      <CardHeader>
+        <CardTitle>Edit group</CardTitle>
+        <CardDescription>Edit group details</CardDescription>
+      </CardHeader>
+      <CardContent>
         <EditGroupForm
           formId={formId}
           defaultValues={defaultValues}
@@ -63,9 +53,14 @@ function EditGroupSheet({ groupId, defaultValues }: EditGroupSheetProps) {
             });
           }}
         />
-      </SheetContent>
-    </Sheet>
+      </CardContent>
+      <CardFooter>
+        <Button type="submit" form={formId}>
+          Save changes
+        </Button>
+      </CardFooter>
+    </Card>
   );
 }
 
-export default EditGroupSheet;
+export default EditGroupCard;

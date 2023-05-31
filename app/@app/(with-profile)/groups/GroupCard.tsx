@@ -125,7 +125,7 @@ function GroupCard({
             buttonVariants({ variant: "secondary" }),
             "w-full flex justify-between items-center text-sm p-2 mt-2"
           )}
-          href={`/groups/members/${groupId}`}
+          href={`/group/${groupId}/members`}
         >
           <div>
             {membersLeftoverAmount > 1 && (

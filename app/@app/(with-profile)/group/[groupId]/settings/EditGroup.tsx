@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import EditGroupSheet from "./EditGroupSheet";
+import EditGroupCard from "./EditGroupCard";
 import getGroupForUser from "./getGroupForUser";
 
 interface EditGroupProps {
@@ -12,7 +12,7 @@ async function EditGroup({ groupId }: EditGroupProps) {
     return notFound();
   }
   return (
-    <EditGroupSheet
+    <EditGroupCard
       groupId={groupId}
       defaultValues={{
         name: group.name,

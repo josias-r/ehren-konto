@@ -11,24 +11,25 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { useTransition } from "react";
-import { deleteGroup } from "../../actions";
+import { deleteGroup } from "../../../groups/actions";
 import { useRouter } from "next/navigation";
+import { useLoadingToast } from "@/components/ui/use-loading-toast";
 
 interface DeleteGroupAlertProps {
   groupId: number;
-  onDone: () => void;
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
 
 function DeleteGroupAlert({
   groupId,
-  onDone,
   open,
   onOpenChange,
 }: DeleteGroupAlertProps) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
+
+  const { loadingToastFromPromise } = useLoadingToast();
 
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
@@ -47,12 +48,14 @@ function DeleteGroupAlert({
             onClick={(e) => {
               e.preventDefault();
               startTransition(async () => {
-                await deleteGroup({ groupId });
-                router.push("/groups");
-                router.refresh();
-
-                onDone();
+                await loadingToastFromPromise(
+                  "Deleting group",
+                  "Error deleting group",
+                  deleteGroup({ groupId })
+                );
                 onOpenChange(false);
+                router.replace("/groups");
+                router.refresh();
               });
             }}
           >

@@ -1,5 +1,5 @@
 import RemoveMembersSheet from "./RemoveMembersSheet";
-import getGroupWithMembers from "@/app/@app/(with-profile)/groups/members/[groupId]/getGroupWithMembers";
+import getGroupWithMembers from "@/app/@app/(with-profile)/group/[groupId]/members/getGroupWithMembers";
 import { notFound } from "next/navigation";
 
 async function RemoveMembers({

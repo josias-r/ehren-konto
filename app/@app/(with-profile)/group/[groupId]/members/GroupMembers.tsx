@@ -1,4 +1,4 @@
-import GroupMembersSheet from "./GroupMembersSheet";
+import GroupMembersList from "./GroupMembersList";
 import getGroupWithMembers from "./getGroupWithMembers";
 import { notFound } from "next/navigation";
 
@@ -13,7 +13,7 @@ async function GroupMembers({ groupId }: GroupMembersProps) {
     return notFound();
   }
 
-  return <GroupMembersSheet members={groupWithMembers} groupId={groupId} />;
+  return <GroupMembersList members={groupWithMembers} groupId={groupId} />;
 }
 
 export default GroupMembers;

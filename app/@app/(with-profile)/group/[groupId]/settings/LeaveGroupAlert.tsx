@@ -11,7 +11,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { useTransition } from "react";
-import { leaveGroup } from "../../actions";
+import { leaveGroup } from "../../../groups/actions";
 import { useRouter } from "next/navigation";
 
 interface LeaveGroupAlertProps {
