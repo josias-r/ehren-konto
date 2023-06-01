@@ -18,15 +18,12 @@ interface LeaveGroupAlertProps {
   groupId: number;
   open: boolean;
   onOpenChange: (open: boolean) => void;
-
-  onDone: () => void;
 }
 
 function LeaveGroupAlert({
   groupId,
   open,
   onOpenChange,
-  onDone,
 }: LeaveGroupAlertProps) {
   const [isPending, startTransition] = useTransition();
 
@@ -52,7 +49,6 @@ function LeaveGroupAlert({
                 await leaveGroup({ groupId });
                 router.push("/groups");
                 router.refresh();
-                onDone();
               });
             }}
           >

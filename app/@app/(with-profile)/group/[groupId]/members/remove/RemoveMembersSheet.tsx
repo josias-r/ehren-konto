@@ -10,7 +10,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import MembersBulkListItem from "@/app/@app/(with-profile)/group/[groupId]/remove/MembersBulkListItem";
+import MembersBulkListItem from "@/app/@app/(with-profile)/group/[groupId]/members/remove/MembersBulkListItem";
 import { removeGroupMembers } from "@/app/@app/(with-profile)/groups/actions";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";

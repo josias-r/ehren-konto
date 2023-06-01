@@ -1,13 +1,13 @@
 "use client";
 
 import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import CreateActivityForm from "./CreateActivityForm";
 import { useRouter } from "next/navigation";
@@ -15,12 +15,12 @@ import { useTransition } from "react";
 import { useLoadingToast } from "@/components/ui/use-loading-toast";
 import { createActivity } from "@/lib/activity/actions";
 
-interface CreateActivitySheetProps {
+interface CreateActivityCardProps {
   groupName: string;
   groupId: number;
 }
 
-function CreateActivitySheet({ groupName, groupId }: CreateActivitySheetProps) {
+function CreateActivityCard({ groupName, groupId }: CreateActivityCardProps) {
   const formId = "create-activity";
 
   const router = useRouter();
@@ -29,25 +29,12 @@ function CreateActivitySheet({ groupName, groupId }: CreateActivitySheetProps) {
   const { loadingToast, errorToast } = useLoadingToast();
 
   return (
-    <Sheet
-      open={!isPending} // close immediately while pending, will close also because of router.back() once done
-      onOpenChange={() => router.back()}
-    >
-      <SheetContent
-        headerChildren={
-          <SheetHeader>
-            <SheetTitle>Create new group activity</SheetTitle>
-            <SheetDescription>{groupName}</SheetDescription>
-          </SheetHeader>
-        }
-        footerChildren={
-          <SheetFooter>
-            <Button form={formId} type="submit">
-              Create activity
-            </Button>
-          </SheetFooter>
-        }
-      >
+    <Card>
+      <CardHeader>
+        <CardTitle>Create new group activity</CardTitle>
+        <CardDescription>{groupName}</CardDescription>
+      </CardHeader>
+      <CardContent>
         <CreateActivityForm
           formId={formId}
           onSubmit={(data) => {
@@ -80,9 +67,14 @@ function CreateActivitySheet({ groupName, groupId }: CreateActivitySheetProps) {
             });
           }}
         />
-      </SheetContent>
-    </Sheet>
+      </CardContent>
+      <CardFooter>
+        <Button form={formId} type="submit">
+          Create activity
+        </Button>
+      </CardFooter>
+    </Card>
   );
 }
 
-export default CreateActivitySheet;
+export default CreateActivityCard;

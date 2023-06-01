@@ -1,27 +1,23 @@
 "use client";
 
 import Link from "next/link";
-import {
-  useParams,
-  usePathname,
-  useSelectedLayoutSegments,
-} from "next/navigation";
+import { useParams } from "next/navigation";
 
-interface GroupHeaderNavProps {}
+interface GroupHeaderNavProps {
+  groupName: string;
+}
 
-function GroupHeaderNav({}: GroupHeaderNavProps) {
-  const segments = useSelectedLayoutSegments();
-  const pathname = usePathname();
+function GroupHeaderNav({ groupName }: GroupHeaderNavProps) {
   const params = useParams();
-
-  console.log("segments", segments);
-  console.log("pathname", pathname);
-  console.log("params", params);
 
   return (
     <header className="mx-auto max-w-md p-4">
+      <h1 className="text-2xl font-bold">{groupName}</h1>
       <nav>
         <ul className="flex gap-4">
+          <li>
+            <Link href={`/group/${params.groupId}/activities`}>Activities</Link>
+          </li>
           <li>
             <Link href={`/group/${params.groupId}/members`}>Members</Link>
           </li>

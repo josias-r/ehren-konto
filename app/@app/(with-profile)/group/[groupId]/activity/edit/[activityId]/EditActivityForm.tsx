@@ -23,7 +23,6 @@ interface EditActivityFormProps {
   formId: string;
   defaultValues: ActivityEditFormShape;
 
-  activityId: number;
   onSubmit: SubmitHandler<ActivityEditFormShape>;
 }
 
@@ -31,7 +30,6 @@ function EditActivityForm({
   formId,
   defaultValues,
 
-  activityId,
   onSubmit,
 }: EditActivityFormProps) {
   const {

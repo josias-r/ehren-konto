@@ -1,6 +1,6 @@
 import { getUserId } from "@/app/(auth)/getUserId";
 import { notFound } from "next/navigation";
-import GroupActivitiesSheet from "./GroupActivitiesSheet";
+import GroupActivitiesCard from "./GroupActivitiesCard";
 import getGroupActivities from "./getGroupActivities";
 
 interface GroupActivitiesProps {
@@ -15,7 +15,7 @@ async function GroupActivities({ groupId }: GroupActivitiesProps) {
     return notFound();
   }
 
-  return <GroupActivitiesSheet activities={goupWithActivities} />;
+  return <GroupActivitiesCard activities={goupWithActivities} />;
 }
 
 export default GroupActivities;

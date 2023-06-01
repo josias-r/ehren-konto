@@ -17,16 +17,13 @@ import { useUserContext } from "@/app/@app/(with-profile)/UserProvider";
 import ActivityCancelParticipateButton from "./ActivityCancelParticipateButton";
 import ActivityDeleteButton from "./ActivityDeleteButton";
 
-interface ActivityWithPopoverProps extends ActivityShape {}
+interface UseIsParticipatingInActivityArgs {
+  participants: ActivityShape["participants"];
+}
 
-function ActivityWithPopover({
-  activityId,
-  emoji,
-  name,
-  color,
-  from,
+export function useIsParticipatingInActivity({
   participants,
-}: ActivityWithPopoverProps) {
+}: UseIsParticipatingInActivityArgs) {
   const user = useUserContext();
 
   const userAsParticipant = participants.find(
@@ -38,6 +35,20 @@ function ActivityWithPopover({
       : "unconfirmed"
     : false;
 
+  return isParticipating;
+}
+
+interface ActivityWithPopoverProps extends ActivityShape {}
+
+function ActivityWithPopover({
+  activityId,
+  emoji,
+  name,
+  color,
+  from,
+  participants,
+}: ActivityWithPopoverProps) {
+  const isParticipating = useIsParticipatingInActivity({ participants });
   return (
     <Popover>
       <PopoverTrigger className="w-full block">

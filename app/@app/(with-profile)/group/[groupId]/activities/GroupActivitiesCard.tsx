@@ -1,26 +1,26 @@
 "use client";
 
 import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { GroupActivities } from "./getGroupActivities";
 import ActivityListItem from "@/lib/activity/ActivityListItem";
 import { Separator } from "@/components/ui/separator";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 
-interface GroupActivitiesSheetProps {
+interface GroupActivitiesCardProps {
   activities: NonNullable<GroupActivities>;
 }
 
-function GroupActivitiesSheet({ activities }: GroupActivitiesSheetProps) {
+function GroupActivitiesCard({ activities }: GroupActivitiesCardProps) {
   const futureEvents: typeof activities = [];
   const pastEvents: typeof activities = [];
 
@@ -32,33 +32,20 @@ function GroupActivitiesSheet({ activities }: GroupActivitiesSheetProps) {
     }
   });
 
-  const router = useRouter();
-
   const params = useParams();
 
+  const groupId = parseInt(params.groupId);
+
   return (
-    <Sheet open onOpenChange={() => router.back()}>
-      <SheetContent
-        headerChildren={
-          <SheetHeader>
-            <SheetTitle>Group activities</SheetTitle>
-            <SheetDescription>
-              There are {futureEvents.length} upcoming activities and{" "}
-              {pastEvents.length} past activities in this group.
-            </SheetDescription>
-          </SheetHeader>
-        }
-        footerChildren={
-          <SheetFooter>
-            <Link
-              className={cn(buttonVariants())}
-              href={`/groups/activities/${params.groupId}/create`}
-            >
-              Create activity
-            </Link>
-          </SheetFooter>
-        }
-      >
+    <Card>
+      <CardHeader>
+        <CardTitle>Group activities</CardTitle>
+        <CardDescription>
+          There are {futureEvents.length} upcoming activities and{" "}
+          {pastEvents.length} past activities in this group.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
         <div className="grid gap-6">
           {futureEvents.map((activity) => (
             <ActivityListItem
@@ -69,6 +56,7 @@ function GroupActivitiesSheet({ activities }: GroupActivitiesSheetProps) {
               color={activity.color}
               from={activity.from}
               participants={activity.participants}
+              groupId={groupId}
             />
           ))}
           {!!pastEvents.length && !!futureEvents.length && <Separator />}
@@ -81,12 +69,21 @@ function GroupActivitiesSheet({ activities }: GroupActivitiesSheetProps) {
               color={activity.color}
               from={activity.from}
               participants={activity.participants}
+              groupId={groupId}
             />
           ))}
         </div>
-      </SheetContent>
-    </Sheet>
+      </CardContent>
+      <CardFooter>
+        <Link
+          className={cn(buttonVariants())}
+          href={`/group/${params.groupId}/new/activity`}
+        >
+          Create activity
+        </Link>
+      </CardFooter>
+    </Card>
   );
 }
 
-export default GroupActivitiesSheet;
+export default GroupActivitiesCard;

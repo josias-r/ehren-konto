@@ -1,7 +1,7 @@
 import { getUserId } from "@/app/(auth)/getUserId";
 import getUserActivity from "./getUserActivity";
-import EditActivitySheet from "@/app/@app/(with-profile)/activity/edit/[activityId]/EditActivitySheet";
 import { notFound } from "next/navigation";
+import EditActivityCard from "./EditActivityCard";
 
 async function EditActivity({ activityId }: { activityId: number }) {
   const userId = getUserId();
@@ -16,7 +16,7 @@ async function EditActivity({ activityId }: { activityId: number }) {
   const fromTime = `${hours}:${minutes}`;
 
   return (
-    <EditActivitySheet
+    <EditActivityCard
       defaultValues={{
         emoji: activity.emoji,
         name: activity.name,

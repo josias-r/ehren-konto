@@ -1,13 +1,13 @@
 "use client";
 
 import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import EditActivityForm, { ActivityEditFormShape } from "./EditActivityForm";
 import { useRouter } from "next/navigation";
@@ -15,15 +15,15 @@ import { useTransition } from "react";
 import { updateActivity } from "@/lib/activity/actions";
 import { useLoadingToast } from "@/components/ui/use-loading-toast";
 
-interface EditActivitySheetProps {
+interface EditActivityCardProps {
   defaultValues: ActivityEditFormShape;
   activityId: number;
 }
 
-function EditActivitySheet({
+function EditActivityCard({
   defaultValues,
   activityId,
-}: EditActivitySheetProps) {
+}: EditActivityCardProps) {
   const formId = "create-activity";
 
   const router = useRouter();
@@ -33,29 +33,14 @@ function EditActivitySheet({
   const [isPending, startTransition] = useTransition();
 
   return (
-    <Sheet
-      open={!isPending} // close immediately while pending, will close also because of router.back() once done
-      onOpenChange={() => {
-        router.back();
-      }}
-    >
-      <SheetContent
-        headerChildren={
-          <SheetHeader>
-            <SheetTitle>Edit group activity</SheetTitle>
-            <SheetDescription>
-              Edit details of &quot;{defaultValues.name}&quot;
-            </SheetDescription>
-          </SheetHeader>
-        }
-        footerChildren={
-          <SheetFooter>
-            <Button form={formId} type="submit">
-              Edit activity
-            </Button>
-          </SheetFooter>
-        }
-      >
+    <Card>
+      <CardHeader>
+        <CardTitle>Edit group activity</CardTitle>
+        <CardDescription>
+          Edit details of &quot;{defaultValues.name}&quot;
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
         <EditActivityForm
           formId={formId}
           defaultValues={defaultValues}
@@ -88,11 +73,15 @@ function EditActivitySheet({
               }
             });
           }}
-          activityId={activityId}
         />
-      </SheetContent>
-    </Sheet>
+      </CardContent>
+      <CardFooter>
+        <Button form={formId} type="submit">
+          Edit activity
+        </Button>
+      </CardFooter>
+    </Card>
   );
 }
 
-export default EditActivitySheet;
+export default EditActivityCard;

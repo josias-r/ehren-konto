@@ -43,11 +43,11 @@ function CreateGroupCard({ userFriends }: CreateGroupCardProps) {
               await loadingToastFromPromise(
                 "Creating group",
                 "Error creating group",
-                createGroup({ ...data })
+                createGroup({ ...data }).then((createdGroupId) => {
+                  router.push(`/group/${createdGroupId}/members`);
+                  router.refresh();
+                })
               );
-              await createGroup({ ...data });
-              router.push("/groups");
-              router.refresh();
             });
           }}
         />

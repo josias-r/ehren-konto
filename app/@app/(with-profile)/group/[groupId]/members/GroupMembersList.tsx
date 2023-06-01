@@ -5,16 +5,8 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-// import {
-//   Sheet,
-//   SheetContent,
-//   SheetDescription,
-//   SheetHeader,
-//   SheetTitle,
-// } from "@/components/ui/sheet";
 import {
   CircleEllipsis,
   Delete,
@@ -30,6 +22,13 @@ import LeaveGroupAlert from "@/app/@app/(with-profile)/group/[groupId]/settings/
 import { useState } from "react";
 import Link from "next/link";
 import { UserMinus2 } from "lucide-react";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "@/components/ui/card";
 
 interface GroupMembersListProps {
   groupId: number;
@@ -48,70 +47,58 @@ function GroupMembersList({ groupId, members }: GroupMembersListProps) {
         open={deleteOpen}
         onOpenChange={setDeleteOpen}
         groupId={groupId}
-        onDone={() => router.back()}
       />
       <LeaveGroupAlert
         open={leaveOpen}
         onOpenChange={setLeaveOpen}
         groupId={groupId}
-        onDone={() => router.back()}
       />
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="ghost">
-            <CircleEllipsis className="h-5 w-5" />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          <DropdownMenuItem asChild>
-            <Link href={`/groups/members/${groupId}/add`}>
-              <UserPlus2 className="w-4 h-4 mr-2" />
-              <span>Add members</span>
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem asChild>
-            <Link href={`/groups/members/${groupId}/remove`}>
-              <UserMinus2 className="w-4 h-4 mr-2" />
-              <span>Remove members</span>
-            </Link>
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-      <div className="grid gap-6">
-        {members.map((member) => (
-          <GroupMemberListItem
-            key={member.userId}
-            userId={member.userId}
-            nick={member.nick}
-            name={member.name}
-            role={member.role}
-            ehre={member.ehre}
-            avatar={member.avatar}
-          />
-        ))}
-      </div>
-      {/* <Sheet
-        open
-        onOpenChange={() => {
-          router.back();
-        }}
-      >
-        <SheetContent
-          headerChildren={
-            <div className="flex justify-between">
-              <SheetHeader>
-                <SheetTitle className="flex justify-between">
-                  <span>Group members</span>
-                </SheetTitle>
-                <SheetDescription>
-                  There are {members.length} members in this group
-                </SheetDescription>
-              </SheetHeader>
-              <div></div>
-            </div>
-          }
-        ></SheetContent>
-      </Sheet> */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex justify-between">
+            <span>Group members</span>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="-mb-4 -mt-2">
+                  <CircleEllipsis className="h-5 w-5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem asChild>
+                  <Link href={`/group/${groupId}/members/add`}>
+                    <UserPlus2 className="w-4 h-4 mr-2" />
+                    <span>Add members</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href={`/group/${groupId}/members/remove`}>
+                    <UserMinus2 className="w-4 h-4 mr-2" />
+                    <span>Remove members</span>
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </CardTitle>
+          <CardDescription>
+            There are {members.length} members in this group
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-6">
+            {members.map((member) => (
+              <GroupMemberListItem
+                key={member.userId}
+                userId={member.userId}
+                nick={member.nick}
+                name={member.name}
+                role={member.role}
+                ehre={member.ehre}
+                avatar={member.avatar}
+              />
+            ))}
+          </div>
+        </CardContent>
+      </Card>
     </>
   );
 }
