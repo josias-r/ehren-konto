@@ -77,6 +77,7 @@ function UpcomingActivitiesSection({
                   isLastInGroup={index === group.activities.length - 1}
                   key={activity.activityId}
                   activity={activity}
+                  groupId={parseInt(groupId)}
                 />
               ))}
             </Fragment>

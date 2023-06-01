@@ -38,7 +38,9 @@ export function useIsParticipatingInActivity({
   return isParticipating;
 }
 
-interface ActivityWithPopoverProps extends ActivityShape {}
+interface ActivityWithPopoverProps extends ActivityShape {
+  groupId: number;
+}
 
 function ActivityWithPopover({
   activityId,
@@ -47,6 +49,7 @@ function ActivityWithPopover({
   color,
   from,
   participants,
+  groupId,
 }: ActivityWithPopoverProps) {
   const isParticipating = useIsParticipatingInActivity({ participants });
   return (
@@ -123,7 +126,7 @@ function ActivityWithPopover({
                 }),
                 "flex"
               )}
-              href={`/activity/edit/${activityId}`}
+              href={`/group/${groupId}/activity/edit/${activityId}`}
             >
               Edit
             </Link>

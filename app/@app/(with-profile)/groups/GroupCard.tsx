@@ -86,6 +86,7 @@ function GroupCard({
               participants={activity.participants}
               color={activity.color}
               from={activity.from}
+              groupId={groupId}
             />
           ))}
           <Link

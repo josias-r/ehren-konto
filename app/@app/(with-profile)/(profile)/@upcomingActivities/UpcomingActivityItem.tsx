@@ -6,6 +6,7 @@ interface UpcomingActivityItemProps {
   isLastInGroup: boolean;
   color: string;
   activity: NormalizedUpcomingActivities[number][1]["activities"][number];
+  groupId: number;
 }
 
 function UpcomingActivityItem({
@@ -13,6 +14,7 @@ function UpcomingActivityItem({
   isFirstInGroup,
   isLastInGroup,
   color,
+  groupId,
 }: UpcomingActivityItemProps) {
   return (
     <div
@@ -27,6 +29,7 @@ function UpcomingActivityItem({
         color={activity.color}
         from={activity.from}
         participants={activity.participants}
+        groupId={groupId}
       />
     </div>
   );
