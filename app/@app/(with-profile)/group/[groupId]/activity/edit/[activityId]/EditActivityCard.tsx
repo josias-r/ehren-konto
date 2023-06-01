@@ -18,17 +18,19 @@ import { useLoadingToast } from "@/components/ui/use-loading-toast";
 interface EditActivityCardProps {
   defaultValues: ActivityEditFormShape;
   activityId: number;
+  groupId: number;
 }
 
 function EditActivityCard({
   defaultValues,
   activityId,
+  groupId,
 }: EditActivityCardProps) {
   const formId = "create-activity";
 
   const router = useRouter();
 
-  const { loadingToast, errorToast } = useLoadingToast();
+  const { loadingToastFromPromise } = useLoadingToast();
 
   const [isPending, startTransition] = useTransition();
 
@@ -45,32 +47,34 @@ function EditActivityCard({
           formId={formId}
           defaultValues={defaultValues}
           onSubmit={(data) => {
-            const { dismissLoadingToast } = loadingToast("Saving");
-            startTransition(async () => {
-              try {
-                if (!data.from) {
-                  throw new Error("No from date");
-                }
-
-                const fullFromDate = new Date(data.from);
-                const [hours, minutes] = data.fromTime.split(":");
-                fullFromDate.setHours(parseInt(hours));
-                fullFromDate.setMinutes(parseInt(minutes));
-
-                await updateActivity({
-                  activityId,
-                  name: data.name,
-                  emoji: data.emoji,
-                  color: data.color,
-                  from: fullFromDate,
-                });
-
-                dismissLoadingToast();
-                router.back();
-                router.refresh();
-              } catch (error) {
-                errorToast("Sorry, we couldn't edit your activity.");
+            const createPromise = async () => {
+              if (!data.from) {
+                throw new Error("No from date");
               }
+
+              const fullFromDate = new Date(data.from);
+              const [hours, minutes] = data.fromTime.split(":");
+              fullFromDate.setHours(parseInt(hours));
+              fullFromDate.setMinutes(parseInt(minutes));
+
+              await updateActivity({
+                activityId,
+                name: data.name,
+                emoji: data.emoji,
+                color: data.color,
+                from: fullFromDate,
+              });
+
+              router.push(`/group/${groupId}/activities`);
+              router.refresh();
+            };
+
+            startTransition(() => {
+              loadingToastFromPromise(
+                "Saving",
+                "Failed to save",
+                createPromise()
+              );
             });
           }}
         />
