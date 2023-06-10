@@ -1,6 +1,9 @@
+import { NextResponse } from "next/server";
+
 function createApiClientHandler<
   TPayloadShape extends {},
-  TResponseShape extends unknown
+  TNextResponseShape extends NextResponse,
+  TResponseShape = TNextResponseShape extends NextResponse<infer T> ? T : never
 >(endpoint: string, method: "POST" | "PATCH") {
   return async (payload: TPayloadShape) => {
     const response = await fetch(endpoint, {

@@ -1,4 +1,4 @@
-import yup from "yup";
+import * as yup from "yup";
 import { getActivityColors } from "@/lib/activity/utilities/activity-colors";
 import parseAndValidateJSONBody from "../../handlers/parseAndValidateJSONBody";
 import handleNextError from "../../handlers/handleNextError";
@@ -33,7 +33,10 @@ export async function PATCH(request: Request) {
       },
     });
 
-    return updatedActivity.activityId;
+    return NextResponse.json({
+      success: true,
+      activityId: updatedActivity.activityId,
+    });
   } catch (error) {
     return handleNextError(error);
   }

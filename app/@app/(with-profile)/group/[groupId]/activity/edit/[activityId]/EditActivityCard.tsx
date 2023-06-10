@@ -11,9 +11,8 @@ import {
 import { Button } from "@/components/ui/button";
 import EditActivityForm, { ActivityEditFormShape } from "./EditActivityForm";
 import { useRouter } from "next/navigation";
-import { useTransition } from "react";
-import { updateActivity } from "@/lib/activity/actions";
 import { useLoadingToast } from "@/components/ui/use-loading-toast";
+import editActivity from "@/app/api/activity/edit/editActivity";
 
 interface EditActivityCardProps {
   defaultValues: ActivityEditFormShape;
@@ -32,8 +31,6 @@ function EditActivityCard({
 
   const { loadingToastFromPromise } = useLoadingToast();
 
-  const [isPending, startTransition] = useTransition();
-
   return (
     <Card>
       <CardHeader>
@@ -47,37 +44,37 @@ function EditActivityCard({
           formId={formId}
           defaultValues={defaultValues}
           onSubmit={(data) => {
-            const promise = new Promise<void>((res) =>
-              startTransition(async () => {
-                if (!data.from) {
-                  throw new Error("No from date");
-                }
+            const createPromise = async () => {
+              if (!data.from) {
+                throw new Error("No from date");
+              }
 
-                const fullFromDate = new Date(data.from);
-                const [hours, minutes] = data.fromTime.split(":");
-                fullFromDate.setHours(parseInt(hours));
-                fullFromDate.setMinutes(parseInt(minutes));
+              const fullFromDate = new Date(data.from);
+              const [hours, minutes] = data.fromTime.split(":");
+              fullFromDate.setHours(parseInt(hours));
+              fullFromDate.setMinutes(parseInt(minutes));
 
-                await updateActivity({
-                  activityId,
-                  name: data.name,
-                  emoji: data.emoji,
-                  color: data.color,
-                  from: fullFromDate,
-                });
+              await editActivity({
+                activityId,
+                name: data.name,
+                emoji: data.emoji,
+                color: data.color,
+                from: fullFromDate,
+              });
 
-                await new Promise((resolve) => setTimeout(resolve, 2000));
-
-                // router.push(`/group/${groupId}/activities`);x
-                router.refresh();
-              })
+              router.push(`/group/${groupId}/activities`);
+              router.refresh();
+            };
+            loadingToastFromPromise(
+              "Saving",
+              "Failed to save",
+              createPromise()
             );
-            loadingToastFromPromise("Saving", "Failed to save", promise);
           }}
         />
       </CardContent>
       <CardFooter>
-        <Button form={formId} type="submit" disabled={isPending}>
+        <Button form={formId} type="submit">
           Edit activity
         </Button>
       </CardFooter>
