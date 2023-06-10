@@ -58,18 +58,18 @@ export async function login({ email, password }: SignInArgs) {
   cookies().set({
     name: "token",
     value: token,
-    // @ts-expect-error TODO: wait for nextJS fix
     httpOnly: true,
     path: "/",
+    // @ts-expect-error TODO: wait for nextJS fix
     expiryInSeconds: expiryInSeconds,
   });
   cookies().set({
     name: "is-logged-in",
     value: "yes",
-    // @ts-expect-error TODO: wait for nextJS fix
     path: "/",
     // TODO: figure out best practice -> httpOnly because of expiry date and so FE can check if logged in
     // https://stackoverflow.com/a/9649496/9191773
+    // @ts-expect-error TODO: wait for nextJS fix
     expiryInSeconds: expiryInSeconds,
   });
 

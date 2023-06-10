@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import LeaveGroupAlert from "./LeaveGroupAlert";
 import { DoorOpen } from "lucide-react";
 
@@ -13,7 +12,6 @@ interface LeaveGroupButtonProps {
 function LeaveGroupButton({ groupId }: LeaveGroupButtonProps) {
   const [modalOpen, setModalOpen] = useState(false);
 
-  const router = useRouter();
   return (
     <>
       <Button variant="destructive" onClick={() => setModalOpen(true)}>
@@ -24,7 +22,6 @@ function LeaveGroupButton({ groupId }: LeaveGroupButtonProps) {
         open={modalOpen}
         onOpenChange={setModalOpen}
         groupId={groupId}
-        onDone={() => router.replace(`/groups/${groupId}`)}
       />
     </>
   );
