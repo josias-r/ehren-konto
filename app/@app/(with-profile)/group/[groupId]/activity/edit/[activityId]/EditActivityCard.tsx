@@ -47,41 +47,50 @@ function EditActivityCard({
           formId={formId}
           defaultValues={defaultValues}
           onSubmit={(data) => {
-            const createPromise = async () => {
-              if (!data.from) {
-                throw new Error("No from date");
-              }
+            const promise = new Promise<void>((res) =>
+              startTransition(async () => {
+                if (!data.from) {
+                  throw new Error("No from date");
+                }
 
-              const fullFromDate = new Date(data.from);
-              const [hours, minutes] = data.fromTime.split(":");
-              fullFromDate.setHours(parseInt(hours));
-              fullFromDate.setMinutes(parseInt(minutes));
+                const fullFromDate = new Date(data.from);
+                const [hours, minutes] = data.fromTime.split(":");
+                fullFromDate.setHours(parseInt(hours));
+                fullFromDate.setMinutes(parseInt(minutes));
 
-              await updateActivity({
-                activityId,
-                name: data.name,
-                emoji: data.emoji,
-                color: data.color,
-                from: fullFromDate,
-              });
+                await updateActivity({
+                  activityId,
+                  name: data.name,
+                  emoji: data.emoji,
+                  color: data.color,
+                  from: fullFromDate,
+                });
 
-              router.push(`/group/${groupId}/activities`);
-              router.refresh();
-            };
+                await new Promise((resolve) => setTimeout(resolve, 2000));
 
-            startTransition(() => {
-              loadingToastFromPromise(
-                "Saving",
-                "Failed to save",
-                createPromise()
-              );
-            });
+                // router.push(`/group/${groupId}/activities`);x
+                router.refresh();
+              })
+            );
+            loadingToastFromPromise("Saving", "Failed to save", promise);
           }}
         />
       </CardContent>
       <CardFooter>
-        <Button form={formId} type="submit">
+        <Button form={formId} type="submit" disabled={isPending}>
           Edit activity
+        </Button>
+        <Button
+          onClick={async () => {
+            const promise = new Promise((resolve) => setTimeout(resolve, 2000));
+            loadingToastFromPromise(
+              "Fake creating",
+              "Failed to fake create",
+              promise
+            );
+          }}
+        >
+          Fake create
         </Button>
       </CardFooter>
     </Card>
