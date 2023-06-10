@@ -30,30 +30,3 @@ export const befriendUser = createAuthProtectedAction(
     });
   }
 );
-
-interface UnfriendUsersArgs {
-  userIds: string[];
-}
-
-export const unfriendUsers = createAuthProtectedAction(
-  async (loggedInUserId, { userIds }: UnfriendUsersArgs) => {
-    await prisma.friendship.deleteMany({
-      where: {
-        OR: [
-          {
-            outgoingUserId: loggedInUserId,
-            incomingUserId: {
-              in: userIds,
-            },
-          },
-          {
-            incomingUserId: loggedInUserId,
-            outgoingUserId: {
-              in: userIds,
-            },
-          },
-        ],
-      },
-    });
-  }
-);
