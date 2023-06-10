@@ -80,18 +80,6 @@ function EditActivityCard({
         <Button form={formId} type="submit" disabled={isPending}>
           Edit activity
         </Button>
-        <Button
-          onClick={async () => {
-            const promise = new Promise((resolve) => setTimeout(resolve, 2000));
-            loadingToastFromPromise(
-              "Fake creating",
-              "Failed to fake create",
-              promise
-            );
-          }}
-        >
-          Fake create
-        </Button>
       </CardFooter>
     </Card>
   );
