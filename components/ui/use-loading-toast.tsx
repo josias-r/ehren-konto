@@ -28,23 +28,7 @@ function useLoadingToast() {
     });
   };
 
-  const loadingToastFromPromise = async <TPromise extends Promise<any>>(
-    loadingMessage: string,
-    errorMessage: string,
-    promise: TPromise
-  ) => {
-    const { dismissLoadingToast } = loadingToast(loadingMessage);
-    try {
-      const resolved = await promise;
-      return resolved;
-    } catch (e) {
-      errorToast(errorMessage);
-    } finally {
-      dismissLoadingToast();
-    }
-  };
-
-  return { loadingToast, errorToast, loadingToastFromPromise };
+  return { loadingToast, errorToast };
 }
 
 export { useLoadingToast };

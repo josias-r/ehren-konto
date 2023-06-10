@@ -4,13 +4,12 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { login } from "@/app/(auth)/login/login.action";
-import { useTransition } from "react";
-import { useToast } from "@/components/ui/use-toast";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import PasswordInput from "../PasswordInput";
+import useApiLoadingToast from "@/components/ui/use-api-loading-toast";
+import login from "@/app/api/auth/login/login";
 
 interface FormShape {
   email: string;
@@ -18,42 +17,33 @@ interface FormShape {
 }
 
 function LoginForm() {
-  const [isPending, startTransition] = useTransition();
-
-  const { toast } = useToast();
+  const { apiLoadingToast } = useApiLoadingToast();
 
   const router = useRouter();
 
-  const { register, handleSubmit } = useForm<FormShape>();
-  const onSubmit: SubmitHandler<FormShape> = (data) => {
-    startTransition(async () => {
-      const response = await login({ ...data });
-      if (response.error) {
-        switch (response.error) {
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<FormShape>();
+  const onSubmit: SubmitHandler<FormShape> = async (data) => {
+    await apiLoadingToast(async () => login({ ...data }), {
+      loadingMessage: "Logging in...",
+      defaultErrorMessage: "Failed to log in",
+      getAPIErrorMessage: (apiErr) => {
+        switch (apiErr.error.message) {
           // case "email-not-confirmed":
-          //   toast({
-          //     title: "Email not confirmed",
-          //     description: "Please check your inbox",
-          //     variant: "destructive",
-          //   });
-          //   break;
+          //   return "Please check your inbox";
           case "invalid-credentials":
-            toast({
-              title: "Invalid credentials",
-              variant: "destructive",
-            });
-            break;
+            return "Invalid credentials";
           default:
-            toast({
-              title: "Unknown error",
-              description: "Please try again later",
-              variant: "destructive",
-            });
+            return "Please try again later";
         }
-      } else if (response.success) {
+      },
+      onSuccess: () => {
         router.push("/");
         router.refresh();
-      }
+      },
     });
   };
   return (
@@ -95,7 +85,7 @@ function LoginForm() {
           required: true,
         })}
       />
-      <Button type="submit" className="block w-full" disabled={isPending}>
+      <Button type="submit" className="block w-full" disabled={isSubmitting}>
         Sign in
       </Button>
     </form>
