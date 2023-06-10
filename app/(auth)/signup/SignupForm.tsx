@@ -4,13 +4,13 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { signup } from "@/app/(auth)/signup/signup.action";
-import { useTransition } from "react";
-import { useToast } from "@/components/ui/use-toast";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import PasswordInput from "../PasswordInput";
+import useApiLoadingToast from "@/components/ui/use-api-loading-toast";
+import signup from "@/app/api/auth/signup/signup";
+import { useToast } from "@/components/ui/use-toast";
 
 interface FormShape {
   email: string;
@@ -18,49 +18,31 @@ interface FormShape {
 }
 
 function SignupForm() {
-  const [isPending, startTransition] = useTransition();
-
+  const { apiLoadingToast } = useApiLoadingToast();
   const { toast } = useToast();
 
-  const { register, handleSubmit } = useForm<FormShape>();
-  const onSubmit: SubmitHandler<FormShape> = (data) => {
-    startTransition(async () => {
-      const response = await signup({ ...data });
-      if (response.error) {
-        switch (response.error) {
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<FormShape>();
+  const onSubmit: SubmitHandler<FormShape> = async (data) => {
+    await apiLoadingToast(async () => await signup({ ...data }), {
+      loadingMessage: "Signing up...",
+      defaultErrorMessage: "Failed to sign up",
+      getAPIErrorMessage: (apiErr) => {
+        switch (apiErr.error.message) {
           case "user-exists":
-            toast({
-              title: "User already exists",
-              variant: "destructive",
-            });
-            break;
+            return "User already exists";
           case "invalid-email":
-            toast({
-              title: "Invalid email",
-              variant: "destructive",
-            });
-            break;
+            return "Invalid email";
           case "insufficient-password":
-            toast({
-              title: "Insufficient password",
-              description: (
-                <>
-                  {response.pwValidationMessages.map((msg, i) => (
-                    <p key={i}>{msg}</p>
-                  ))}
-                </>
-              ),
-              variant: "destructive",
-            });
-            break;
+            return "Insufficient password";
           default:
-            toast({
-              title: "Unknown error",
-              description: "Please try again later",
-              variant: "destructive",
-            });
+            return "Please try again later";
         }
-      } else if (response.success) {
+      },
+      onSuccess: () => {
         toast({
           title: "Account created",
           description: "You can now log in",
@@ -68,7 +50,7 @@ function SignupForm() {
           // description: "Please check your email to verify your account",
         });
         redirect("/login");
-      }
+      },
     });
   };
   return (
@@ -111,7 +93,7 @@ function SignupForm() {
           required: true,
         })}
       />
-      <Button type="submit" className="block w-full" disabled={isPending}>
+      <Button type="submit" className="block w-full" disabled={isSubmitting}>
         Sign up
       </Button>
 
