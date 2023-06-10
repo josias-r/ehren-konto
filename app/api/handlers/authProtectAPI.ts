@@ -6,6 +6,8 @@ function authProtectAPI() {
   if (isLoggedIn === false) {
     throw new createHttpError.Unauthorized("Not logged in");
   }
+
+  return isLoggedIn;
 }
 
 export default authProtectAPI;

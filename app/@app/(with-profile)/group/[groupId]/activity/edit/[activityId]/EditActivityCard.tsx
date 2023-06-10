@@ -13,6 +13,8 @@ import EditActivityForm, { ActivityEditFormShape } from "./EditActivityForm";
 import { useRouter } from "next/navigation";
 import { useLoadingToast } from "@/components/ui/use-loading-toast";
 import editActivity from "@/app/api/activity/edit/editActivity";
+import isNotApiError from "@/app/api/handlers/isNotApiError";
+import isApiError from "@/app/api/handlers/isApiError";
 
 interface EditActivityCardProps {
   defaultValues: ActivityEditFormShape;
@@ -54,7 +56,7 @@ function EditActivityCard({
               fullFromDate.setHours(parseInt(hours));
               fullFromDate.setMinutes(parseInt(minutes));
 
-              await editActivity({
+              const editResponse = await editActivity({
                 activityId,
                 name: data.name,
                 emoji: data.emoji,
@@ -62,8 +64,14 @@ function EditActivityCard({
                 from: fullFromDate,
               });
 
-              router.push(`/group/${groupId}/activities`);
-              router.refresh();
+              if (isNotApiError(editResponse)) {
+                router.push(`/group/${groupId}/activities`);
+                router.refresh();
+              }
+
+              if (isApiError(editResponse)) {
+                throw new Error(editResponse.error.message);
+              }
             };
             loadingToastFromPromise(
               "Saving",

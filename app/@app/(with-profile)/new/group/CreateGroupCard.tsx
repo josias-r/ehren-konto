@@ -13,8 +13,9 @@ import CreateGroupForm from "./CreateGroupForm";
 import { useRouter } from "next/navigation";
 import { UserFriends } from "../../friends/getAllFriendsForUser";
 import { useLoadingToast } from "@/components/ui/use-loading-toast";
-import { useTransition } from "react";
-import { createGroup } from "../../groups/actions";
+import createGroup from "@/app/api/group/create/createGroup";
+import isApiError from "@/app/api/handlers/isApiError";
+import isNotApiError from "@/app/api/handlers/isNotApiError";
 
 interface CreateGroupCardProps {
   userFriends: UserFriends;
@@ -25,7 +26,6 @@ function CreateGroupCard({ userFriends }: CreateGroupCardProps) {
 
   const router = useRouter();
 
-  const [isPending, startTransition] = useTransition();
   const { loadingToastFromPromise } = useLoadingToast();
 
   return (
@@ -39,21 +39,30 @@ function CreateGroupCard({ userFriends }: CreateGroupCardProps) {
           formId={formId}
           userFriends={userFriends}
           onSubmit={(data) => {
-            startTransition(async () => {
-              await loadingToastFromPromise(
-                "Creating group",
-                "Error creating group",
-                createGroup({ ...data }).then((createdGroupId) => {
-                  router.push(`/group/${createdGroupId}/members`);
-                  router.refresh();
-                })
-              );
-            });
+            const createPromise = async () => {
+              const createGroupResponse = await createGroup({ ...data });
+
+              if (isNotApiError(createGroupResponse)) {
+                router.push(
+                  `/group/${createGroupResponse.createdGroup}/members`
+                );
+                router.refresh();
+              }
+
+              if (isApiError(createGroupResponse)) {
+                throw new Error(createGroupResponse.error.message);
+              }
+            };
+            loadingToastFromPromise(
+              "Creating group",
+              "Error creating group",
+              createPromise()
+            );
           }}
         />
       </CardContent>
       <CardFooter>
-        <Button type="submit" form={formId} disabled={isPending}>
+        <Button type="submit" form={formId}>
           Create group
         </Button>
       </CardFooter>

@@ -4,7 +4,7 @@ function createApiClientHandler<
   TPayloadShape extends {},
   TNextResponseShape extends NextResponse,
   TResponseShape = TNextResponseShape extends NextResponse<infer T> ? T : never
->(endpoint: string, method: "POST" | "PATCH") {
+>(endpoint: string, method: "POST" | "PATCH" | "PUT") {
   return async (payload: TPayloadShape) => {
     const response = await fetch(endpoint, {
       method: method,
@@ -14,9 +14,13 @@ function createApiClientHandler<
       body: JSON.stringify(payload),
     });
 
-    const json: TResponseShape = await response.json();
+    const json = await response.json();
 
-    return json;
+    if ("error" in json) {
+      throw new Error("API ERROR: " + json.error);
+    }
+
+    return json as TResponseShape;
   };
 }
 
