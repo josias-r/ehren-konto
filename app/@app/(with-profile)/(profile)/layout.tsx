@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export const metadata = {
   title: "Profile",
-  description: "See what's happening",
+  description: "See what's coming up soon",
 };
 
 function ProfileLayout({

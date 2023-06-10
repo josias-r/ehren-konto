@@ -1,9 +1,14 @@
 import { Users } from "lucide-react";
-import { ActivityShape } from "./Activity";
+import Activity, { ActivityShape } from "./Activity";
 import activityRelativeDate from "@/lib/activity/utilities/activityRelativeDate";
-import ActivityWithPopover from "./ActivityWithPopover";
+import ActivityWithPopover, {
+  useIsParticipatingInActivity,
+} from "./ActivityWithPopover";
+import Link from "next/link";
 
-interface ActivityListItemProps extends ActivityShape {}
+interface ActivityListItemProps extends ActivityShape {
+  groupId: number;
+}
 
 function ActivityListItem({
   activityId,
@@ -12,17 +17,21 @@ function ActivityListItem({
   color,
   from,
   participants,
+
+  groupId,
 }: ActivityListItemProps) {
+  const isParticipating = useIsParticipatingInActivity({ participants });
+
   return (
-    <div className="flex">
+    <Link
+      className="flex"
+      href={`/group/${groupId}/activity/edit/${activityId}`}
+    >
       <div className="w-12 mr-4">
-        <ActivityWithPopover
-          activityId={activityId}
+        <Activity
           emoji={emoji}
           color={color}
-          name={name}
-          from={from}
-          participants={participants}
+          isParticipating={isParticipating}
         />
       </div>
       <div className="flex justify-between w-full items-center">
@@ -43,7 +52,7 @@ function ActivityListItem({
           <Users size="1rem" />
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 

@@ -66,7 +66,7 @@ function GroupCard({
         <div className="grid gap-2 grid-cols-6 mb-4">
           {!slicedEvents.length && (
             <Link
-              href={`/groups/activities/${groupId}`}
+              href={`/group/${groupId}/activities`}
               className={cn(
                 buttonVariants({
                   variant: "ghost",
@@ -86,10 +86,11 @@ function GroupCard({
               participants={activity.participants}
               color={activity.color}
               from={activity.from}
+              groupId={groupId}
             />
           ))}
           <Link
-            href={`/groups/activities/${groupId}`}
+            href={`/group/${groupId}/activities`}
             className={cn(
               buttonVariants({
                 variant: "outline",
@@ -125,7 +126,7 @@ function GroupCard({
             buttonVariants({ variant: "secondary" }),
             "w-full flex justify-between items-center text-sm p-2 mt-2"
           )}
-          href={`/groups/members/${groupId}`}
+          href={`/group/${groupId}/members`}
         >
           <div>
             {membersLeftoverAmount > 1 && (

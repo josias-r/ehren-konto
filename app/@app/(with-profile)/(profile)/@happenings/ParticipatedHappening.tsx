@@ -1,7 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { RelevantHappenings } from "./getRelevantHappenings";
-import getInitialsFromName from "@/app/@app/(with-profile)/(profile)/getInitialsFromName";
-import ActivityWithPopover from "@/lib/activity/ActivityWithPopover";
 import EhrePoints from "@/app/@app/(with-profile)/(profile)/@happenings/EhrePoints";
 import activityRelativeDate from "@/lib/activity/utilities/activityRelativeDate";
 import ParticipatedHappeningPopover from "./ParticipatedHappeningPopover";
@@ -32,7 +29,6 @@ interface ParticipatedHappeningProps {
 }
 
 function ParticipatedHappening({ happening }: ParticipatedHappeningProps) {
-  const initials = getInitialsFromName(happening.RelatedUser.name);
   let happeningVerb = "";
   switch (happening.type) {
     case "ACTIVITY_PARTICIPATION":

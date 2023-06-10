@@ -28,7 +28,7 @@ async function Groups() {
             }
             className="h-[calc(100vh-10rem)]"
           >
-            <Link href="/groups/create" className={cn(buttonVariants())}>
+            <Link href="/new/group" className={cn(buttonVariants())}>
               Create group
             </Link>
           </EmptyState>

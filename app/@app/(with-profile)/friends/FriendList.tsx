@@ -14,9 +14,12 @@ import {
 import { EmptyState } from "@/components/ui/empty-state";
 import { Fragment, useState, useTransition } from "react";
 import FriendsBulkListItem from "./FriendsBulkListItem";
-import { unfriendUsers } from "./actions";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
+import removeFriends from "@/app/api/friend/remove/removeFriends";
+import isNotApiError from "@/app/api/handlers/isNotApiError";
+import isApiError from "@/app/api/handlers/isApiError";
+import { useLoadingToast } from "@/components/ui/use-loading-toast";
 
 interface FriendListProps {
   friendLettersSorted: string[];
@@ -42,9 +45,11 @@ function FriendList({
   const [isMultiSelect, setIsMultiSelect] = useState(false);
   const [selectedFriends, setSelectedFriends] = useState<string[]>([]);
 
-  const [isPending, startTransition] = useTransition();
+  const [isRemoving, setIsRemoving] = useState(false);
 
   const router = useRouter();
+
+  const { loadingToastFromPromise } = useLoadingToast();
 
   return (
     <>
@@ -55,17 +60,29 @@ function FriendList({
             <Button
               size="sm"
               variant="destructive"
-              disabled={isPending || !selectedFriends.length}
-              onClick={() => {
-                setSelectedFriends([]);
-
-                startTransition(async () => {
-                  await unfriendUsers({
+              disabled={isRemoving || !selectedFriends.length}
+              onClick={async () => {
+                const createPromise = async () => {
+                  const removeResponse = await removeFriends({
                     userIds: selectedFriends,
                   });
-                  setIsMultiSelect(false);
-                  router.refresh();
-                });
+
+                  if (isNotApiError(removeResponse)) {
+                    setSelectedFriends([]);
+                    router.refresh();
+                  }
+
+                  if (isApiError(removeResponse)) {
+                    throw new Error(removeResponse.error.message);
+                  }
+                };
+                setIsRemoving(true);
+                await loadingToastFromPromise(
+                  "Removing friend",
+                  "Failed to remove friend",
+                  createPromise()
+                );
+                setIsRemoving(false);
               }}
             >
               Remove

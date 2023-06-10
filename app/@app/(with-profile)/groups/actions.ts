@@ -9,26 +9,6 @@ interface CreateGroupArgs {
   members: string[];
 }
 
-export const createGroup = createAuthProtectedAction(
-  async (loggedInUserId, { name, description, members }: CreateGroupArgs) => {
-    const createdGroup = await prisma.group.create({
-      data: {
-        name,
-        description,
-        GroupMembers: {
-          create: [
-            ...members.map((userId) => ({ userId })),
-            // Add the creator to the group
-            { userId: loggedInUserId },
-          ],
-        },
-      },
-    });
-
-    return createdGroup.groupId;
-  }
-);
-
 interface UpdateGroupArgs {
   groupId: number;
   name?: string;

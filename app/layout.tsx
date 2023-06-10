@@ -52,10 +52,9 @@ export default async function RootLayout({
       <body className={`${inter.className} bg-background h-full`}>
         <ServiceWorkerProvider>
           {isLoggedIn && (
-            <>
+            <Toaster>
               <TooltipProvider>{app}</TooltipProvider>
-              <Toaster />
-            </>
+            </Toaster>
           )}
           {!isLoggedIn && children}
         </ServiceWorkerProvider>
