@@ -15,9 +15,8 @@ export default async function AppRootLayout({
   }
 
   return (
-    <>
+    <Toaster>
       <TooltipProvider>{children}</TooltipProvider>
-      <Toaster />
-    </>
+    </Toaster>
   );
 }
